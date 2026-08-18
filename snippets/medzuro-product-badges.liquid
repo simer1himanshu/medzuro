@@ -1,0 +1,26 @@
+{%- comment -%}
+  Medzuro — editable product badges (spec §9).
+
+  Renders up to 8 tag-driven labels defined in Theme settings > Product grid > Labels.
+  Nothing is hardcoded: staff add/rename a badge in Admin, then tag the product to match.
+
+  Accepts:
+    product - {Object} product to read tags from
+    tag     - {String} wrapper element, 'span' (default) or 'label'
+
+  Usage: {% render 'medzuro-product-badges', product: product %}
+{%- endcomment -%}
+
+{%- assign badge_el = tag | default: 'span' -%}
+
+{%- if settings.coming_soon_tag != blank and product.tags contains settings.coming_soon_tag -%}
+  <{{ badge_el }} class="lbl pr-coming-soon">{{ 'products.product.coming_soon' | t }}</{{ badge_el }}>
+{%- endif -%}
+
+{%- for i in (1..8) -%}
+  {%- assign key = 'pr_label' | append: i -%}
+  {%- assign lbl = settings[key] -%}
+  {%- if lbl != blank and product.tags contains lbl -%}
+    <{{ badge_el }} class="lbl pr-label{{ i }}">{{ lbl }}</{{ badge_el }}>
+  {%- endif -%}
+{%- endfor -%}

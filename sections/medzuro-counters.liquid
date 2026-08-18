@@ -1,0 +1,123 @@
+{%- comment -%}
+  Medzuro — dynamic sales counters (spec §10).
+  Every figure is a block field editable in Admin, so nothing like
+  "22,500 Sold" is ever hardcoded into the theme.
+{%- endcomment -%}
+
+<div class="mz-counters section-{{ section.id }}{% if section.settings.full_width %} full-width{% endif %}">
+  <div class="{% unless section.settings.full_width %}container{% endunless %}">
+    {%- if section.settings.title != blank -%}
+      {% render 'sec-title', title: section.settings.title, subtitle: section.settings.subtitle %}
+    {%- endif -%}
+
+    <div class="mz-counters__grid fl f-wrap">
+      {%- for block in section.blocks -%}
+        <div class="mz-counters__item tc" {{ block.shopify_attributes }}>
+          <span class="mz-counters__value">
+            {{- block.settings.prefix -}}
+            <span class="mz-counters__num" data-target="{{ block.settings.value }}">0</span>
+            {{- block.settings.suffix -}}
+          </span>
+          {%- if block.settings.label != blank -%}
+            <span class="mz-counters__label">{{ block.settings.label }}</span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .section-{{ section.id }} { padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; background: {{ section.settings.bg_color }}; }
+  .section-{{ section.id }} .mz-counters__grid { gap: 30px; justify-content: center; }
+  .section-{{ section.id }} .mz-counters__item { flex: 1 1 180px; }
+  .section-{{ section.id }} .mz-counters__value { display: block; font-size: {{ section.settings.value_size }}px; font-weight: 700; line-height: 1.1; color: {{ section.settings.value_color }}; }
+  .section-{{ section.id }} .mz-counters__label { display: block; margin-top: 8px; font-size: 14px; letter-spacing: .04em; color: {{ section.settings.label_color }}; }
+  @media (max-width: 767px) {
+    .section-{{ section.id }} .mz-counters__item { flex: 1 1 140px; }
+    .section-{{ section.id }} .mz-counters__value { font-size: {{ section.settings.value_size | times: 0.7 | round }}px; }
+  }
+</style>
+
+<script>
+  (function () {
+    var root = document.querySelector('.section-{{ section.id }}');
+    if (!root) return;
+    var nums = root.querySelectorAll('.mz-counters__num');
+    if (!nums.length) return;
+
+    // Respect reduced-motion: show the final figure immediately.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      nums.forEach(function (n) { n.textContent = Number(n.dataset.target || 0).toLocaleString(); });
+      return;
+    }
+
+    function countUp(el) {
+      var target = Number(el.dataset.target || 0);
+      var duration = {{ section.settings.duration | times: 1000 }};
+      var start = null;
+      function step(ts) {
+        if (!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        el.textContent = Math.floor(progress * target).toLocaleString();
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target.toLocaleString();
+      }
+      requestAnimationFrame(step);
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      nums.forEach(countUp);
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { countUp(entry.target); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.4 });
+    nums.forEach(function (n) { io.observe(n); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Medzuro counters",
+  "tag": "section",
+  "class": "mz-counters-section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "Trusted across Fiji" },
+    { "type": "text", "id": "subtitle", "label": "Subheading" },
+    { "type": "checkbox", "id": "full_width", "label": "Full width", "default": false },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "value_color", "label": "Figure colour", "default": "#111111" },
+    { "type": "color", "id": "label_color", "label": "Label colour", "default": "#666666" },
+    { "type": "range", "id": "value_size", "min": 24, "max": 72, "step": 2, "unit": "px", "label": "Figure size", "default": 44 },
+    { "type": "range", "id": "duration", "min": 1, "max": 5, "step": 1, "unit": "s", "label": "Count-up duration", "default": 2 },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 5, "unit": "px", "label": "Padding top", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 5, "unit": "px", "label": "Padding bottom", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "counter",
+      "name": "Counter",
+      "settings": [
+        { "type": "number", "id": "value", "label": "Figure", "default": 22500, "info": "Digits only — formatting is applied automatically." },
+        { "type": "text", "id": "prefix", "label": "Prefix" },
+        { "type": "text", "id": "suffix", "label": "Suffix", "default": "+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Products Sold" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Medzuro counters",
+      "blocks": [
+        { "type": "counter", "settings": { "value": 22500, "suffix": "+", "label": "Products Sold" } },
+        { "type": "counter", "settings": { "value": 3, "suffix": "", "label": "Countries Served" } },
+        { "type": "counter", "settings": { "value": 8000, "suffix": "+", "label": "Happy Customers" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

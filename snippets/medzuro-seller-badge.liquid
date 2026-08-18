@@ -1,0 +1,38 @@
+{%- comment -%}
+  Medzuro — Authorized HolyOak Seller trust badge (spec §3).
+
+  One reusable badge for all five placements: homepage, product page,
+  cart/checkout, footer, about. All text and imagery editable in
+  Theme settings > Medzuro > Authorized seller.
+
+  Accepts:
+    style - {String} 'full' (icon + title + subtitle, default) or 'compact' (icon + title)
+    align - {String} 'left' (default) or 'center'
+
+  Usage: {% render 'medzuro-seller-badge' %}
+         {% render 'medzuro-seller-badge', style: 'compact' %}
+{%- endcomment -%}
+
+{%- if settings.seller_badge_enable and settings.seller_badge_title != blank -%}
+  {%- assign badge_style = style | default: 'full' -%}
+  {%- assign badge_align = align | default: 'left' -%}
+
+  <div class="mz-seller-badge mz-seller-badge--{{ badge_style }} mz-seller-badge--{{ badge_align }}">
+    {%- if settings.seller_badge_image != blank -%}
+      <img
+        class="mz-seller-badge__icon"
+        src="{{ settings.seller_badge_image | image_url: width: 96 }}"
+        alt="{{ settings.seller_badge_title | escape }}"
+        width="48" height="48" loading="lazy">
+    {%- else -%}
+      <i class="at at-check-circle mz-seller-badge__icon" aria-hidden="true"></i>
+    {%- endif -%}
+
+    <div class="mz-seller-badge__text">
+      <span class="mz-seller-badge__title">{{ settings.seller_badge_title }}</span>
+      {%- if badge_style == 'full' and settings.seller_badge_subtitle != blank -%}
+        <span class="mz-seller-badge__subtitle">{{ settings.seller_badge_subtitle }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

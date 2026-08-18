@@ -4073,6 +4073,108 @@
         "id": "pr_label3_cl",
         "label": "t:settings_schema.product_grid.labels.color",
         "default": "#81d53d"
+      },
+      {
+        "type": "paragraph",
+        "content": "Label 4"
+      },
+      {
+        "type": "text",
+        "id": "pr_label4",
+        "label": "Text",
+        "info": "Products tagged with this exact word show this badge.",
+        "default": "Limited Stock"
+      },
+      {
+        "type": "color",
+        "id": "pr_label4_cl",
+        "label": "Colour",
+        "default": "#e8a33d"
+      },
+      {
+        "type": "paragraph",
+        "content": "Label 5"
+      },
+      {
+        "type": "text",
+        "id": "pr_label5",
+        "label": "Text",
+        "info": "Products tagged with this exact word show this badge.",
+        "default": "Authorized Seller"
+      },
+      {
+        "type": "color",
+        "id": "pr_label5_cl",
+        "label": "Colour",
+        "default": "#1f7a4d"
+      },
+      {
+        "type": "paragraph",
+        "content": "Label 6"
+      },
+      {
+        "type": "text",
+        "id": "pr_label6",
+        "label": "Text",
+        "info": "Products tagged with this exact word show this badge.",
+        "default": "Eurofins Tested"
+      },
+      {
+        "type": "color",
+        "id": "pr_label6_cl",
+        "label": "Colour",
+        "default": "#2f6fb0"
+      },
+      {
+        "type": "paragraph",
+        "content": "Label 7"
+      },
+      {
+        "type": "text",
+        "id": "pr_label7",
+        "label": "Text",
+        "info": "Products tagged with this exact word show this badge.",
+        "default": "Made in India"
+      },
+      {
+        "type": "color",
+        "id": "pr_label7_cl",
+        "label": "Colour",
+        "default": "#8c5bb0"
+      },
+      {
+        "type": "paragraph",
+        "content": "Label 8"
+      },
+      {
+        "type": "text",
+        "id": "pr_label8",
+        "label": "Text",
+        "info": "Products tagged with this exact word show this badge.",
+        "default": ""
+      },
+      {
+        "type": "color",
+        "id": "pr_label8_cl",
+        "label": "Colour",
+        "default": "#111111"
+      },
+      {
+        "type": "header",
+        "content": "Coming soon (Medzuro)"
+      },
+      {
+        "type": "text",
+        "id": "coming_soon_tag",
+        "label": "Coming soon tag",
+        "info": "Products with this tag show “Coming Soon” and a Notify Me form instead of Sold Out.",
+        "default": "coming-soon"
+      },
+      {
+        "type": "color",
+        "id": "coming_soon_cl",
+        "label": "Coming soon colour",
+        "default": "#8a6d3b"
       }
     ]
   },
@@ -5312,6 +5414,55 @@
         "type": "paragraph",
         "content": "[Instagram Feed ](https://apps.shopify.com/instafeed) Free plan available."
       },
+    ]
+  },
+  {
+    "name": "Medzuro",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Authorized seller badge"
+      },
+      {
+        "type": "paragraph",
+        "content": "Shown via the medzuro-seller-badge snippet on the homepage, product page, cart, footer and about page."
+      },
+      {
+        "type": "checkbox",
+        "id": "seller_badge_enable",
+        "label": "Show authorized seller badge",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "seller_badge_title",
+        "label": "Title",
+        "default": "Authorized HolyOak Seller"
+      },
+      {
+        "type": "text",
+        "id": "seller_badge_subtitle",
+        "label": "Subtitle",
+        "default": "Official distributor in Fiji"
+      },
+      {
+        "type": "image_picker",
+        "id": "seller_badge_image",
+        "label": "Badge icon",
+        "info": "Optional. Falls back to a check icon."
+      },
+      {
+        "type": "color",
+        "id": "seller_badge_color",
+        "label": "Accent colour",
+        "default": "#1f7a4d"
+      },
+      {
+        "type": "color",
+        "id": "seller_badge_bg",
+        "label": "Background",
+        "default": "#f4f9f6"
+      }
     ]
   }
 ]

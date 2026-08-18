@@ -84,9 +84,7 @@
                               <label class="lbl on-sale">-{{ product.compare_at_price_min | minus: product.price | times: 100 | divided_by: product.compare_at_price_min }}%</label>
                             {% endif %}
                         {%- endif -%}
-                        {%- if product.tags contains settings.pr_label1 -%}<label class="lbl pr-label1">{{settings.pr_label1}}</label>{%- endif -%}
-                        {%- if product.tags contains settings.pr_label2 -%}<label class="lbl pr-label2">{{settings.pr_label2}}</label>{%- endif -%}
-                        {%- if product.tags contains settings.pr_label3 -%}<label class="lbl pr-label3">{{settings.pr_label3}}</label>{%- endif -%}
+                        {% render 'medzuro-product-badges', product: product, tag: 'label' %}
                     </span>
                     {% endif %}
                 {%- endcapture -%}

@@ -1,0 +1,309 @@
+{%- capture toolbar -%}
+{%- assign secSt = section.settings -%}
+<style>
+    .mbtlwraper { position:fixed; bottom:0; z-index:10; width:100%; box-shadow:0 0 10px rgba(0,0,0,0.1); background:{% if secSt.bgg != blank %}{{ secSt.bgg }}{% else %}{{ secSt.bg }}{% endif %}; }
+    .mbtoolbar { overflow-x:auto; }
+    .mbtoolbar a { color:{{ secSt.cl }}; font-size:{{ secSt.fs }}px; font-weight:{{ secSt.fw }}; line-height:1.4; padding:12px 15px 10px; margin:0; }
+    .mbtoolbar .at { font-size:{{ section.settings.fsicon }}px; display:block; margin:{% unless secSt.hdtxt %}0 auto 3px{% else %}0 auto{% endunless %}; }
+   {% if section.settings.showmt %}
+      @media only screen and (max-width:767px){
+        body { padding-bottom:50px; }
+      }
+    {% endif %}
+</style>
+<div class="sec_cov{% if secSt.hidem %} hide-sm{% endif %}" style="--sst:{{ secSt.sst }}px;--ssb:{{ secSt.ssb }}px;--sstm:{{ secSt.sstm }}px;--ssbm:{{ secSt.ssbm }}px">  	
+    <ul class="fl f-aic f-jcsb mbtoolbar w_100 tc" style="{{ style }}">
+        {% for block in section.blocks limit: section.blocks.size %}
+            {%- assign blkSt = block.settings -%}
+            {%- if block.type == 'home' -%}
+                <li>
+                    <a href="{{ routes.root_url }}" class="db">
+                        <i class="at at-home-l"></i>
+                        {% unless secSt.hdtxt %}{{ blkSt.title }}{% endunless %}
+                    </a>
+                </li>
+            {%- elsif block.type == 'menu' -%}
+                <li>
+                    <a href="#menu" class="db js-mobile-nav-toggle" title="{{ blkSt.title }}">
+                        <i class="at at-bars-l" aria-hidden="true"></i>
+                        {% unless secSt.hdtxt %}{{ blkSt.title }}{% endunless %}
+                    </a>
+                </li>
+            {%- elsif block.type == 'shop' -%}
+                <li>
+                    {%- assign collection = collections[blkSt.collection] -%}
+                    <a href="{{ collection.url }}" class="db">
+                        <i class="at at-th-large-l"></i>
+                        {% unless secSt.hdtxt %}{{ blkSt.title }}{% endunless %}
+                    </a>
+                </li>
+            {%- elsif block.type == 'act' -%}
+                <li>
+                    <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="db">
+                        <i class="{{ settings.my_account_icn }}"></i>
+                        {% unless secSt.hdtxt %}{{ blkSt.title }}{% endunless %}
+                    </a>
+                </li>
+            {%- elsif block.type == 'src' -%}
+                <li>
+                    <a href="{{ routes.search_url }}" class="db searchIco">
+                        <i class="at at-search-l"></i>
+                        {% unless secSt.hdtxt %}{{ blkSt.title }}{% endunless %}
+                    </a>
+                </li>
+            {%- elsif block.type == 'filter' and request.page_type == 'collection' or request.page_type == 'search' -%}
+                <li>
+                    <a href="#" class="db btn-filter" title="{{ blkSt.title }}">
+                        <i class="at at-slider-3"></i>
+                        {% unless secSt.hdtxt %}{{ blkSt.title }}{% endunless %}
+                    </a>
+                </li>
+            {%- elsif block.type == 'cart' -%}
+                <li>
+                    <a href="{{ routes.cart_url }}" class="db mbCart">
+                        <i class="at at-{{settings.icon_style}}"></i>
+                        {% unless secSt.hdtxt %}{{ blkSt.title }}{% endunless %}
+                    </a>
+                </li>
+            {%- elsif block.type == 'wish' -%}
+                <li>
+                    <a href="{{ pages[settings.wishlist_page].url }}" class="db">
+                        <i class="at at-heart-l"></i>
+                        {% unless secSt.hdtxt %}{{ blkSt.title }}{% endunless %}
+                    </a>
+                </li>
+            {%- elsif block.type == 'custom' -%}
+                <li>
+                    <a href="{{ blkSt.url }}" class="db">
+                        {%- if blkSt.icn != blank -%}<i class="at {{ blkSt.icn }}"></i>{%- endif -%}
+                        {% unless secSt.hdtxt %}{{ blkSt.title }}{% endunless %}
+                    </a>
+                </li>
+            {%- endif -%}
+        {% endfor %}
+    </ul>
+</div>
+{%- endcapture -%}
+{% if section.settings.showmt %}{{ toolbar | strip_newlines | remove: "  " | remove: "	" }}{% endif %}
+{% schema %}
+{
+    "name": "t:sections.mobile_toolbar.name",
+    "class": "mbtlwraper hide-md hide-lg",
+    "settings":[
+		{
+            "type": "checkbox",
+            "id": "showmt",
+            "label": "t:global.enable",
+            "default": true,
+            "info":"Recommended to display up to 5 links"
+        },       
+        {
+            "type": "checkbox",
+            "id": "hdtxt",
+            "label": "t:sections.mobile_toolbar.hide_text",
+            "default": false
+        },
+      {
+            "type": "range",
+            "id": "fsicon",
+            "label": "t:sections.mobile_toolbar.icon_size",
+            "default": 16,
+            "min": 10,
+            "max": 30,
+            "step": 1,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "fs",
+            "label": "t:global.font.size",
+            "default": 12,
+            "min": 8,
+            "max": 15,
+            "step": 1,
+            "unit": "px"
+        },
+        {
+            "type": "select",
+            "id": "fw",
+            "label": "t:global.font.weight",
+            "default": "600",
+            "options": [
+              {
+                "value": "300",
+                "label": "Light"
+              },
+              {
+                "value": "400",
+                "label": "Regular"
+              },
+              {
+                "value": "500",
+                "label": "Medium"
+              },
+              {
+                "value": "600",
+                "label": "Semi Bold"
+              },
+              {
+                "value": "700",
+                "label": "Bold"
+              }
+            ]
+        },  
+       {
+            "type": "color",
+            "id": "cl",
+            "label": "t:global.color.name",
+            "default":"#333"
+        },
+        {
+            "type": "color",
+            "id": "bg",
+            "label": "t:global.background.color",
+            "default": "#fff"
+        },
+        {
+            "type": "color_background",
+            "id": "bgg",
+            "label": "t:global.background.gradient"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "home",
+            "name": "t:sections.mobile_toolbar.blocks.home",
+            "limit": 1,
+            "settings": [    
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:global.text.title",
+                    "default": "Home"
+                }
+            ]
+        },
+        {
+            "type": "menu",
+            "name": "t:sections.mobile_toolbar.blocks.menu",
+            "limit": 1,
+            "settings": [    
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:global.text.title",
+                    "default": "Menu"
+                }
+            ]
+        },
+        {
+            "type": "shop",
+            "name": "t:sections.mobile_toolbar.blocks.shop",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:global.text.title",
+                    "default": "Shop"
+                },
+                {
+                    "type": "collection",
+                    "id": "collection",
+                    "label": "t:global.link"
+                }
+            ]
+        },
+        {
+            "type": "act",
+            "name": "t:sections.mobile_toolbar.blocks.account",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:global.text.title",
+                    "default": "Account"
+                }
+            ]
+        },
+        {
+            "type": "src",
+            "name": "t:sections.mobile_toolbar.blocks.search",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:global.text.title",
+                    "default": "Search"
+                }
+            ]
+        },
+        {
+            "type": "filter",
+            "name": "t:sections.mobile_toolbar.blocks.filter",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:global.text.title",
+                    "default": "Filter",
+                    "info": "t:sections.mobile_toolbar.blocks.filter_info"
+                }
+            ]
+        },
+        {
+            "type": "cart",
+            "name": "t:sections.mobile_toolbar.blocks.cart",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:global.text.title",
+                    "default": "Cart"
+                }
+            ]
+        },
+        {
+            "type": "wish",
+            "name": "t:sections.mobile_toolbar.blocks.wishlist",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:global.text.title",
+                    "default": "Wishlist"
+                }
+            ]
+        },
+        {
+            "type": "custom",
+            "name": "t:sections.mobile_toolbar.blocks.custom",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:global.text.title",
+                    "default": "Custom"
+                },
+                {
+                    "type": "text",
+                    "id": "icn",
+                    "label": "t:sections.mobile_toolbar.blocks.icon_name",
+                    "default": "at-globe-l",
+			        "info":"t:sections.mobile_toolbar.blocks.icon_info"
+                },
+                {
+                    "type": "url",
+                    "id": "url",
+                    "label": "t:global.link"            
+                }   
+            ]
+        }
+    ]
+}
+{% endschema %}

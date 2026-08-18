@@ -1,0 +1,304 @@
+{%- assign secSt = section.settings -%}
+<style>
+  .storeLocat { border:1px solid {{ secSt.bd }}; border-radius:{{ secSt.bdr }}px; overflow:hidden; }
+  .storeItems { overflow:auto; }
+  .tabBtn, .acor-tab { color: var(--tbcl); background: var(--tbbg); gap:7px; padding:25px; cursor:pointer; }
+  .tabBtn+.tabBtn, .mapBox + .acor-tab { border-top:1px solid {{ secSt.bd }}; }
+  .tabBtn.active, .acor-tab.active { color: var(--tbcla); background: var(--tbbga); }
+  .acor-tab { padding:10px 15px; }
+  
+  .storeLocat .video-wrapper { padding-bottom:80%; }
+  .storeBox { padding:25px; gap:7px; }
+</style>
+<div class="content-indent {{ section.settings.top-offeset}}{% if secSt.section_cov %} section-cover{% endif %}{% if secSt.hide_mobile %} hide-sm{% endif %}{% if secSt.hided %} hide-md hide-lg{% endif %}" {% if secSt.section_cov %}style="background:{% if secSt.bgg != blank %}{{ secSt.bgg }}{% else %}{{secSt.sec_bg_clr}}{% endif %};"{% endif%}>
+  <div class="page-width" id="{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="carousel">
+    {% render 'sec-title' %}
+
+    {% capture tabs_style %}
+        --tbfs:{{ secSt.tfs }}px;--tbfsm:{{ secSt.tfsm }}px;--tbcl:{{ secSt.cl }};--tbcla:{{ secSt.cla }};--tbbg:{{ secSt.tbg }};--tbbga:{{ secSt.tbga }};--tbbd:{{ secSt.bd }};--tbbda:{{ secSt.bda }};
+      {% endcapture %}
+      <div class="fl f-col f-row-md gap storeLocat" style="{{ tabs_style }}">
+        <div class="pr wd30-md hide-sm">
+          <div class="storeItems ctScroll cpointer of_auto pa w_100 h_100">
+              {% for block in section.blocks %}
+                {% assign blk_st = block.settings %}
+                <div class="storeBox anim tabBtn fl f-col{% if forloop.first %} active{% endif %}" data-id="tab{{ block.id }}">
+                    {% if blk_st.logo %}
+                    <p class="mb0" {{ block.shopify_attributes }}>
+                        {%- assign logo_alt = blk_st.logo.alt | default: shop.name | escape -%}
+                        {% capture sizes %}(max-width: {{ blk_st.logowd | times: 2 }}px) 50vw, {{ blk_st.logowd }}px{% endcapture %}
+                        {% capture widths %}{{ blk_st.logowd }}, {{ blk_st.logowd | times: 1.5 | round }}, {{ blk_st.logowd | times: 2 }}{% endcapture %}
+                        {%- assign logo_ht = blk_st.logowd | divided_by: blk_st.logo.aspect_ratio -%}
+                        {{ blk_st.logo | image_url: width: 600 | image_tag: loading:'lazy', class:'h_auto', widths:widths, height:logo_ht, width:blk_st.logowd, alt:logo_alt, sizes:sizes }}
+                    </p>
+                    {% endif %}
+                    {% if blk_st.name != blank %}<h3 class="name mb5" style="color:var(--cl);">{{ blk_st.name }}</h3>{% endif %}
+                    {% if blk_st.address != blank %}<div class="address">{{ blk_st.address }}</div>{% endif %}
+                    {% if blk_st.phone != blank %}<p class="phone mb0">{{ blk_st.phone }}</p>{% endif %}
+                    {% if blk_st.email != blank %}<p class="email mb0">{{ blk_st.email }}</p>{% endif %}
+                 </div>
+              {% endfor %}
+          </div>
+        </div>
+        <div class="fl1 tab-container">
+          {% for block in section.blocks %}
+            {%- assign blk_st = block.settings -%}
+            {%- if blk_st.name != blank -%}
+              <h2 class="acor-tab js-toggle fl f-aic f-jcsb hide-md hide-lg mb0{% if forloop.first %} active{% endif %}">{{ blk_st.name }} <i class="at at-angle-down-r" aria-hidden="true"></i></h2>
+            {%- endif -%}
+            <div id="tab{{ block.id }}" class="mapBox tab-content mb20 mb0-md of_hidden"{% if forloop.first %} style="display:block;"{% endif %}>
+                <div class="video-wrapper">
+                  {% if blk_st.map != blank %}
+                    {{ blk_st.map }}
+                  {% else %}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg imgFt' }}
+                  {% endif %}
+                </div>
+                <div class="storeBox gap anim fl f-col hide-md hide-lg" data-id="tab{{ block.id }}">
+                        {% if blk_st.logo %}
+                        <p class="mb0" {{ block.shopify_attributes }}>
+                            {%- assign logo_alt = blk_st.logo.alt | default: shop.name | escape -%}
+                            {% capture sizes %}(max-width: {{ blk_st.logowd | times: 2 }}px) 50vw, {{ blk_st.logowd }}px{% endcapture %}
+                            {% capture widths %}{{ blk_st.logowd }}, {{ blk_st.logowd | times: 1.5 | round }}, {{ blk_st.logowd | times: 2 }}{% endcapture %}
+                            {%- assign logo_ht = blk_st.logowd | divided_by: blk_st.logo.aspect_ratio -%}
+                            {{ blk_st.logo | image_url: width: 600 | image_tag: loading:'lazy', class:'h_auto', widths:widths, height:logo_ht, width:blk_st.logowd, alt:logo_alt, sizes:sizes }}
+                        </p>
+                        {% endif %}
+                        {% if blk_st.address != blank %}<div class="address">{{ blk_st.address }}</div>{% endif %}
+                        {% if blk_st.phone != blank %}<p class="phone mb0">{{ blk_st.phone }}</p>{% endif %}
+                        {% if blk_st.email != blank %}<p class="email mb0">{{ blk_st.email }}</p>{% endif %}
+                  </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+  </div>
+</div>
+<script>
+  window.addEventListener('DOMContentLoaded',function(){
+    tabs = this.tabs = '.tabBtn';
+
+      $(tabs).on('click', function(e){
+        e.preventDefault();
+          $(this).addClass("active").siblings().removeClass("active");
+          var tab = $(this).attr("data-id");
+        console.log(tab);
+          $(".tab-content").not('#'+tab).css("display", "none");
+          $('#'+tab).fadeIn();
+      });
+      $('.acor-tab').on('click', function(e){
+        e.preventDefault();
+          $(this).toggleClass("active").next().slideToggle();
+      });
+      $('.product-tabs li:first-child,.tab-container h3:first-child').addClass("active");
+      $('.tab-container h3:first-child + .tab-content').show();
+  });
+</script>
+{% schema %}
+  {
+    "name": "Store locator",
+    "class":"store-locator",
+    "settings": [	  		
+      {
+        "type": "textarea",
+        "id": "title",
+        "label": "t:sections.all.head",
+        "default": "Store Locator"
+      },	  
+	  {
+         "type": "textarea",
+         "id": "subtitle",
+         "label": "t:sections.all.sub_head",
+         "default": "Describe about this section..."
+      },
+      {
+            "type": "header",
+            "content": "Store Box ==="
+        },
+        {
+          "type": "range",
+          "id": "tfs",
+          "label": "Font Size",
+          "default": 13,
+          "min": 10,
+          "max": 40,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "tfsm",
+          "label": "Font Size (Mobile)",
+          "default": 16,
+          "min": 10,
+          "max": 40,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+            "type": "color",
+            "id": "cl",
+            "label": "Text",
+            "default":"#555"	
+        },      
+        {
+            "type": "color",
+            "id": "tbg",
+            "label": "Background",
+            "default":"#fff"	
+        },      
+        {
+            "type": "color",
+            "id": "bd",
+            "label": "Border",
+            "default":"#eee"
+        },
+        {
+            "type": "color",
+            "id": "cla",
+            "label": "Text (active box)",
+            "default":"#000 "	
+        },      
+        {
+            "type": "color",
+            "id": "tbga",
+            "label": "Background (active box)",
+            "default":"#f5f5f5"	
+        },      
+        {
+          "type": "range",
+          "id": "bdr",
+          "label": "Box Rounded",
+          "default": 0,
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px"
+        },
+	  {
+		 "type": "header",
+		 "content":"t:sections.all.name"
+      },
+	  {
+        "type": "select",
+        "id": "top-offeset",
+        "label": "t:sections.all.top_offSet",
+        "default": "default",
+        "options": [
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ]
+      }, 
+      {
+            "type": "checkbox",
+            "id": "hide_mobile",
+            "label": "t:global.devices.mobile_hide",
+            "default": false
+        },
+       {
+            "type": "checkbox",
+            "id": "hided",
+            "label":"t:global.devices.desktop_hide",
+            "default": false
+        },
+      {
+        "type": "checkbox",
+        "id": "section_cov",
+        "label": "t:global.background.add",
+        "default": false
+      },
+	  {
+        "type": "color",
+        "id": "sec_bg_clr",
+        "label": "t:global.background.color",
+		"default":"#fafafa",
+		"info":"select light color"
+	  },
+        {
+            "type": "color_background",
+            "id": "bgg",
+            "label": "t:global.background.gradient"
+        }
+	 ],
+    "blocks": [
+      {
+        "type": "store",
+        "name": "Store item",
+        "settings": [
+		     {
+                "type": "image_picker",
+                "id": "logo",
+                "label": "Logo image"
+              },
+              {
+                "type": "range",
+                "id": "logowd",
+                "label": "Logo Width",
+                "default": 100,
+                "min": 50,
+                "max": 500,
+                "step": 10,
+                "unit": "px"
+              }, 
+              {
+                "type": "text",
+                "id": "name",
+                "label": "Store Name",
+                "default":" Store name"
+              },
+              {
+                "type": "richtext",
+                "id": "address",
+                "label": "Address",
+                "default": "<p><b>Address</b><br />55 Gallaxy Enque, 2568 steet, 23568 NY</p>"
+              },             
+              {
+                "type": "inline_richtext",
+                "id": "phone",
+                "label": "Phone Number",
+                "default":"<b>PHONE</b>: +1 (440) 568 4568"
+              }, 
+              {
+                "type": "inline_richtext",
+                "id": "email",
+                "label": "Email",
+                "default":" <b>EMAIL</b>: sales@yousite.com"
+             },
+             {
+                "type": "liquid",
+                "id": "map",
+                "label": "Map",
+                "info": "[You can get the map at here](https://www.google.com/maps), need to use iframes"
+             }
+		]
+	  }
+	],
+    "presets": [
+      {
+        "name": "Store locator",
+        "category": "Contact",
+        "blocks": [         
+          {
+            "type": "store"
+          },   
+          {
+            "type": "store"
+          },
+          {
+            "type": "store"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

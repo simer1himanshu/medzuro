@@ -1,0 +1,69 @@
+{%- comment -%}
+  Medzuro — Organization + WebSite structured data (spec §26).
+
+  Avone already emits Product, Article, CollectionPage and BreadcrumbList
+  JSON-LD. This adds the two site-level graphs it lacks:
+    - Organization: brand identity, contact, social profiles
+    - WebSite:      sitelinks search box
+
+  Rendered once in <head> from layout/theme.liquid.
+{%- endcomment -%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": {{ shop.name | json }},
+  "url": {{ shop.url | append: '/' | json }},
+  {%- if settings.logo != blank %}
+  "logo": {{ settings.logo | image_url: width: 512 | prepend: 'https:' | json }},
+  {%- endif %}
+  {%- if settings.seo_description != blank %}
+  "description": {{ settings.seo_description | json }},
+  {%- endif %}
+  {%- if settings.seo_phone != blank or settings.seo_email != blank %}
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    {%- if settings.seo_phone != blank %}
+    "telephone": {{ settings.seo_phone | json }},
+    {%- endif %}
+    {%- if settings.seo_email != blank %}
+    "email": {{ settings.seo_email | json }},
+    {%- endif %}
+    "areaServed": {{ settings.seo_area_served | default: 'FJ' | json }}
+  },
+  {%- endif %}
+  {%- capture social -%}
+    {%- if settings.social_facebook_link != blank -%}{{ settings.social_facebook_link | json }},{%- endif -%}
+    {%- if settings.social_instagram_link != blank -%}{{ settings.social_instagram_link | json }},{%- endif -%}
+    {%- if settings.social_youtube_link != blank -%}{{ settings.social_youtube_link | json }},{%- endif -%}
+    {%- if settings.social_linkedin_link != blank -%}{{ settings.social_linkedin_link | json }},{%- endif -%}
+  {%- endcapture -%}
+  {%- assign social = social | strip | remove_last: ',' -%}
+  {%- if social != blank %}
+  "sameAs": [{{ social }}],
+  {%- endif %}
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "FJ"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ shop.name | json }},
+  "url": {{ shop.url | append: '/' | json }},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": {{ shop.url | append: '/search?q={search_term_string}' | json }}
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>

@@ -273,6 +273,7 @@
                   {%- endfor -%}
               </ul>
           {%- endif -%}
+            {% render 'medzuro-cart-extras' %}
           <div class="flex cart_total mb10">
             <span>{{ 'cart.general.subtotal' | t }}</span>
             <span class="cart__subtotal tr">{{ cart.total_price | money_with_currency }}</span>

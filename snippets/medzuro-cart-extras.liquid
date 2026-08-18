@@ -1,0 +1,53 @@
+{%- comment -%}
+  Medzuro — cart reassurance block (spec §12).
+
+  Estimated savings, expected delivery, secure-checkout line, trust badges
+  and the authorized-seller badge. Every string is a theme setting (§32).
+
+  Reward points (§20) are intentionally NOT faked here — that figure must
+  come from the loyalty app once one is installed, or it would mislead.
+
+  Usage: {% render 'medzuro-cart-extras' %}
+{%- endcomment -%}
+
+{%- liquid
+  assign savings = 0
+  for item in cart.items
+    if item.variant.compare_at_price > item.variant.price
+      assign diff = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity
+      assign savings = savings | plus: diff
+    endif
+  endfor
+-%}
+
+<div class="mz-cart-extras">
+  {%- if settings.cart_show_savings and savings > 0 -%}
+    <div class="mz-cart-extras__row mz-cart-extras__savings">
+      <i class="at at-tag-l" aria-hidden="true"></i>
+      <span>{{ 'cart.general.savings' | t }} <strong>{{ savings | money }}</strong></span>
+    </div>
+  {%- endif -%}
+
+  {%- if settings.cart_delivery_note != blank -%}
+    <div class="mz-cart-extras__row">
+      <i class="at at-truck-l" aria-hidden="true"></i>
+      <span>{{ settings.cart_delivery_note }}</span>
+    </div>
+  {%- endif -%}
+
+  {%- if settings.cart_secure_note != blank -%}
+    <div class="mz-cart-extras__row">
+      <i class="at at-lock-l" aria-hidden="true"></i>
+      <span>{{ settings.cart_secure_note }}</span>
+    </div>
+  {%- endif -%}
+
+  {% render 'medzuro-seller-badge', style: 'compact' %}
+
+  {%- if settings.cart_trust_image != blank -%}
+    <img class="mz-cart-extras__trust"
+         src="{{ settings.cart_trust_image | image_url: width: 600 }}"
+         alt=""
+         loading="lazy" width="300" height="40">
+  {%- endif -%}
+</div>

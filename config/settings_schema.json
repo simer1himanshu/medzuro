@@ -5462,6 +5462,63 @@
         "id": "seller_badge_bg",
         "label": "Background",
         "default": "#f4f9f6"
+      },
+      {
+        "type": "header",
+        "content": "Cart reassurance (§12)"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_savings",
+        "label": "Show estimated savings",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "cart_delivery_note",
+        "label": "Expected delivery note",
+        "default": "Same-day delivery across most of Suva. 2–3 business days Fiji-wide."
+      },
+      {
+        "type": "text",
+        "id": "cart_secure_note",
+        "label": "Secure checkout note",
+        "default": "Secure checkout — your payment details are encrypted."
+      },
+      {
+        "type": "image_picker",
+        "id": "cart_trust_image",
+        "label": "Payment / trust badges image"
+      },
+      {
+        "type": "header",
+        "content": "Structured data (§26)"
+      },
+      {
+        "type": "paragraph",
+        "content": "Feeds the Organization schema in the page head. Product, article, collection and breadcrumb schema are already handled by the theme."
+      },
+      {
+        "type": "textarea",
+        "id": "seo_description",
+        "label": "Organization description",
+        "default": "Medzuro Retail is Fiji's premium nutraceutical and wellness retailer, and the authorized seller of HolyOak products in Fiji."
+      },
+      {
+        "type": "text",
+        "id": "seo_phone",
+        "label": "Support phone"
+      },
+      {
+        "type": "text",
+        "id": "seo_email",
+        "label": "Support email"
+      },
+      {
+        "type": "text",
+        "id": "seo_area_served",
+        "label": "Area served (ISO country code)",
+        "default": "FJ"
       }
     ]
   }

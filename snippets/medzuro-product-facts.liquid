@@ -1,0 +1,84 @@
+{%- comment -%}
+  Medzuro — nutraceutical product facts (spec §8).
+
+  Renders Benefits / Ingredients / Directions / Warnings / Nutrition table
+  from product metafields in the "medzuro" namespace. Each panel is skipped
+  when its metafield is empty, so partially-filled products degrade cleanly.
+
+  Metafield definitions required in Admin (Settings > Custom data > Products):
+    medzuro.benefits     rich_text_field         Benefits
+    medzuro.ingredients  rich_text_field         Ingredients
+    medzuro.directions   rich_text_field         Directions for use
+    medzuro.warnings     rich_text_field         Warnings
+    medzuro.nutrition    multi_line_text_field   Nutrition table
+    medzuro.serving      single_line_text_field  Serving size (table caption)
+
+  Nutrition format — one row per line, pipe separated:
+    Nutrient | Amount | %DV
+    Vitamin C | 500 mg | 555%
+
+  Accepts:
+    product   - {Object} product
+    open_first - {Boolean} open the first populated panel (default false)
+    style     - {String} theme tab style class, defaults to settings.tab_style
+{%- endcomment -%}
+
+{%- assign mf = product.metafields.medzuro -%}
+{%- assign tabstyle = style | default: settings.tab_style -%}
+{%- assign opened = false -%}
+
+{%- assign panels = 'benefits,ingredients,directions,warnings' | split: ',' -%}
+{%- for key in panels -%}
+  {%- assign body = mf[key] -%}
+  {%- if body != blank -%}
+    {%- assign is_open = false -%}
+    {%- if open_first and opened == false -%}
+      {%- assign is_open = true -%}
+      {%- assign opened = true -%}
+    {%- endif -%}
+    <details class="sumtabs mz-facts mz-facts--{{ key }} {{ tabstyle }}"{% if is_open %} open{% endif %}>
+      <summary class="pr fl f-aic f-jcsb wd100">
+        <span>{{ 'products.product.facts.' | append: key | t }}</span>
+        <i class="at at-angle-down-l"></i>
+      </summary>
+      <div class="rte">{{ body | metafield_tag }}</div>
+    </details>
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if mf.nutrition != blank -%}
+  <details class="sumtabs mz-facts mz-facts--nutrition {{ tabstyle }}">
+    <summary class="pr fl f-aic f-jcsb wd100">
+      <span>{{ 'products.product.facts.nutrition' | t }}</span>
+      <i class="at at-angle-down-l"></i>
+    </summary>
+    <div class="rte">
+      <table class="mz-nutrition">
+        {%- if mf.serving != blank -%}
+          <caption class="mz-nutrition__caption">{{ 'products.product.facts.serving' | t }}: {{ mf.serving }}</caption>
+        {%- endif -%}
+        <thead>
+          <tr>
+            <th scope="col">{{ 'products.product.facts.nutrient' | t }}</th>
+            <th scope="col">{{ 'products.product.facts.amount' | t }}</th>
+            <th scope="col">{{ 'products.product.facts.daily_value' | t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- assign rows = mf.nutrition | newline_to_br | split: '<br />' -%}
+          {%- for row in rows -%}
+            {%- assign clean = row | strip_html | strip -%}
+            {%- assign cells = clean | split: '|' -%}
+            {%- if clean != blank and cells.size > 0 -%}
+              <tr>
+                <th scope="row">{{ cells[0] | strip }}</th>
+                <td>{{ cells[1] | strip }}</td>
+                <td>{{ cells[2] | strip | default: '&mdash;' }}</td>
+              </tr>
+            {%- endif -%}
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </details>
+{%- endif -%}

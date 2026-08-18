@@ -32,6 +32,7 @@
     </title>
   	{%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
   	{%- render 'social-meta-tags' -%}
+  	{%- render 'medzuro-seo-schema' -%}
   {%- endcapture -%}
   {{metaTags  | strip_newlines | remove: "  " | remove: "	" }}
 

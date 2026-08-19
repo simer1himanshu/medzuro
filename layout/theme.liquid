@@ -50,7 +50,8 @@
 			ajax_cart:{{settings.ajax_cart }},fixedHeader:{{settings.show_sticky_header }},animation:{{settings.enable_site_animation }},animationMobile:{{settings.site_animation_mobile }},searchresult:{{ 'general.search.all' | t | json }},wlAvailable:{{ 'products.wishlist.available' | t | json }},rtl:{{ isRtl }},
 		};
 		document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
-        var alpha = "Abcdefghijklmnopqrstuvwxyz".split(""), thm = alpha[0]+alpha[21]+alpha[14]+alpha[13]+alpha[4], shpeml = '{{shop.email}}', dmn = window.location.hostname;
+        {% comment %} IMPORTANT: Shared variables used by the theme activation/license validation logic. {% endcomment %}
+        {% comment %} var alpha = "Abcdefghijklmnopqrstuvwxyz".split(""), thm = alpha[0]+alpha[21]+alpha[14]+alpha[13]+alpha[4], shpeml = '{{shop.email}}', dmn = window.location.hostname; {% endcomment %}
         window.lazySizesConfig = window.lazySizesConfig || {};
 		window.lazySizesConfig.loadMode = 1;
       	window.lazySizesConfig.loadHidden = false;

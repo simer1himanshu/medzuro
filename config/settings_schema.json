@@ -4150,8 +4150,7 @@
         "type": "text",
         "id": "pr_label8",
         "label": "Text",
-        "info": "Products tagged with this exact word show this badge.",
-        "default": ""
+        "info": "Spare slot — add a tag word here to enable an eighth badge."
       },
       {
         "type": "color",

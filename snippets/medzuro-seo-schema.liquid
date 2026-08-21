@@ -1,0 +1,13 @@
+{%- comment -%}
+  Medzuro — compatibility shim.
+
+  The Organization + WebSite JSON-LD now lives inline in layout/theme.liquid.
+  This file exists only so that a theme copy still running an older
+  theme.liquid — one that calls {% render 'medzuro-seo-schema' %} — resolves
+  instead of throwing "Could not find asset".
+
+  It deliberately renders nothing: emitting the graphs here as well would
+  duplicate them on any theme that has both.
+
+  Safe to delete once every theme in the shop is on the current theme.liquid.
+{%- endcomment -%}

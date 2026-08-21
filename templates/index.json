@@ -153,7 +153,11 @@
         "subtitle": "Nutraceuticals, vitamins and wellness essentials",
         "section_width": "container",
         "columns": 4,
-        "columns_mobile": 2
+        "columns_mobile": 2,
+        "disc_max": 200,
+        "image_fit": "cover",
+        "image_scale": 72,
+        "gap": 30
       }
     },
     "featured_product": {

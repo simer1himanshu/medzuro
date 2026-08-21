@@ -86,7 +86,9 @@
   	    "@type": "SearchAction",
   	    "target": {
   	      "@type": "EntryPoint",
-  	      "urlTemplate": {{ shop.url | append: '/search?q={search_term_string}' | json }}
+  	      {%- comment -%} braces kept outside the Liquid tag: {search_term_string} inside
+  	          an output tag breaks the parser {%- endcomment -%}
+  	      "urlTemplate": "{{ shop.url }}/search?q={search_term_string}"
   	    },
   	    "query-input": "required name=search_term_string"
   	  }

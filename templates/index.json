@@ -11,9 +11,20 @@
         "slide_1": {
           "type": "image",
           "settings": {
-            "hd1": "Fiji's premium wellness, done properly",
+            "hd1": "AUTHORIZED HOLYOAK SELLER IN FIJI",
             "phbg": "",
-            "ialign": "left"
+            "ialign": "center_center",
+            "title": "Premium wellness,<br/>delivered to your door",
+            "hd3": "Nutraceuticals, vitamins and herbal formulations — genuine HolyOak products, with same-day delivery across most of Suva.",
+            "hideh3": false,
+            "btn": "Shop HolyOak",
+            "link": "/collections/holyoak",
+            "btn-style": "btn1",
+            "display_btn": true,
+            "btn2": "Browse all products",
+            "link2": "/collections/all",
+            "btn-style1": "bdr-btn1",
+            "text-left": true
           }
         }
       },

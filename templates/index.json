@@ -44,25 +44,37 @@
         "cat_1": {
           "type": "featured_collection",
           "settings": {
-            "collection_name": "Vitamins & Minerals"
+            "collection_name": "Vitamins & Minerals",
+            "collection_name2": "Everyday essentials and targeted single nutrients",
+            "collection_btn": "Shop",
+            "url": "/collections/vitamins-minerals"
           }
         },
         "cat_2": {
           "type": "featured_collection",
           "settings": {
-            "collection_name": "Herbal Formulations"
+            "collection_name": "Herbal Formulations",
+            "collection_name2": "Traditional botanicals in standardised doses",
+            "collection_btn": "Shop",
+            "url": "/collections/herbal-formulations"
           }
         },
         "cat_3": {
           "type": "featured_collection",
           "settings": {
-            "collection_name": "Sports Nutrition"
+            "collection_name": "Sports Nutrition",
+            "collection_name2": "Protein, recovery and performance support",
+            "collection_btn": "Shop",
+            "url": "/collections/sports-nutrition"
           }
         },
         "cat_4": {
           "type": "featured_collection",
           "settings": {
-            "collection_name": "Daily Wellness"
+            "collection_name": "Daily Wellness",
+            "collection_name2": "Immunity, digestion, sleep and general wellbeing",
+            "collection_btn": "Shop",
+            "url": "/collections/daily-wellness"
           }
         }
       },

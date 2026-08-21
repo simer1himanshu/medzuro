@@ -64,3 +64,32 @@ badge text exactly.
 | §20, §21 | Loyalty and subscription apps |
 | §23 | Review app (verified purchase, photos, votes) |
 | §25 | GA4, Search Console, Meta Pixel + CAPI, Merchant Center |
+
+## 4. Collections and pages to create (spec §7, §22)
+
+Collections cannot be created from theme code. The homepage category grid and
+the main navigation link to these handles — until they exist in Admin, those
+links 404 and the grid renders without images.
+
+| Handle | Title | Source |
+|---|---|---|
+| `holyoak` | HolyOak | §3 — the launch range, linked from the nav and hero |
+| `vitamins-minerals` | Vitamins & Minerals | §1 "vitamins, minerals" |
+| `herbal-formulations` | Herbal Formulations | §1 "herbal formulations" |
+| `sports-nutrition` | Sports Nutrition | §1 "sports nutrition" |
+| `daily-wellness` | Daily Wellness | §1 "wellness products" |
+
+Give each collection an image — the grid uses it automatically.
+
+**These four category names are inferred, not specified.** The docx mentions
+"category" only twice (§7 "Shop by Category", §22 "Category Search") and never
+defines a taxonomy. They were derived from the §1 product scope. Confirm them
+with the client before products are loaded, since category structure drives
+navigation, search and collection URLs, and is costly to change later.
+
+Note also §6: launch is 15 HolyOak products. Four categories across 15 SKUs may
+leave some near-empty — consider fewer categories until the range grows.
+
+Pages linked from the navigation: `/pages/about`, `/pages/contact`, and the
+blog at `/blogs/news`. Footer menus expect link lists with the handles
+`customer-service` and `information`.

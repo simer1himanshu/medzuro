@@ -103,46 +103,42 @@
       }
     },
     "shop_by_category": {
-      "type": "collection-list",
+      "type": "medzuro-categories",
       "blocks": {
         "cat_1": {
-          "type": "featured_collection",
+          "type": "category",
           "settings": {
-            "collection": "",
-            "collection_name": "Vitamins & Minerals",
-            "collection_name2": "Everyday essentials and targeted single nutrients",
-            "collection_btn": "Shop",
-            "url": "/collections/vitamins-minerals"
+            "title": "Vitamins & Minerals",
+            "url": "/collections/vitamins-minerals",
+            "color_from": "#eaf0fa",
+            "color_to": "#d3e0f2"
           }
         },
         "cat_2": {
-          "type": "featured_collection",
+          "type": "category",
           "settings": {
-            "collection": "",
-            "collection_name": "Herbal Formulations",
-            "collection_name2": "Traditional botanicals in standardised doses",
-            "collection_btn": "Shop",
-            "url": "/collections/herbal-formulations"
+            "title": "Herbal Formulations",
+            "url": "/collections/herbal-formulations",
+            "color_from": "#eef3ea",
+            "color_to": "#dbe7d4"
           }
         },
         "cat_3": {
-          "type": "featured_collection",
+          "type": "category",
           "settings": {
-            "collection": "",
-            "collection_name": "Sports Nutrition",
-            "collection_name2": "Protein, recovery and performance support",
-            "collection_btn": "Shop",
-            "url": "/collections/sports-nutrition"
+            "title": "Sports Nutrition",
+            "url": "/collections/sports-nutrition",
+            "color_from": "#f4ecec",
+            "color_to": "#ecd9da"
           }
         },
         "cat_4": {
-          "type": "featured_collection",
+          "type": "category",
           "settings": {
-            "collection": "",
-            "collection_name": "Daily Wellness",
-            "collection_name2": "Immunity, digestion, sleep and general wellbeing",
-            "collection_btn": "Shop",
-            "url": "/collections/daily-wellness"
+            "title": "Daily Wellness",
+            "url": "/collections/daily-wellness",
+            "color_from": "#f5f1ea",
+            "color_to": "#eae1d1"
           }
         }
       },
@@ -155,45 +151,9 @@
       "settings": {
         "title": "Shop by category",
         "subtitle": "Nutraceuticals, vitamins and wellness essentials",
-        "top-offeset": "default",
-        "section_width": false,
-        "npd": false,
-        "hide_mobile": false,
-        "hided": false,
-        "section_cov": false,
-        "sec_bg_clr": "#fafafa",
-        "bgg": "",
-        "grid-spacing": 15,
-        "grid-spacing-mbl": 5,
-        "grid": 4,
-        "tablet-grid": 3,
-        "mobile-grid": 2,
-        "style": "st1",
-        "textalign": "tc",
-        "leftpadzero": false,
-        "product_count": false,
-        "img_rad": 0,
-        "disable_zoom": false,
-        "tfs": 16,
-        "tfsm": 15,
-        "tff": "ft1",
-        "tfw": "500",
-        "tlh": 1.2,
-        "fs": 13,
-        "fsm": 12,
-        "fw": "400",
-        "lh": 1.2,
-        "cl": "#ffffff",
-        "bg": "#000000",
-        "opt": 0.9,
-        "bdr": 0,
-        "show_buttons": false,
-        "btn-style": "btn",
-        "btn-size-desk": "btn-sm",
-        "btn-size-mob": "mob-btn-sm",
-        "enable_carousel": true,
-        "autoplay": false,
-        "speed": 5
+        "section_width": "container",
+        "columns": 4,
+        "columns_mobile": 2
       }
     },
     "featured_product": {

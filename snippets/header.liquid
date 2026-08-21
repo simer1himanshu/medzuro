@@ -63,7 +63,11 @@
           	{%- elsif settings.logo != blank -%}
 				<img src="{{ settings.logo | img_url: logoWidth }}" width="{{settings.logo_width}}" height="{{settings.logo_width | divided_by: settings.logo.aspect_ratio | floor}}" alt="{{ settings.logo.alt | default: shop.name }}" srcset="{{ settings.logo | img_url: logoWidth, scale: 1 }} 1x, {{ settings.logo | img_url: logoWidth, scale: 2 }} 2x">
 			{%- else -%}
-				{{ shop.name }}
+				{%- comment -%} Medzuro: brand logo shipped as a theme asset, so no Files upload
+				    is required. An image set in Theme settings > Logo overrides this. {%- endcomment -%}
+				<img src="{{ 'medzuro-logo.png' | asset_url }}" class="mz-logo"
+				     width="{{ settings.logo_width }}" height="{{ settings.logo_width | times: 100 | divided_by: 311 }}"
+				     alt="{{ shop.name }}" fetchpriority="high">
 			{%- endif -%}
 		</a>
 	</{% if template == 'index'%}h1{% else %}div{% endif %}>

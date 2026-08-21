@@ -1838,3 +1838,19 @@ body:not(.template-index) .site-footer { margin-top:20px; }
 .mz-nutrition th, .mz-nutrition td { text-align:right; }
 .mz-nutrition td:last-child, .mz-nutrition th:last-child { text-align:left; }
 .mz-nutrition caption.mz-nutrition__caption { text-align:right; }
+
+/* Medzuro — text wordmark (used until a logo asset is supplied) */
+.logo-wrap a, .site-header__logo a { text-decoration:none; }
+.logo-wrap h1, .logo-wrap div.logo, .site-header__logo {
+  font-family: var(--ft2, var(--ft1, inherit));
+  font-weight: 700;
+  font-size: 21px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: {{ settings.seller_badge_color | default: '#1f5f45' }};
+  white-space: nowrap;
+}
+@media (max-width: 767px) {
+  .logo-wrap h1, .logo-wrap div.logo, .site-header__logo { font-size: 17px; letter-spacing: .12em; }
+}

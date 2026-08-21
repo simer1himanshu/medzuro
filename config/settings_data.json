@@ -106,25 +106,25 @@
     "navigation_txt_case": "uppercase",
     "nav_h": 55,
     "navbarbdr": "#eee",
-    "navbar": "#881d1d",
+    "navbar": "#1f5f45",
     "navbar_link": "#111111",
-    "navbar_link_hv": "#f06543",
+    "navbar_link_hv": "#1f5f45",
     "nav_link_lbl": "#ffffff",
     "nav_link_lbl1": "#333333",
-    "nav_link_lbl2": "#1cb5b5",
-    "nav_link_lbl3": "#f48920",
-    "nav_link_lbl4": "#d0a306",
-    "nav_link_lbl5": "#ff0000",
+    "nav_link_lbl2": "#1f5f45",
+    "nav_link_lbl3": "#8a6d3b",
+    "nav_link_lbl4": "#8a6d3b",
+    "nav_link_lbl5": "#94302f",
     "nav_mm_bg": "#ffffff",
     "nav_shadow": true,
     "nav_rad": 10,
     "nav_mm_link": "#444444",
-    "nav_mm_link_hv": "#e34848",
+    "nav_mm_link_hv": "#1f5f45",
     "nav_mm_title": "#000000",
     "nav_mm_title_case": "uppercase",
     "nav_dd_link": "#444444",
     "nav_dd_link_bg": "#ffffff",
-    "nav_dd_link_hv": "#e34848",
+    "nav_dd_link_hv": "#1f5f45",
     "nav_dd_link_bghv": "#ffffff",
     "nav_dd_divider": "#eeeeee",
     "mobile_nav_bg": "#ffffff",
@@ -169,8 +169,8 @@
     "tooltip_bg": "#000000",
     "announcement": false,
     "announcement_mb": false,
-    "announcement_txt": "UP TO 80% OFF ON THE ENTIRE STORE! hurry up!",
-    "announcement_link": "shopify://products/360-rotating-makeup-organizer",
+    "announcement_txt": "Authorized HolyOak seller in Fiji",
+    "announcement_link": "",
     "annouance_txt": "#ffffff",
     "annouance_bg": "#333333",
     "promotion_bg": "",
@@ -187,7 +187,7 @@
     "top_bar_text": "#ffffff",
     "top_header_clr": "#000000",
     "main_header_fullwidth": true,
-    "logo": "shopify://shop_images/avon-logo.svg",
+    "logo": "",
     "align_logo": "left",
     "logo_width": "90",
     "header_height": "70",
@@ -508,68 +508,66 @@
       "footer": {
         "type": "footer",
         "blocks": {
-          "1561525082470": {
+          "f_contact": {
             "type": "contact",
             "settings": {
-              "title": "CONTACT US",
+              "title": "Contact",
               "logo-width": 150,
-              "address": "55 Gallaxy Enque,<br>2568 steet, 23568 NY",
-              "phone": "<b>Phone : </b> (440) 000 000 0000",
-              "email": "<b>Email : </b>sales@yousite.com",
+              "address": "Suva, Fiji",
+              "phone": "",
+              "email": "",
               "show_icons": true,
-              "show_socials": false,
-              "socials_ttl": "Stay Connected",
-              "width": "wd20-md"
+              "show_socials": false
             }
           },
-          "1560417691775": {
+          "f_service": {
             "type": "menu",
             "settings": {
-              "title": "CUSTOMER SERVICE",
+              "title": "Customer Service",
               "menulinks": "customer-service",
               "width": "wd20-md"
             }
           },
-          "1559218222806": {
+          "f_company": {
             "type": "menu",
             "settings": {
-              "title": "COMPANY INFO.",
+              "title": "Company",
               "menulinks": "information",
               "width": "wd20-md"
             }
           },
-          "1561524997611": {
+          "f_social": {
             "type": "socialicons",
             "settings": {
-              "title": "STAY CONNECTED",
+              "title": "Stay connected",
               "width": "wd20-md"
             }
           },
-          "1543494586357": {
+          "f_news": {
             "type": "newsletter",
             "settings": {
-              "title": "FOLLOW THE LATEST TREND AND STYLE",
+              "title": "Wellness tips, straight to your inbox",
               "sub_title": "",
               "show_socials": false,
-              "socials_ttl": "Stay Connected",
+              "socials_ttl": "",
               "newltr_align": false,
               "width": "wd20-md"
             }
           }
         },
         "block_order": [
-          "1561525082470",
-          "1560417691775",
-          "1559218222806",
-          "1561524997611",
-          "1543494586357"
+          "f_contact",
+          "f_service",
+          "f_company",
+          "f_social",
+          "f_news"
         ],
         "settings": {
           "section_width": false,
-          "copyright_text": "© [year], Avone. All Rights Reserved.",
-          "show_designby": true,
-          "show_payment": true,
-          "payment_img": "shopify://shop_images/footer-payment.png",
+          "copyright_text": "© [year], Medzuro Retail. All rights reserved.",
+          "show_designby": false,
+          "show_payment": false,
+          "payment_img": "",
           "payment_img_width": "350",
           "mobile_center": false,
           "mobile_collapse": false,
@@ -649,157 +647,53 @@
       "navigation": {
         "type": "navigation",
         "blocks": {
-          "1545200462991": {
-            "type": "megamenu1",
+          "nav1": {
+            "type": "single_link",
             "settings": {
-              "title": "Home",
-              "url": "#",
-              "newtab": false,
-              "mm_linklist": "demos",
-              "mmcolumns": 4,
-              "imgcall": "bottom",
-              "columnWidth": 50,
-              "mmimgcolumns": 2,
-              "imageTtl1": "",
-              "imageurl": "",
-              "imageTtl2": "",
-              "Image2url": "https://avone-demo.myshopify.com/?_ab=0&_fd=0&_sc=1&preview_theme_id=83490242620",
-              "imageTtl3": "",
-              "Image3url": "https://avon-demo.myshopify.com/?_ab=0&_fd=0&_sc=1&preview_theme_id=73322332227",
-              "imageTtl4": "",
-              "Image4url": "",
-              "show_bdr": true,
-              "img_rad": 0,
-              "custom_size": false,
-              "mm_size": "700",
-              "mm_align": "left",
-              "box_sized": false
+              "title": "Shop All",
+              "url": "/collections/all",
+              "newtab": false
             }
           },
-          "1560070247268": {
-            "type": "megamenu1",
+          "nav2": {
+            "type": "single_link",
             "settings": {
-              "title": "Shop",
-              "url": "#",
-              "newtab": false,
-              "mm_linklist": "shop-1",
-              "mmcolumns": 4,
-              "imgcall": "right",
-              "columnWidth": 24,
-              "mmimgcolumns": 1,
-              "megamenu1_image": "shopify://shop_images/WOMXN.jpg",
-              "imageTtl1": "FLAT 50% OFF ON WOMENS",
-              "imageurl": "shopify://collections/women",
-              "imageTtl2": "",
-              "Image2url": "",
-              "imageTtl3": "",
-              "Image3url": "",
-              "imageTtl4": "",
-              "Image4url": "",
-              "show_bdr": true,
-              "img_rad": 0,
-              "custom_size": false,
-              "mm_size": "800",
-              "mm_align": "left",
-              "box_sized": false
+              "title": "HolyOak",
+              "url": "/collections/holyoak",
+              "newtab": false
             }
           },
-          "1560145007901": {
-            "type": "megamenu1",
+          "nav3": {
+            "type": "single_link",
             "settings": {
-              "title": "Features [label1]",
-              "url": "#",
-              "newtab": false,
-              "mm_linklist": "features",
-              "mmcolumns": 5,
-              "imgcall": "right",
-              "columnWidth": 50,
-              "mmimgcolumns": 2,
-              "imageTtl1": "",
-              "imageurl": "",
-              "imageTtl2": "",
-              "Image2url": "",
-              "imageTtl3": "",
-              "Image3url": "",
-              "imageTtl4": "",
-              "Image4url": "",
-              "show_bdr": true,
-              "img_rad": 0,
-              "custom_size": false,
-              "mm_size": "600",
-              "mm_align": "left",
-              "box_sized": false
+              "title": "About",
+              "url": "/pages/about",
+              "newtab": false
             }
           },
-          "760c08ba-361a-4c41-aced-6319a65c4cb0": {
-            "type": "megamenu6",
+          "nav4": {
+            "type": "single_link",
             "settings": {
-              "title": "<span style=\"color:#bf1616;\">NEW IN</span>",
-              "url": "",
-              "newtab": false,
-              "mm_linklist": "advance-menu",
-              "mmcolumns": 2,
-              "collection1": "hot-collection",
-              "collection2": "men",
-              "collection3": "bag",
-              "collection4": "accssories",
-              "collection5": "tops",
-              "collection6": "",
-              "collection7": "",
-              "collection8": "",
-              "collection9": "",
-              "collection10": "",
-              "grid": 2,
-              "prlimit": 6,
-              "columnWidth": 50,
-              "custom_size": false,
-              "mm_size": "600",
-              "mm_align": "center",
-              "box_sized": false
+              "title": "Journal",
+              "url": "/blogs/news",
+              "newtab": false
             }
           },
-          "1559988240897": {
-            "type": "dropdown",
+          "nav5": {
+            "type": "single_link",
             "settings": {
-              "title": "Lookbook",
-              "url": "",
-              "mm_linklist": "lookbook"
-            }
-          },
-          "1553256701490": {
-            "type": "dropdown",
-            "settings": {
-              "title": "Pages",
-              "url": "",
-              "mm_linklist": "pages"
-            }
-          },
-          "1559992848977": {
-            "type": "dropdown",
-            "settings": {
-              "title": "Blog",
-              "url": "#",
-              "mm_linklist": "blog"
-            }
-          },
-          "ff0e6f22-f740-4d49-9986-8cbc1de21b2e": {
-            "type": "dropdown",
-            "settings": {
-              "title": "Buy Now!",
-              "url": "https://1.envato.market/KdyYx",
-              "mm_linklist": "buy-now"
+              "title": "Contact",
+              "url": "/pages/contact",
+              "newtab": false
             }
           }
         },
         "block_order": [
-          "1545200462991",
-          "1560070247268",
-          "1560145007901",
-          "760c08ba-361a-4c41-aced-6319a65c4cb0",
-          "1559988240897",
-          "1553256701490",
-          "1559992848977",
-          "ff0e6f22-f740-4d49-9986-8cbc1de21b2e"
+          "nav1",
+          "nav2",
+          "nav3",
+          "nav4",
+          "nav5"
         ],
         "settings": {
           "menuarrow": false,
@@ -825,39 +719,38 @@
       "top-info-panel": {
         "type": "top-info-panel",
         "blocks": {
-          "1551876223232": {
+          "tb1": {
             "type": "text_block",
             "settings": {
-              "title": "10% OFF OUTERWEAR GET EM WHILE THEY'RE HOT",
+              "title": "Authorized HolyOak seller in Fiji",
               "align_text": "center",
-              "url": "shopify://collections/women",
-              "newtab": true
-            }
-          },
-          "1551876260106": {
-            "type": "text_block",
-            "settings": {
-              "title": "FREE SHIPPING ON ALL ORDERS OVER $100",
-              "align_text": "center",
-              "url": "https://avon-demo.myshopify.com/products/martha-knit-top-new",
+              "url": "",
               "newtab": false
             }
           },
-          "1551876638318": {
+          "tb2": {
             "type": "text_block",
-            "disabled": true,
             "settings": {
-              "title": "HASSLE-FREE RETURNS 60-DAY POSTAGE PAID RETURNS",
+              "title": "Same-day delivery across most of Suva",
               "align_text": "center",
-              "url": "shopify://collections/men",
+              "url": "",
+              "newtab": false
+            }
+          },
+          "tb3": {
+            "type": "text_block",
+            "settings": {
+              "title": "No shipping charge on home delivery",
+              "align_text": "center",
+              "url": "",
               "newtab": false
             }
           }
         },
         "block_order": [
-          "1551876223232",
-          "1551876260106",
-          "1551876638318"
+          "tb1",
+          "tb2",
+          "tb3"
         ],
         "settings": {
           "fullwidth": true,

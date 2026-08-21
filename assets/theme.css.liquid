@@ -1835,3 +1835,19 @@ body:not(.template-index) .site-footer { margin-top:20px; }
 .mz-cart-extras__row i { flex:0 0 auto; margin-top:2px; opacity:.7; }
 .mz-cart-extras__savings { color:{{ settings.color_sale_text | default: '#d41818' }}; }
 .mz-cart-extras__trust { max-width:100%; height:auto; margin-top:4px; }
+
+/* Medzuro — text wordmark (used until a logo asset is supplied) */
+.logo-wrap a, .site-header__logo a { text-decoration:none; }
+.logo-wrap h1, .logo-wrap div.logo, .site-header__logo {
+  font-family: var(--ft2, var(--ft1, inherit));
+  font-weight: 700;
+  font-size: 21px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: {{ settings.seller_badge_color | default: '#1f5f45' }};
+  white-space: nowrap;
+}
+@media (max-width: 767px) {
+  .logo-wrap h1, .logo-wrap div.logo, .site-header__logo { font-size: 17px; letter-spacing: .12em; }
+}

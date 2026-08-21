@@ -156,7 +156,7 @@
         "columns_mobile": 2,
         "disc_max": 200,
         "image_fit": "cover",
-        "image_scale": 72,
+        "image_scale": 70,
         "gap": 30
       }
     },

@@ -1,42 +1,88 @@
 {%- comment -%} medzuro build file {%- endcomment -%}
 {%- comment -%}
-  Medzuro — dynamic sales counters (spec §10).
-  Every figure is a block field editable in Admin, so nothing like
-  "22,500 Sold" is ever hardcoded into the theme.
+  Medzuro — dynamic counters (spec §10).
+
+  Every figure is a block setting, so nothing like "22,500" is hardcoded.
+  Three styles: plain, inverted (solid brand band) and cards.
 {%- endcomment -%}
 
-<div class="mz-counters section-{{ section.id }}{% if section.settings.full_width %} full-width{% endif %}">
-  <div class="{% unless section.settings.full_width %}container{% endunless %}">
-    {%- if section.settings.title != blank -%}
-      {% render 'sec-title', title: section.settings.title, subtitle: section.settings.subtitle %}
+{%- assign style = section.settings.style -%}
+{%- if style == 'inverted' -%}
+  {%- assign value_color = section.settings.inv_value_color -%}
+  {%- assign label_color = section.settings.inv_label_color -%}
+  {%- assign section_bg = section.settings.inv_bg -%}
+{%- else -%}
+  {%- assign value_color = section.settings.value_color -%}
+  {%- assign label_color = section.settings.label_color -%}
+  {%- assign section_bg = section.settings.bg_color -%}
+{%- endif -%}
+
+<div class="mz-counters mz-counters--{{ style }} section-{{ section.id }}">
+  <div class="{% if section.settings.section_width == 'container' %}container{% endif %}">
+    {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+      <div class="mz-counters__head tc">
+        {%- if section.settings.title != blank -%}<h2 class="mz-counters__title">{{ section.settings.title }}</h2>{%- endif -%}
+        {%- if section.settings.subtitle != blank -%}<p class="mz-counters__sub">{{ section.settings.subtitle }}</p>{%- endif -%}
+      </div>
     {%- endif -%}
 
-    <div class="mz-counters__grid fl f-wrap">
+    <dl class="mz-counters__grid">
       {%- for block in section.blocks -%}
-        <div class="mz-counters__item tc" {{ block.shopify_attributes }}>
-          <span class="mz-counters__value">
-            {{- block.settings.prefix -}}
-            <span class="mz-counters__num" data-target="{{ block.settings.value }}">0</span>
-            {{- block.settings.suffix -}}
-          </span>
-          {%- if block.settings.label != blank -%}
-            <span class="mz-counters__label">{{ block.settings.label }}</span>
-          {%- endif -%}
+        {%- assign b = block.settings -%}
+        <div class="mz-counters__item" {{ block.shopify_attributes }}>
+          <dt class="mz-counters__value">
+            {%- if b.prefix != blank -%}<span class="mz-counters__affix">{{ b.prefix }}</span>{%- endif -%}
+            <span class="mz-counters__num" data-target="{{ b.value }}">{{ b.value }}</span>
+            {%- if b.suffix != blank -%}<span class="mz-counters__affix">{{ b.suffix }}</span>{%- endif -%}
+          </dt>
+          {%- if b.label != blank -%}<dd class="mz-counters__label">{{ b.label }}</dd>{%- endif -%}
         </div>
       {%- endfor -%}
-    </div>
+    </dl>
   </div>
 </div>
 
 <style>
-  .section-{{ section.id }} { padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; background: {{ section.settings.bg_color }}; }
-  .section-{{ section.id }} .mz-counters__grid { gap: 30px; justify-content: center; }
-  .section-{{ section.id }} .mz-counters__item { flex: 1 1 180px; }
-  .section-{{ section.id }} .mz-counters__value { display: block; font-size: {{ section.settings.value_size }}px; font-weight: 700; line-height: 1.1; color: {{ section.settings.value_color }}; }
-  .section-{{ section.id }} .mz-counters__label { display: block; margin-top: 8px; font-size: 14px; letter-spacing: .04em; color: {{ section.settings.label_color }}; }
-  @media (max-width: 767px) {
-    .section-{{ section.id }} .mz-counters__item { flex: 1 1 140px; }
-    .section-{{ section.id }} .mz-counters__value { font-size: {{ section.settings.value_size | times: 0.7 | round }}px; }
+  .section-{{ section.id }} { padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; background: {{ section_bg }}; }
+  .section-{{ section.id }} .mz-counters__head { margin-bottom: 40px; display:flex; flex-direction:column; gap:8px; }
+  .section-{{ section.id }} .mz-counters__title { margin:0; font-size:{{ section.settings.title_size }}px; line-height:1.15; color:{{ value_color }}; }
+  .section-{{ section.id }} .mz-counters__sub { margin:0; color:{{ label_color }}; }
+
+  .section-{{ section.id }} .mz-counters__grid {
+    margin:0; padding:0; display:grid; gap:{{ section.settings.gap }}px;
+    grid-template-columns: repeat({{ section.settings.columns_mobile }}, minmax(0,1fr));
+  }
+  @media (min-width:768px) {
+    .section-{{ section.id }} .mz-counters__grid { grid-template-columns: repeat({{ section.blocks.size | default: 3 }}, minmax(0,1fr)); }
+  }
+  .section-{{ section.id }} .mz-counters__item {
+    display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center;
+    {%- if style == 'cards' %}
+    background:{{ section.settings.card_bg }}; border:1px solid {{ section.settings.card_border }};
+    border-radius:{{ section.settings.radius }}px; padding:{{ section.settings.card_padding }}px;
+    {%- endif %}
+  }
+  {%- if section.settings.dividers and style != 'cards' %}
+  @media (min-width:768px) {
+    .section-{{ section.id }} .mz-counters__item + .mz-counters__item {
+      border-left:1px solid {% if style == 'inverted' %}rgba(255,255,255,.22){% else %}{{ section.settings.card_border }}{% endif %};
+    }
+  }
+  {%- endif %}
+
+  .section-{{ section.id }} .mz-counters__value {
+    margin:0; display:flex; align-items:baseline; justify-content:center; gap:2px;
+    font-size:{{ section.settings.value_size }}px; font-weight:700; line-height:1;
+    letter-spacing:-.02em; color:{{ value_color }};
+    font-variant-numeric: tabular-nums; font-feature-settings:"tnum" 1;
+  }
+  .section-{{ section.id }} .mz-counters__affix { font-size:.62em; font-weight:600; opacity:.75; }
+  .section-{{ section.id }} .mz-counters__label {
+    margin:0; font-size:{{ section.settings.label_size }}px; letter-spacing:.08em;
+    text-transform:uppercase; font-weight:600; color:{{ label_color }};
+  }
+  @media (max-width:767px) {
+    .section-{{ section.id }} .mz-counters__value { font-size:{{ section.settings.value_size | times: 65 | divided_by: 100 }}px; }
   }
 </style>
 
@@ -47,30 +93,37 @@
     var nums = root.querySelectorAll('.mz-counters__num');
     if (!nums.length) return;
 
-    // Respect reduced-motion: show the final figure immediately.
+    function format(n) { return Number(n).toLocaleString(); }
+
+    // Reduced motion: show the final figure, skip the animation entirely.
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      nums.forEach(function (n) { n.textContent = Number(n.dataset.target || 0).toLocaleString(); });
+      nums.forEach(function (n) { n.textContent = format(n.dataset.target || 0); });
       return;
     }
+
+    // Reserve the final width so the layout cannot shift while counting.
+    nums.forEach(function (n) {
+      n.style.display = 'inline-block';
+      n.style.minWidth = format(n.dataset.target || 0).length + 'ch';
+      n.textContent = '0';
+    });
 
     function countUp(el) {
       var target = Number(el.dataset.target || 0);
       var duration = {{ section.settings.duration | times: 1000 }};
       var start = null;
       function step(ts) {
-        if (!start) start = ts;
-        var progress = Math.min((ts - start) / duration, 1);
-        el.textContent = Math.floor(progress * target).toLocaleString();
-        if (progress < 1) requestAnimationFrame(step);
-        else el.textContent = target.toLocaleString();
+        if (start === null) start = ts;
+        var p = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        el.textContent = format(Math.round(eased * target));
+        if (p < 1) { requestAnimationFrame(step); }
+        else { el.textContent = format(target); }
       }
       requestAnimationFrame(step);
     }
 
-    if (!('IntersectionObserver' in window)) {
-      nums.forEach(countUp);
-      return;
-    }
+    if (!('IntersectionObserver' in window)) { nums.forEach(countUp); return; }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) { countUp(entry.target); io.unobserve(entry.target); }
@@ -88,21 +141,43 @@
   "settings": [
     { "type": "text", "id": "title", "label": "Heading", "default": "Trusted across Fiji" },
     { "type": "text", "id": "subtitle", "label": "Subheading" },
-    { "type": "checkbox", "id": "full_width", "label": "Full width", "default": false },
-    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f5f7fa" },
+    { "type": "select", "id": "style", "label": "Style", "default": "inverted",
+      "options": [
+        { "value": "plain", "label": "Plain" },
+        { "value": "inverted", "label": "Solid brand band" },
+        { "value": "cards", "label": "Cards" }
+      ] },
+    { "type": "select", "id": "section_width", "label": "Width", "default": "container",
+      "options": [{ "value": "container", "label": "Contained" }, { "value": "full", "label": "Full width" }] },
+    { "type": "checkbox", "id": "dividers", "label": "Divider between figures", "default": true },
+    { "type": "range", "id": "columns_mobile", "min": 1, "max": 3, "step": 1, "label": "Columns (mobile)", "default": 3 },
+    { "type": "range", "id": "gap", "min": 0, "max": 60, "step": 4, "unit": "px", "label": "Gap", "default": 24 },
+    { "type": "range", "id": "duration", "min": 1, "max": 5, "step": 1, "unit": "s", "label": "Count-up duration", "default": 2 },
+    { "type": "header", "content": "Plain and cards" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" },
     { "type": "color", "id": "value_color", "label": "Figure colour", "default": "#002964" },
     { "type": "color", "id": "label_color", "label": "Label colour", "default": "#5a6b82" },
-    { "type": "range", "id": "value_size", "min": 24, "max": 72, "step": 2, "unit": "px", "label": "Figure size", "default": 44 },
-    { "type": "range", "id": "duration", "min": 1, "max": 5, "step": 1, "unit": "s", "label": "Count-up duration", "default": 2 },
-    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 5, "unit": "px", "label": "Padding top", "default": 60 },
-    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 5, "unit": "px", "label": "Padding bottom", "default": 60 }
+    { "type": "color", "id": "card_bg", "label": "Card background", "default": "#ffffff" },
+    { "type": "color", "id": "card_border", "label": "Card border", "default": "#e3e8ef" },
+    { "type": "range", "id": "radius", "min": 0, "max": 32, "step": 2, "unit": "px", "label": "Corner radius", "default": 14 },
+    { "type": "range", "id": "card_padding", "min": 8, "max": 48, "step": 4, "unit": "px", "label": "Card padding", "default": 28 },
+    { "type": "header", "content": "Solid brand band" },
+    { "type": "color", "id": "inv_bg", "label": "Band background", "default": "#002964" },
+    { "type": "color", "id": "inv_value_color", "label": "Figure colour", "default": "#ffffff" },
+    { "type": "color", "id": "inv_label_color", "label": "Label colour", "default": "#a9bcd6" },
+    { "type": "header", "content": "Type and spacing" },
+    { "type": "range", "id": "value_size", "min": 28, "max": 88, "step": 2, "unit": "px", "label": "Figure size", "default": 52 },
+    { "type": "range", "id": "label_size", "min": 10, "max": 20, "step": 1, "unit": "px", "label": "Label size", "default": 12 },
+    { "type": "range", "id": "title_size", "min": 20, "max": 56, "step": 2, "unit": "px", "label": "Heading size", "default": 32 },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 140, "step": 5, "unit": "px", "label": "Padding top", "default": 70 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 140, "step": 5, "unit": "px", "label": "Padding bottom", "default": 70 }
   ],
   "blocks": [
     {
       "type": "counter",
       "name": "Counter",
       "settings": [
-        { "type": "number", "id": "value", "label": "Figure", "default": 22500, "info": "Digits only — formatting is applied automatically." },
+        { "type": "number", "id": "value", "label": "Figure", "default": 22500, "info": "Digits only — thousands separators are added automatically." },
         { "type": "text", "id": "prefix", "label": "Prefix" },
         { "type": "text", "id": "suffix", "label": "Suffix", "default": "+" },
         { "type": "text", "id": "label", "label": "Label", "default": "Products Sold" }
@@ -115,7 +190,7 @@
       "name": "Medzuro counters",
       "blocks": [
         { "type": "counter", "settings": { "value": 22500, "suffix": "+", "label": "Products Sold" } },
-        { "type": "counter", "settings": { "value": 3, "suffix": "", "label": "Countries Served" } },
+        { "type": "counter", "settings": { "value": 3, "label": "Countries Served" } },
         { "type": "counter", "settings": { "value": 8000, "suffix": "+", "label": "Happy Customers" } }
       ]
     }

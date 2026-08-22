@@ -287,15 +287,16 @@
       ],
       "settings": {
         "title": "Trusted across Fiji",
-        "subtitle": "",
-        "full_width": false,
-        "bg_color": "#f5f7fa",
-        "value_color": "#002964",
-        "label_color": "#5a6b82",
-        "value_size": 44,
+        "style": "inverted",
+        "section_width": "container",
+        "dividers": true,
+        "columns_mobile": 3,
+        "gap": 24,
         "duration": 2,
-        "padding_top": 60,
-        "padding_bottom": 60
+        "value_size": 52,
+        "label_size": 12,
+        "padding_top": 70,
+        "padding_bottom": 70
       }
     },
     "reviews": {

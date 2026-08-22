@@ -206,33 +206,30 @@
       }
     },
     "why_medzuro": {
-      "type": "store-features",
+      "type": "medzuro-features",
       "blocks": {
         "f_seller": {
-          "type": "text_block",
+          "type": "feature",
           "settings": {
-            "icons": "at-check-circle",
+            "icon": "shield",
             "title": "Authorized HolyOak Seller",
-            "text": "<p>The official HolyOak distributor in Fiji — every product genuine and traceable.</p>",
-            "texturl": ""
+            "text": "<p>The official HolyOak distributor in Fiji — every product genuine and traceable.</p>"
           }
         },
         "f_science": {
-          "type": "text_block",
+          "type": "feature",
           "settings": {
-            "icons": "at-flask",
+            "icon": "flask",
             "title": "Science-backed ingredients",
-            "text": "<p>Formulations grounded in published research, not marketing claims.</p>",
-            "texturl": ""
+            "text": "<p>Formulations grounded in published research, not marketing claims.</p>"
           }
         },
         "f_quality": {
-          "type": "text_block",
+          "type": "feature",
           "settings": {
-            "icons": "at-shield-check",
+            "icon": "award",
             "title": "Quality promise",
-            "text": "<p>Independently tested batches, cold-chain storage and full traceability.</p>",
-            "texturl": ""
+            "text": "<p>Independently tested batches, careful storage and full traceability.</p>"
           }
         }
       },
@@ -243,25 +240,13 @@
       ],
       "settings": {
         "title": "Why choose Medzuro",
-        "subtitle": "",
-        "top-offeset": "default",
-        "section_width": false,
-        "section_cov": true,
-        "sec_bg_clr": "#fafafa",
-        "bgg": "",
-        "hide_mobile": false,
-        "hided": false,
-        "style": "style2",
-        "icon-type": "icon",
-        "icons_clr": "#333333",
-        "isz": 30,
-        "tcl": "#111111",
-        "tfs": 14,
-        "tfsm": 12,
-        "tfw": "600",
-        "tlh": 1.2,
-        "cl": "#333333",
-        "border_sep": "#eeeeee"
+        "section_width": "container",
+        "align": "center",
+        "show_card": true,
+        "bg_color": "#f5f7fa",
+        "icon_size": 64,
+        "radius": 14,
+        "card_padding": 28
       }
     },
     "counters": {

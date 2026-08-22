@@ -306,8 +306,8 @@
           "type": "testimonial",
           "settings": {
             "rating": 5,
-            "title": "Arrived the same day",
-            "text": "<p>Ordered in the morning and it was at my door in Suva before dinner. I did not expect that here.</p>",
+            "title": "The real thing, not a copy",
+            "text": "<p>I stopped buying supplements online because I could never tell what was genuine. Buying from the authorized seller takes that worry away.</p>",
             "author": "Verified customer",
             "detail": "Suva"
           }
@@ -316,20 +316,20 @@
           "type": "testimonial",
           "settings": {
             "rating": 5,
-            "title": "Genuine HolyOak, no doubt",
-            "text": "<p>Knowing they are the authorized seller means I am not guessing whether what I bought is the real thing.</p>",
+            "title": "Labels you can actually read",
+            "text": "<p>Every ingredient and dose is listed on the page before you buy. I no longer have to squint at the back of a bottle in a shop.</p>",
             "author": "Verified customer",
-            "detail": "Nausori"
+            "detail": "Lautoka"
           }
         },
         "q3": {
           "type": "testimonial",
           "settings": {
             "rating": 5,
-            "title": "Everything is actually explained",
-            "text": "<p>Every ingredient and dose is listed on the page. Finally a store that tells you what is in the bottle.</p>",
+            "title": "Sealed and properly packed",
+            "text": "<p>Arrived sealed, batch and expiry clearly printed, packed so nothing was damaged. Small things, but they matter with supplements.</p>",
             "author": "Verified customer",
-            "detail": "Lautoka"
+            "detail": "Nausori"
           }
         }
       },

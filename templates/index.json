@@ -172,80 +172,6 @@
         "padding_bottom": 70
       }
     },
-    "featured_product": {
-      "type": "featured-product",
-      "blocks": {
-        "fp_title": {
-          "type": "title",
-          "settings": {
-            "cl": "#000000",
-            "fs": 22,
-            "fsm": 18,
-            "ff": "ft2",
-            "fw": "600",
-            "transform": "tt-c",
-            "bm": 20
-          }
-        },
-        "fp_price": {
-          "type": "price",
-          "settings": {
-            "pcl": "#000000",
-            "pcls": "#e95144",
-            "fs": 25,
-            "fsm": 16,
-            "pfw": "600",
-            "saved": true,
-            "taxship": false,
-            "bm": 20
-          }
-        },
-        "fp_ras": {
-          "type": "ras",
-          "settings": {
-            "availability": true,
-            "sku": true,
-            "bm": 20
-          }
-        },
-        "fp_shortdes": {
-          "type": "shortdes",
-          "settings": {
-            "type": "shortd",
-            "lmt": 40,
-            "bm": 20
-          }
-        },
-        "fp_variants": {
-          "type": "variants",
-          "settings": {
-            "bm": 20
-          }
-        },
-        "fp_cta": {
-          "type": "cta",
-          "settings": {
-            "qty_sel": true,
-            "giftcard_recipient": false,
-            "bm": 15
-          }
-        }
-      },
-      "block_order": [
-        "fp_title",
-        "fp_price",
-        "fp_ras",
-        "fp_shortdes",
-        "fp_variants",
-        "fp_cta"
-      ],
-      "settings": {
-        "top-offeset": "default",
-        "section_width": false,
-        "product": "",
-        "icw": 50
-      }
-    },
     "holyoak_collection": {
       "type": "product-slider",
       "settings": {
@@ -600,7 +526,6 @@
   "order": [
     "hero_banner",
     "shop_by_category",
-    "featured_product",
     "holyoak_collection",
     "why_medzuro",
     "counters",

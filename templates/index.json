@@ -110,6 +110,7 @@
           "settings": {
             "title": "Vitamins & Minerals",
             "url": "/collections/vitamins-minerals",
+            "image": "shopify://shop_images/vitamin-and-minerals.jpg",
             "color_from": "#eaf0fa",
             "color_to": "#d3e0f2"
           }
@@ -119,6 +120,7 @@
           "settings": {
             "title": "Herbal Formulations",
             "url": "/collections/herbal-formulations",
+            "image": "shopify://shop_images/herbal.webp",
             "color_from": "#eef3ea",
             "color_to": "#dbe7d4"
           }
@@ -128,6 +130,7 @@
           "settings": {
             "title": "Sports Nutrition",
             "url": "/collections/sports-nutrition",
+            "image": "shopify://shop_images/sports-nutrition.jpg",
             "color_from": "#f4ecec",
             "color_to": "#ecd9da"
           }
@@ -137,6 +140,7 @@
           "settings": {
             "title": "Daily Wellness",
             "url": "/collections/daily-wellness",
+            "image": "shopify://shop_images/natural-products-beauty-healthy-routine.webp",
             "color_from": "#f5f1ea",
             "color_to": "#eae1d1"
           }
@@ -154,10 +158,18 @@
         "section_width": "container",
         "columns": 4,
         "columns_mobile": 2,
+        "gap": 30,
         "disc_max": 200,
         "image_fit": "cover",
         "image_scale": 70,
-        "gap": 30
+        "bg_color": "#ffffff",
+        "title_color": "#0b1b33",
+        "sub_color": "#5a6b82",
+        "label_color": "#002964",
+        "title_size": 32,
+        "label_size": 14,
+        "padding_top": 70,
+        "padding_bottom": 70
       }
     },
     "featured_product": {

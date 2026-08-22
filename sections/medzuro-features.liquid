@@ -15,7 +15,7 @@
 {%- capture icon_check -%}<circle cx="12" cy="12" r="8.5"/><path d="m8.5 12 2.4 2.4 4.6-4.8"/>{%- endcapture -%}
 
 <div class="mz-feat section-{{ section.id }}">
-  <div class="{% if section.settings.section_width == 'container' %}container{% endif %}">
+  <div class="{% if section.settings.section_width == 'container' %}page-width{% else %}fullwidth{% endif %}">
     {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
       <div class="mz-feat__head tc">
         {%- if section.settings.title != blank -%}<h2 class="mz-feat__title">{{ section.settings.title }}</h2>{%- endif -%}

@@ -18,7 +18,7 @@
 {%- endif -%}
 
 <div class="mz-counters mz-counters--{{ style }} section-{{ section.id }}">
-  <div class="{% if section.settings.section_width == 'container' %}container{% endif %}">
+  <div class="{% if section.settings.section_width == 'container' %}page-width{% else %}fullwidth{% endif %}">
     {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
       <div class="mz-counters__head tc">
         {%- if section.settings.title != blank -%}<h2 class="mz-counters__title">{{ section.settings.title }}</h2>{%- endif -%}

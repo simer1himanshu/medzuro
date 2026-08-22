@@ -10,7 +10,7 @@
 {%- endcomment -%}
 
 <div class="mz-cats section-{{ section.id }}">
-  <div class="{% if section.settings.section_width == 'container' %}container{% endif %}">
+  <div class="{% if section.settings.section_width == 'container' %}page-width{% else %}fullwidth{% endif %}">
     {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
       <div class="mz-cats__head tc">
         {%- if section.settings.title != blank -%}<h2 class="mz-cats__title">{{ section.settings.title }}</h2>{%- endif -%}

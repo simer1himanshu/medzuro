@@ -19,7 +19,7 @@
 
 {%- if has_products or show_ph -%}
 <div class="mz-prod section-{{ section.id }}">
-  <div class="{% if section.settings.section_width == 'container' %}container{% endif %}">
+  <div class="{% if section.settings.section_width == 'container' %}page-width{% else %}fullwidth{% endif %}">
     {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
       <div class="mz-prod__head">
         <div class="mz-prod__headtext">

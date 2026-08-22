@@ -64,6 +64,23 @@
                 </div>
               {%- endif -%}
 
+            {%- when 'links' -%}
+              {%- capture manual_links -%}
+                {%- for i in (1..6) -%}
+                  {%- assign lkey = 'link' | append: i -%}
+                  {%- assign ukey = 'url' | append: i -%}
+                  {%- if b[lkey] != blank -%}
+                    <li><a href="{{ b[ukey] | default: '#' }}">{{ b[lkey] }}</a></li>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endcapture -%}
+              {%- if manual_links != blank -%}
+                <div class="mz-foot__col" {{ block.shopify_attributes }}>
+                  {%- if b.title != blank -%}<h2 class="mz-foot__ttl">{{ b.title }}</h2>{%- endif -%}
+                  <ul class="mz-foot__links" role="list">{{ manual_links }}</ul>
+                </div>
+              {%- endif -%}
+
             {%- when 'text' -%}
               <div class="mz-foot__col" {{ block.shopify_attributes }}>
                 {%- if b.title != blank -%}<h2 class="mz-foot__ttl">{{ b.title }}</h2>{%- endif -%}
@@ -215,8 +232,28 @@
   ],
   "blocks": [
     {
+      "type": "links",
+      "name": "Links column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Shop" },
+        { "type": "paragraph", "content": "Type links directly — no Admin menu required. Empty rows are skipped." },
+        { "type": "text", "id": "link1", "label": "Link 1 text" },
+        { "type": "url",  "id": "url1",  "label": "Link 1 URL" },
+        { "type": "text", "id": "link2", "label": "Link 2 text" },
+        { "type": "url",  "id": "url2",  "label": "Link 2 URL" },
+        { "type": "text", "id": "link3", "label": "Link 3 text" },
+        { "type": "url",  "id": "url3",  "label": "Link 3 URL" },
+        { "type": "text", "id": "link4", "label": "Link 4 text" },
+        { "type": "url",  "id": "url4",  "label": "Link 4 URL" },
+        { "type": "text", "id": "link5", "label": "Link 5 text" },
+        { "type": "url",  "id": "url5",  "label": "Link 5 URL" },
+        { "type": "text", "id": "link6", "label": "Link 6 text" },
+        { "type": "url",  "id": "url6",  "label": "Link 6 URL" }
+      ]
+    },
+    {
       "type": "menu",
-      "name": "Link column",
+      "name": "Menu column",
       "settings": [
         { "type": "text", "id": "title", "label": "Heading", "default": "Shop" },
         { "type": "link_list", "id": "menu", "label": "Menu", "info": "Renders nothing until a menu is chosen." }
@@ -239,6 +276,6 @@
       ]
     }
   ],
-  "max_blocks": 4
+  "max_blocks": 5
 }
 {% endschema %}

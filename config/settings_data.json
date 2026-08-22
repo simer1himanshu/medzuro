@@ -797,17 +797,49 @@
         "type": "medzuro-footer",
         "blocks": {
           "f_shop": {
-            "type": "menu",
+            "type": "links",
             "settings": {
               "title": "Shop",
-              "menu": "main-menu"
+              "link1": "Shop all",
+              "url1": "/collections/all",
+              "link2": "HolyOak",
+              "url2": "/collections/holyoak",
+              "link3": "Vitamins & Minerals",
+              "url3": "/collections/vitamins-minerals",
+              "link4": "Herbal Formulations",
+              "url4": "/collections/herbal-formulations",
+              "link5": "Sports Nutrition",
+              "url5": "/collections/sports-nutrition",
+              "link6": "Daily Wellness",
+              "url6": "/collections/daily-wellness"
             }
           },
           "f_help": {
-            "type": "menu",
+            "type": "links",
             "settings": {
               "title": "Customer service",
-              "menu": "customer-service"
+              "link1": "Contact us",
+              "url1": "/pages/contact",
+              "link2": "Delivery & pickup",
+              "url2": "/pages/delivery",
+              "link3": "Returns",
+              "url3": "/pages/returns",
+              "link4": "FAQ",
+              "url4": "/pages/faq",
+              "link5": "Track your order",
+              "url5": "/account"
+            }
+          },
+          "f_company": {
+            "type": "links",
+            "settings": {
+              "title": "Company",
+              "link1": "About Medzuro",
+              "url1": "/pages/about",
+              "link2": "Authorized HolyOak seller",
+              "url2": "/pages/authorized-seller",
+              "link3": "Wellness journal",
+              "url3": "/blogs/news"
             }
           },
           "f_news": {
@@ -821,6 +853,7 @@
         "block_order": [
           "f_shop",
           "f_help",
+          "f_company",
           "f_news"
         ],
         "settings": {
@@ -832,7 +865,7 @@
           "badge_text": "Authorized HolyOak Seller",
           "address": "Suva, Fiji",
           "brand_width": 1,
-          "columns": 3,
+          "columns": 4,
           "copyright": "© [year] Medzuro Retail. All rights reserved.",
           "show_policies": true,
           "show_social": true,

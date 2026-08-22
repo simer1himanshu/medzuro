@@ -79,10 +79,11 @@
         {%- comment -%} Sample cards so the layout is visible before the catalogue exists. {%- endcomment -%}
         {%- assign ph_count = section.settings.columns | times: 2 -%}
         {%- for i in (1..ph_count) -%}
+          {%- assign ph_n = i | modulo: 6 | plus: 1 -%}
           <li class="mz-prod__card mz-prod__card--ph">
             <span class="mz-prod__link">
               <span class="mz-prod__media">
-                {{ 'product-' | append: i | placeholder_svg_tag: 'mz-prod__img mz-prod__img--ph' }}
+                {{ 'product-' | append: ph_n | placeholder_svg_tag: 'mz-prod__img mz-prod__img--ph' }}
               </span>
               <span class="mz-prod__body">
                 {%- if section.settings.show_vendor -%}<span class="mz-prod__vendor">HolyOak</span>{%- endif -%}
@@ -135,7 +136,7 @@
   .section-{{ section.id }} .mz-prod__labels { position:absolute; top:10px; left:10px; display:flex; flex-direction:column; gap:5px; align-items:flex-start; }
   .section-{{ section.id }} .mz-prod__sale { background:{{ section.settings.sale_color }}; }
 
-  .section-{{ section.id }} .mz-prod__body { display:flex; flex-direction:column; gap:5px; padding:16px 16px 18px; }
+  .section-{{ section.id }} .mz-prod__body { display:flex; flex-direction:column; gap:6px; padding:{{ section.settings.body_padding }}px; }
   .section-{{ section.id }} .mz-prod__vendor { font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:650; color:{{ section.settings.accent }}; }
   .section-{{ section.id }} .mz-prod__name { font-size:{{ section.settings.name_size }}px; font-weight:600; line-height:1.35; color:{{ section.settings.name_color }}; }
   .section-{{ section.id }} .mz-prod__price { display:flex; align-items:baseline; gap:8px; margin-top:2px; font-variant-numeric:tabular-nums; }
@@ -189,6 +190,7 @@
         { "value": "cover", "label": "Fill the panel" }
       ] },
     { "type": "range", "id": "radius", "min": 0, "max": 28, "step": 2, "unit": "px", "label": "Corner radius", "default": 14 },
+    { "type": "range", "id": "body_padding", "min": 8, "max": 36, "step": 2, "unit": "px", "label": "Card text padding", "default": 20 },
     { "type": "header", "content": "Type" },
     { "type": "color", "id": "accent", "label": "Accent", "default": "#002964" },
     { "type": "color", "id": "title_color", "label": "Heading colour", "default": "#0b1b33" },

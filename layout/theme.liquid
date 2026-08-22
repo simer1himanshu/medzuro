@@ -141,7 +141,7 @@
   		{%- render 'header' -%}
     	{%- if settings.info-bar == 'below' -%}{% section 'top-info-panel' %}{%- endif -%}
 		<main id="PageContainer" class="main-content {{ template | split: '.' | first }}" id="MainContent" role="main">{{ content_for_layout }}</main>
-    	{%- section 'footer' -%}
+    	{%- section 'medzuro-footer' -%}
         {%- section 'mobile-toolbar' -%}
   	{% if settings.layout_style == "boxedlayout" %}</div>{% endif %}
 	{% section 'custom-colors' %}

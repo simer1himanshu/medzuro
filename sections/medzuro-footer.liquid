@@ -1,0 +1,244 @@
+{%- comment -%} medzuro build file {%- endcomment -%}
+{%- comment -%}
+  Medzuro — site footer.
+
+  Brand column with logo, blurb, authorized-seller badge and contact, then
+  block-driven link columns and a newsletter. Bottom bar carries copyright,
+  policy links, social and payment icons.
+
+  Blocks are optional: a link column with no menu chosen renders nothing, so
+  the footer degrades cleanly before the Admin menus exist.
+{%- endcomment -%}
+
+{%- assign s = section.settings -%}
+
+<footer class="mz-foot section-{{ section.id }}" role="contentinfo">
+  <div class="{% if s.section_width == 'container' %}page-width{% else %}fullwidth{% endif %}">
+
+    <div class="mz-foot__top">
+      <div class="mz-foot__brand">
+        <a class="mz-foot__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+          {%- if s.logo != blank -%}
+            {{ s.logo | image_url: width: 480 | image_tag: loading: 'lazy', widths: '160,240,320,480', alt: shop.name }}
+          {%- else -%}
+            <img src="{{ 'medzuro-logo.png' | asset_url }}" width="180" height="58" alt="{{ shop.name }}" loading="lazy">
+          {%- endif -%}
+        </a>
+
+        {%- if s.blurb != blank -%}<p class="mz-foot__blurb">{{ s.blurb }}</p>{%- endif -%}
+
+        {%- if s.show_seller_badge -%}
+          <div class="mz-foot__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M12 3 5 6v5.5c0 4.3 2.9 7.4 7 8.9 4.1-1.5 7-4.6 7-8.9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/>
+            </svg>
+            <span>{{ s.badge_text }}</span>
+          </div>
+        {%- endif -%}
+
+        {%- if s.address != blank or s.phone != blank or s.email != blank -%}
+          <ul class="mz-foot__contact" role="list">
+            {%- if s.address != blank -%}<li>{{ s.address }}</li>{%- endif -%}
+            {%- if s.phone != blank -%}<li><a href="tel:{{ s.phone | strip | remove: ' ' }}">{{ s.phone }}</a></li>{%- endif -%}
+            {%- if s.email != blank -%}<li><a href="mailto:{{ s.email }}">{{ s.email }}</a></li>{%- endif -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <div class="mz-foot__cols">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          {%- case block.type -%}
+
+            {%- when 'menu' -%}
+              {%- assign list = linklists[b.menu] -%}
+              {%- if list.links.size > 0 -%}
+                <div class="mz-foot__col" {{ block.shopify_attributes }}>
+                  {%- if b.title != blank -%}<h2 class="mz-foot__ttl">{{ b.title }}</h2>{%- endif -%}
+                  <ul class="mz-foot__links" role="list">
+                    {%- for link in list.links -%}
+                      <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+
+            {%- when 'text' -%}
+              <div class="mz-foot__col" {{ block.shopify_attributes }}>
+                {%- if b.title != blank -%}<h2 class="mz-foot__ttl">{{ b.title }}</h2>{%- endif -%}
+                {%- if b.text != blank -%}<div class="mz-foot__rte rte">{{ b.text }}</div>{%- endif -%}
+              </div>
+
+            {%- when 'newsletter' -%}
+              <div class="mz-foot__col mz-foot__col--wide" {{ block.shopify_attributes }}>
+                {%- if b.title != blank -%}<h2 class="mz-foot__ttl">{{ b.title }}</h2>{%- endif -%}
+                {%- if b.text != blank -%}<p class="mz-foot__blurb">{{ b.text }}</p>{%- endif -%}
+                <div class="mz-foot__news">{% render 'newsletter-form' %}</div>
+              </div>
+
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="mz-foot__bottom">
+      {%- assign this_year = 'now' | date: '%Y' -%}
+      <p class="mz-foot__copy">{{ s.copyright | replace: '[year]', this_year }}</p>
+
+      {%- if s.show_policies -%}
+        <ul class="mz-foot__policies" role="list">
+          {%- if shop.privacy_policy != blank -%}<li><a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a></li>{%- endif -%}
+          {%- if shop.terms_of_service != blank -%}<li><a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a></li>{%- endif -%}
+          {%- if shop.refund_policy != blank -%}<li><a href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a></li>{%- endif -%}
+          {%- if shop.shipping_policy != blank -%}<li><a href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title }}</a></li>{%- endif -%}
+        </ul>
+      {%- endif -%}
+
+      <div class="mz-foot__end">
+        {%- if s.show_social -%}<div class="mz-foot__social">{% render 'social-media', hideLbl: true %}</div>{%- endif -%}
+        {%- if s.show_payment and shop.enabled_payment_types.size > 0 -%}
+          <ul class="mz-foot__pay" role="list">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>{{ type | payment_type_svg_tag: class: 'mz-foot__payicon' }}</li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .section-{{ section.id }} { background:{{ s.bg }}; color:{{ s.text }}; padding:{{ s.padding_top }}px 0 {{ s.padding_bottom }}px; }
+  .section-{{ section.id }} a { color:{{ s.text }}; text-decoration:none; transition:color .2s ease; }
+  .section-{{ section.id }} a:hover { color:{{ s.link_hover }}; }
+  .section-{{ section.id }} a:focus-visible { outline:2px solid {{ s.link_hover }}; outline-offset:3px; border-radius:3px; }
+
+  .section-{{ section.id }} .mz-foot__top {
+    display:grid; gap:40px; grid-template-columns:1fr;
+    padding-bottom:36px;
+  }
+  @media (min-width:900px) {
+    .section-{{ section.id }} .mz-foot__top { grid-template-columns: minmax(240px, {{ s.brand_width }}fr) 2fr; gap:56px; }
+  }
+
+  .section-{{ section.id }} .mz-foot__brand { display:flex; flex-direction:column; gap:16px; align-items:flex-start; }
+  .section-{{ section.id }} .mz-foot__logo img { width:{{ s.logo_width }}px; height:auto; display:block; {% if s.invert_logo %}filter:brightness(0) invert(1);{% endif %} }
+  .section-{{ section.id }} .mz-foot__blurb { margin:0; max-width:42ch; line-height:1.6; color:{{ s.muted }}; }
+
+  .section-{{ section.id }} .mz-foot__badge {
+    display:inline-flex; align-items:center; gap:9px; padding:9px 14px; border-radius:100px;
+    background:{{ s.badge_bg }}; color:{{ s.badge_text_color }}; font-size:13px; font-weight:650; line-height:1.2;
+  }
+  .section-{{ section.id }} .mz-foot__badge svg { width:17px; height:17px; flex:0 0 auto; }
+
+  .section-{{ section.id }} .mz-foot__contact { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:5px; color:{{ s.muted }}; font-size:14px; }
+
+  .section-{{ section.id }} .mz-foot__cols { display:grid; gap:32px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  @media (min-width:900px) { .section-{{ section.id }} .mz-foot__cols { grid-template-columns:repeat({{ s.columns }},minmax(0,1fr)); } }
+  .section-{{ section.id }} .mz-foot__col { display:flex; flex-direction:column; gap:12px; min-width:0; }
+  .section-{{ section.id }} .mz-foot__col--wide { grid-column:1 / -1; }
+  @media (min-width:900px) { .section-{{ section.id }} .mz-foot__col--wide { grid-column:auto; } }
+
+  .section-{{ section.id }} .mz-foot__ttl {
+    margin:0; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:{{ s.heading }};
+  }
+  .section-{{ section.id }} .mz-foot__links { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; font-size:14px; }
+  .section-{{ section.id }} .mz-foot__rte { color:{{ s.muted }}; font-size:14px; line-height:1.6; }
+  .section-{{ section.id }} .mz-foot__rte p { margin:0 0 8px; }
+  .section-{{ section.id }} .mz-foot__news .input-group { display:flex; gap:8px; flex-wrap:wrap; }
+  .section-{{ section.id }} .mz-foot__news input[type="email"] {
+    flex:1 1 180px; min-width:0; padding:11px 14px; border-radius:8px;
+    border:1px solid {{ s.field_border }}; background:{{ s.field_bg }}; color:{{ s.field_text }};
+  }
+  .section-{{ section.id }} .mz-foot__news input::placeholder { color:{{ s.muted }}; }
+  .section-{{ section.id }} .mz-foot__news .btn { border-radius:8px; padding:11px 20px; border:0; cursor:pointer; background:{{ s.btn_bg }}; color:{{ s.btn_text }}; font-weight:650; }
+  .section-{{ section.id }} .mz-foot__news .btn:hover { background:{{ s.link_hover }}; }
+
+  .section-{{ section.id }} .mz-foot__bottom {
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px;
+    padding-top:24px; border-top:1px solid {{ s.divider }};
+  }
+  .section-{{ section.id }} .mz-foot__copy { margin:0; font-size:13px; color:{{ s.muted }}; }
+  .section-{{ section.id }} .mz-foot__policies { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px 18px; font-size:13px; }
+  .section-{{ section.id }} .mz-foot__end { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .section-{{ section.id }} .mz-foot__social ul { list-style:none; margin:0; padding:0; display:flex; gap:14px; }
+  .section-{{ section.id }} .mz-foot__social .icon__fallback-text { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  .section-{{ section.id }} .mz-foot__social i { font-size:17px; }
+  .section-{{ section.id }} .mz-foot__pay { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:7px; }
+  .section-{{ section.id }} .mz-foot__payicon { width:38px; height:24px; display:block; }
+</style>
+
+{% schema %}
+{
+  "name": "Medzuro footer",
+  "tag": "footer",
+  "class": "mz-foot-section",
+  "settings": [
+    { "type": "select", "id": "section_width", "label": "Width", "default": "container",
+      "options": [{ "value": "container", "label": "Contained" }, { "value": "full", "label": "Full width" }] },
+    { "type": "header", "content": "Brand column" },
+    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Falls back to the theme's Medzuro logo." },
+    { "type": "range", "id": "logo_width", "min": 100, "max": 280, "step": 10, "unit": "px", "label": "Logo width", "default": 180 },
+    { "type": "checkbox", "id": "invert_logo", "label": "Show logo in white", "default": true, "info": "Use on a dark footer." },
+    { "type": "textarea", "id": "blurb", "label": "About text", "default": "Fiji's premium nutraceutical and wellness retailer, and the authorized seller of HolyOak products in Fiji." },
+    { "type": "checkbox", "id": "show_seller_badge", "label": "Show authorized seller badge", "default": true },
+    { "type": "text", "id": "badge_text", "label": "Badge text", "default": "Authorized HolyOak Seller" },
+    { "type": "textarea", "id": "address", "label": "Address", "default": "Suva, Fiji" },
+    { "type": "text", "id": "phone", "label": "Phone" },
+    { "type": "text", "id": "email", "label": "Email" },
+    { "type": "range", "id": "brand_width", "min": 1, "max": 3, "step": 1, "label": "Brand column width", "default": 1 },
+    { "type": "range", "id": "columns", "min": 2, "max": 4, "step": 1, "label": "Link columns", "default": 3 },
+    { "type": "header", "content": "Bottom bar" },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "© [year] Medzuro Retail. All rights reserved." },
+    { "type": "checkbox", "id": "show_policies", "label": "Show store policy links", "default": true },
+    { "type": "checkbox", "id": "show_social", "label": "Show social icons", "default": true },
+    { "type": "checkbox", "id": "show_payment", "label": "Show payment icons", "default": true },
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "bg", "label": "Background", "default": "#002964" },
+    { "type": "color", "id": "text", "label": "Text and links", "default": "#ffffff" },
+    { "type": "color", "id": "muted", "label": "Muted text", "default": "#a9bcd6" },
+    { "type": "color", "id": "heading", "label": "Column headings", "default": "#ffffff" },
+    { "type": "color", "id": "link_hover", "label": "Link hover", "default": "#e30a1b" },
+    { "type": "color", "id": "divider", "label": "Divider", "default": "rgba(255,255,255,0.16)" },
+    { "type": "color", "id": "badge_bg", "label": "Badge background", "default": "rgba(255,255,255,0.10)" },
+    { "type": "color", "id": "badge_text_color", "label": "Badge text", "default": "#ffffff" },
+    { "type": "color", "id": "field_bg", "label": "Input background", "default": "rgba(255,255,255,0.08)" },
+    { "type": "color", "id": "field_border", "label": "Input border", "default": "rgba(255,255,255,0.22)" },
+    { "type": "color", "id": "field_text", "label": "Input text", "default": "#ffffff" },
+    { "type": "color", "id": "btn_bg", "label": "Button background", "default": "#ffffff" },
+    { "type": "color", "id": "btn_text", "label": "Button text", "default": "#002964" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "min": 20, "max": 120, "step": 5, "unit": "px", "label": "Padding top", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "min": 20, "max": 120, "step": 5, "unit": "px", "label": "Padding bottom", "default": 30 }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Link column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "info": "Renders nothing until a menu is chosen." }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "About" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Tell customers about the store.</p>" }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Stay well informed" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Wellness tips and early access to new arrivals." }
+      ]
+    }
+  ],
+  "max_blocks": 4
+}
+{% endschema %}

@@ -505,76 +505,6 @@
           "btntlnk": "/"
         }
       },
-      "footer": {
-        "type": "footer",
-        "blocks": {
-          "f_contact": {
-            "type": "contact",
-            "settings": {
-              "title": "Contact",
-              "logo-width": 150,
-              "address": "Suva, Fiji",
-              "phone": "",
-              "email": "",
-              "show_icons": true,
-              "show_socials": false
-            }
-          },
-          "f_service": {
-            "type": "menu",
-            "settings": {
-              "title": "Customer Service",
-              "menulinks": "customer-service",
-              "width": "wd20-md"
-            }
-          },
-          "f_company": {
-            "type": "menu",
-            "settings": {
-              "title": "Company",
-              "menulinks": "information",
-              "width": "wd20-md"
-            }
-          },
-          "f_social": {
-            "type": "socialicons",
-            "settings": {
-              "title": "Stay connected",
-              "width": "wd20-md"
-            }
-          },
-          "f_news": {
-            "type": "newsletter",
-            "settings": {
-              "title": "Wellness tips, straight to your inbox",
-              "sub_title": "",
-              "show_socials": false,
-              "socials_ttl": "",
-              "newltr_align": false,
-              "width": "wd20-md"
-            }
-          }
-        },
-        "block_order": [
-          "f_contact",
-          "f_service",
-          "f_company",
-          "f_social",
-          "f_news"
-        ],
-        "settings": {
-          "section_width": false,
-          "copyright_text": "© [year], Medzuro Retail. All rights reserved.",
-          "show_designby": false,
-          "show_payment": false,
-          "payment_img": "",
-          "payment_img_width": "350",
-          "mobile_center": false,
-          "mobile_collapse": false,
-          "snow_effect": false,
-          "snow_style": "style1"
-        }
-      },
       "image-slideshow": {
         "type": "image-slideshow",
         "blocks": {
@@ -861,6 +791,59 @@
           "cl": "#333333",
           "bg": "#ffffff",
           "bgg": ""
+        }
+      },
+      "medzuro-footer": {
+        "type": "medzuro-footer",
+        "blocks": {
+          "f_shop": {
+            "type": "menu",
+            "settings": {
+              "title": "Shop",
+              "menu": "main-menu"
+            }
+          },
+          "f_help": {
+            "type": "menu",
+            "settings": {
+              "title": "Customer service",
+              "menu": "customer-service"
+            }
+          },
+          "f_news": {
+            "type": "newsletter",
+            "settings": {
+              "title": "Stay well informed",
+              "text": "Wellness tips and early access to new arrivals."
+            }
+          }
+        },
+        "block_order": [
+          "f_shop",
+          "f_help",
+          "f_news"
+        ],
+        "settings": {
+          "section_width": "container",
+          "logo_width": 180,
+          "invert_logo": true,
+          "blurb": "Fiji's premium nutraceutical and wellness retailer, and the authorized seller of HolyOak products in Fiji.",
+          "show_seller_badge": true,
+          "badge_text": "Authorized HolyOak Seller",
+          "address": "Suva, Fiji",
+          "brand_width": 1,
+          "columns": 3,
+          "copyright": "© [year] Medzuro Retail. All rights reserved.",
+          "show_policies": true,
+          "show_social": true,
+          "show_payment": true,
+          "bg": "#002964",
+          "text": "#ffffff",
+          "muted": "#a9bcd6",
+          "heading": "#ffffff",
+          "link_hover": "#e30a1b",
+          "padding_top": 60,
+          "padding_bottom": 30
         }
       }
     },

@@ -47,8 +47,7 @@
               <span class="mz-tst__avatar" aria-hidden="true">
                 {%- if b.avatar != blank -%}
                   {{ b.avatar | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
-                {%- else -%}
-                  {{ b.author | strip | slice: 0 | upcase }}
+                {%- else -%}{{ b.author | strip | slice: 0 | upcase }}
                 {%- endif -%}
               </span>
               <span class="mz-tst__meta">

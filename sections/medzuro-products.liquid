@@ -14,30 +14,10 @@
 {%- assign has_products = false -%}
 {%- if coll != blank and coll.products_count > 0 -%}{%- assign has_products = true -%}{%- endif -%}
 
-{%- comment -%}
-  Empty and in the theme editor: show a placeholder so the section can still be
-  found and configured. On the live storefront it stays hidden entirely.
-{%- endcomment -%}
-{%- if has_products == false and request.design_mode -%}
-  <div class="mz-prod section-{{ section.id }}">
-    <div class="{% if section.settings.section_width == 'container' %}container{% endif %}">
-      <div class="mz-prod__empty">
-        <strong>{{ section.settings.title | default: 'Medzuro products' }}</strong>
-        <span>{% if coll == blank %}Choose a collection for this section.{% else %}“{{ coll.title }}” has no products yet.{% endif %} This section is hidden on the live store until it has products to show.</span>
-      </div>
-    </div>
-  </div>
-  <style>
-    .section-{{ section.id }} .mz-prod__empty {
-      display:flex; flex-direction:column; gap:6px; padding:28px; text-align:center;
-      border:1px dashed {{ section.settings.card_border }}; border-radius:{{ section.settings.radius }}px;
-      background:{{ section.settings.media_bg }}; color:{{ section.settings.sub_color }};
-    }
-    .section-{{ section.id }} .mz-prod__empty strong { color:{{ section.settings.title_color }}; font-size:16px; }
-  </style>
-{%- endif -%}
+{%- assign show_ph = false -%}
+{%- if has_products == false and section.settings.show_placeholders -%}{%- assign show_ph = true -%}{%- endif -%}
 
-{%- if has_products -%}
+{%- if has_products or show_ph -%}
 <div class="mz-prod section-{{ section.id }}">
   <div class="{% if section.settings.section_width == 'container' %}container{% endif %}">
     {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
@@ -46,7 +26,7 @@
           {%- if section.settings.title != blank -%}<h2 class="mz-prod__title">{{ section.settings.title }}</h2>{%- endif -%}
           {%- if section.settings.subtitle != blank -%}<p class="mz-prod__sub">{{ section.settings.subtitle }}</p>{%- endif -%}
         </div>
-        {%- if section.settings.show_viewall -%}
+        {%- if section.settings.show_viewall and has_products -%}
           <a class="mz-prod__viewall" href="{{ coll.url }}">
             {{ section.settings.viewall_text }}
             <svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true" focusable="false">
@@ -94,6 +74,25 @@
           </a>
         </li>
       {%- endfor -%}
+
+      {%- if show_ph -%}
+        {%- comment -%} Sample cards so the layout is visible before the catalogue exists. {%- endcomment -%}
+        {%- assign ph_count = section.settings.columns | times: 2 -%}
+        {%- for i in (1..ph_count) -%}
+          <li class="mz-prod__card mz-prod__card--ph">
+            <span class="mz-prod__link">
+              <span class="mz-prod__media">
+                {{ 'product-' | append: i | placeholder_svg_tag: 'mz-prod__img mz-prod__img--ph' }}
+              </span>
+              <span class="mz-prod__body">
+                {%- if section.settings.show_vendor -%}<span class="mz-prod__vendor">HolyOak</span>{%- endif -%}
+                <span class="mz-prod__name">{{ 'homepage.onboarding.product_title' | t }}</span>
+                <span class="mz-prod__price"><span class="mz-prod__now">{{ 1999 | money }}</span></span>
+              </span>
+            </span>
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
     </ul>
   </div>
 </div>
@@ -145,6 +144,10 @@
   .section-{{ section.id }} .mz-prod__was { font-size:{{ section.settings.price_size | minus: 3 }}px; color:{{ section.settings.sub_color }}; }
   .section-{{ section.id }} .mz-prod__stock { font-size:12px; font-weight:650; letter-spacing:.05em; text-transform:uppercase; color:{{ section.settings.sub_color }}; }
 
+  .section-{{ section.id }} .mz-prod__card--ph .mz-prod__link { cursor:default; }
+  .section-{{ section.id }} .mz-prod__card--ph .mz-prod__link:hover { transform:none; border-color:{{ section.settings.card_border }}; }
+  .section-{{ section.id }} .mz-prod__img--ph { background:transparent; fill:{{ section.settings.sub_color }}; opacity:.28; padding:12%; }
+
   @media (prefers-reduced-motion: reduce) {
     .section-{{ section.id }} .mz-prod__link,
     .section-{{ section.id }} .mz-prod__img,
@@ -173,6 +176,8 @@
     { "type": "checkbox", "id": "show_viewall", "label": "Show view-all link", "default": true },
     { "type": "text", "id": "viewall_text", "label": "View-all text", "default": "View all" },
     { "type": "checkbox", "id": "show_vendor", "label": "Show vendor", "default": true },
+    { "type": "checkbox", "id": "show_placeholders", "label": "Show sample products when empty", "default": true,
+      "info": "Draws example cards while the catalogue is being built. Turn this off before launch." },
     { "type": "header", "content": "Card" },
     { "type": "color", "id": "bg_color", "label": "Section background", "default": "#ffffff" },
     { "type": "color", "id": "card_bg", "label": "Card background", "default": "#ffffff" },

@@ -11,7 +11,33 @@
 {%- assign coll = collections[section.settings.collection] -%}
 {%- assign limit = section.settings.limit -%}
 
-{%- if coll != blank and coll.products_count > 0 -%}
+{%- assign has_products = false -%}
+{%- if coll != blank and coll.products_count > 0 -%}{%- assign has_products = true -%}{%- endif -%}
+
+{%- comment -%}
+  Empty and in the theme editor: show a placeholder so the section can still be
+  found and configured. On the live storefront it stays hidden entirely.
+{%- endcomment -%}
+{%- if has_products == false and request.design_mode -%}
+  <div class="mz-prod section-{{ section.id }}">
+    <div class="{% if section.settings.section_width == 'container' %}container{% endif %}">
+      <div class="mz-prod__empty">
+        <strong>{{ section.settings.title | default: 'Medzuro products' }}</strong>
+        <span>{% if coll == blank %}Choose a collection for this section.{% else %}“{{ coll.title }}” has no products yet.{% endif %} This section is hidden on the live store until it has products to show.</span>
+      </div>
+    </div>
+  </div>
+  <style>
+    .section-{{ section.id }} .mz-prod__empty {
+      display:flex; flex-direction:column; gap:6px; padding:28px; text-align:center;
+      border:1px dashed {{ section.settings.card_border }}; border-radius:{{ section.settings.radius }}px;
+      background:{{ section.settings.media_bg }}; color:{{ section.settings.sub_color }};
+    }
+    .section-{{ section.id }} .mz-prod__empty strong { color:{{ section.settings.title_color }}; font-size:16px; }
+  </style>
+{%- endif -%}
+
+{%- if has_products -%}
 <div class="mz-prod section-{{ section.id }}">
   <div class="{% if section.settings.section_width == 'container' %}container{% endif %}">
     {%- if section.settings.title != blank or section.settings.subtitle != blank -%}

@@ -300,86 +300,56 @@
       }
     },
     "reviews": {
-      "type": "quotes",
+      "type": "medzuro-testimonials",
       "blocks": {
         "q1": {
-          "type": "quote",
+          "type": "testimonial",
           "settings": {
+            "rating": 5,
             "title": "Arrived the same day",
-            "quote": "<p>Ordered in the morning and it was at my door in Suva before dinner. I did not expect that here.</p>",
+            "text": "<p>Ordered in the morning and it was at my door in Suva before dinner. I did not expect that here.</p>",
             "author": "Verified customer",
-            "display_rat": true,
-            "rating": 5
+            "detail": "Suva"
           }
         },
         "q2": {
-          "type": "quote",
+          "type": "testimonial",
           "settings": {
+            "rating": 5,
             "title": "Genuine HolyOak, no doubt",
-            "quote": "<p>Knowing they are the authorized seller means I am not guessing whether what I bought is the real thing.</p>",
+            "text": "<p>Knowing they are the authorized seller means I am not guessing whether what I bought is the real thing.</p>",
             "author": "Verified customer",
-            "display_rat": true,
-            "rating": 5
+            "detail": "Nausori"
           }
         },
         "q3": {
-          "type": "quote",
+          "type": "testimonial",
           "settings": {
+            "rating": 5,
             "title": "Everything is actually explained",
-            "quote": "<p>Every ingredient and dose is listed on the page. Finally a store that tells you what is in the bottle.</p>",
+            "text": "<p>Every ingredient and dose is listed on the page. Finally a store that tells you what is in the bottle.</p>",
             "author": "Verified customer",
-            "display_rat": true,
-            "rating": 5
-          }
-        },
-        "q4": {
-          "type": "quote",
-          "settings": {
-            "title": "Reserved online, collected in store",
-            "quote": "<p>Put it aside online and picked it up on the way home. No queue, no fuss.</p>",
-            "author": "Verified customer",
-            "display_rat": true,
-            "rating": 5
+            "detail": "Lautoka"
           }
         }
       },
       "block_order": [
         "q1",
         "q2",
-        "q3",
-        "q4"
+        "q3"
       ],
       "settings": {
         "title": "What our customers say",
-        "top-offeset": "none",
-        "section_width": false,
-        "hide_mobile": false,
-        "hided": false,
-        "bg": "#ffffff",
-        "bgg": "",
-        "quoteStyle": "style2",
-        "stcl": "#0b1b33",
-        "qcl": "#5a6b82",
-        "tfs": 16,
-        "tfsm": 16,
-        "tff": "ft1",
-        "tfw": "600",
-        "tlh": 1.3,
-        "qfs": 14,
-        "qfsm": 13,
-        "lh": 1.6,
-        "rcl": "#ebb868",
-        "rfs": 16,
-        "isbox": true,
-        "qbg": "#f5f7fa",
-        "bg_rad": 14,
-        "autoplay": false,
-        "autoplay_speed": 5,
-        "arrow": false,
-        "arwCl": "#000000",
-        "arwBg": "#ffffff",
-        "dots": true,
-        "dotCl": "#000000"
+        "section_width": "container",
+        "columns": 3,
+        "gap": 24,
+        "show_mark": true,
+        "bg_color": "#ffffff",
+        "card_bg": "#f5f7fa",
+        "radius": 14,
+        "card_padding": 28,
+        "padding_top": 0,
+        "padding_bottom": 70
       }
     },
     "blog": {

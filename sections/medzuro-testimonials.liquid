@@ -1,0 +1,165 @@
+{%- comment -%} medzuro build file {%- endcomment -%}
+{%- comment -%}
+  Medzuro — customer testimonials (spec §7, §23).
+
+  Cards with a star rating, headline, quote and an attribution row. Inline SVG
+  stars, so nothing depends on an icon-font glyph. Laid out as a grid rather
+  than a carousel, so every review is visible and indexable.
+
+  Replace with real reviews from the §23 review app before launch.
+{%- endcomment -%}
+
+{%- capture star_full -%}<path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.6 9.7l5.8-.8L12 3.6Z"/>{%- endcapture -%}
+
+<div class="mz-tst section-{{ section.id }}">
+  <div class="{% if section.settings.section_width == 'container' %}container{% endif %}">
+    {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+      <div class="mz-tst__head tc">
+        {%- if section.settings.title != blank -%}<h2 class="mz-tst__title">{{ section.settings.title }}</h2>{%- endif -%}
+        {%- if section.settings.subtitle != blank -%}<p class="mz-tst__sub">{{ section.settings.subtitle }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <ul class="mz-tst__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <li class="mz-tst__card" {{ block.shopify_attributes }}>
+          {%- if section.settings.show_mark -%}
+            <span class="mz-tst__mark" aria-hidden="true">&ldquo;</span>
+          {%- endif -%}
+
+          {%- if b.rating > 0 -%}
+            <span class="mz-tst__stars" role="img" aria-label="{{ b.rating }} out of 5">
+              {%- for i in (1..5) -%}
+                <svg viewBox="0 0 24 24" class="mz-tst__star{% if i > b.rating %} is-empty{% endif %}"
+                     fill="currentColor" focusable="false" aria-hidden="true">{{ star_full }}</svg>
+              {%- endfor -%}
+            </span>
+          {%- endif -%}
+
+          <blockquote class="mz-tst__quote">
+            {%- if b.title != blank -%}<p class="mz-tst__ttl">{{ b.title }}</p>{%- endif -%}
+            {%- if b.text != blank -%}<div class="mz-tst__txt rte">{{ b.text }}</div>{%- endif -%}
+          </blockquote>
+
+          {%- if b.author != blank -%}
+            <div class="mz-tst__by">
+              <span class="mz-tst__avatar" aria-hidden="true">
+                {%- if b.avatar != blank -%}
+                  {{ b.avatar | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+                {%- else -%}
+                  {{ b.author | strip | slice: 0 | upcase }}
+                {%- endif -%}
+              </span>
+              <span class="mz-tst__meta">
+                <cite class="mz-tst__name">{{ b.author }}</cite>
+                {%- if b.detail != blank -%}<span class="mz-tst__detail">{{ b.detail }}</span>{%- endif -%}
+              </span>
+            </div>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .section-{{ section.id }} { padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; background: {{ section.settings.bg_color }}; }
+  .section-{{ section.id }} .mz-tst__head { margin-bottom: 40px; display:flex; flex-direction:column; gap:8px; }
+  .section-{{ section.id }} .mz-tst__title { margin:0; font-size:{{ section.settings.title_size }}px; line-height:1.15; color:{{ section.settings.title_color }}; }
+  .section-{{ section.id }} .mz-tst__sub { margin:0; color:{{ section.settings.sub_color }}; }
+
+  .section-{{ section.id }} .mz-tst__grid {
+    list-style:none; margin:0; padding:0; display:grid; gap:{{ section.settings.gap }}px;
+    grid-template-columns:1fr;
+  }
+  @media (min-width:768px) { .section-{{ section.id }} .mz-tst__grid { grid-template-columns: repeat({{ section.settings.columns }}, minmax(0,1fr)); } }
+
+  .section-{{ section.id }} .mz-tst__card {
+    position:relative; display:flex; flex-direction:column; gap:14px;
+    padding:{{ section.settings.card_padding }}px;
+    background:{{ section.settings.card_bg }};
+    border:1px solid {{ section.settings.card_border }};
+    border-radius:{{ section.settings.radius }}px;
+  }
+  .section-{{ section.id }} .mz-tst__mark {
+    position:absolute; top:{{ section.settings.card_padding | minus: 14 }}px; right:18px;
+    font-size:72px; line-height:1; font-family:Georgia,'Times New Roman',serif;
+    color:{{ section.settings.accent }}; opacity:.13; pointer-events:none; user-select:none;
+  }
+
+  .section-{{ section.id }} .mz-tst__stars { display:inline-flex; gap:3px; color:{{ section.settings.star_color }}; }
+  .section-{{ section.id }} .mz-tst__star { width:17px; height:17px; }
+  .section-{{ section.id }} .mz-tst__star.is-empty { opacity:.22; }
+
+  .section-{{ section.id }} .mz-tst__quote { margin:0; display:flex; flex-direction:column; gap:8px; }
+  .section-{{ section.id }} .mz-tst__ttl { margin:0; font-size:{{ section.settings.quote_title_size }}px; font-weight:650; line-height:1.35; color:{{ section.settings.quote_title_color }}; }
+  .section-{{ section.id }} .mz-tst__txt { color:{{ section.settings.text_color }}; font-size:{{ section.settings.text_size }}px; line-height:1.6; }
+  .section-{{ section.id }} .mz-tst__txt p { margin:0; }
+
+  .section-{{ section.id }} .mz-tst__by {
+    display:flex; align-items:center; gap:12px; margin-top:auto;
+    padding-top:16px; border-top:1px solid {{ section.settings.card_border }};
+  }
+  .section-{{ section.id }} .mz-tst__avatar {
+    flex:0 0 auto; width:40px; height:40px; border-radius:50%; overflow:hidden;
+    display:grid; place-items:center; background:{{ section.settings.avatar_bg }};
+    color:{{ section.settings.accent }}; font-weight:700; font-size:15px; letter-spacing:.02em;
+  }
+  .section-{{ section.id }} .mz-tst__avatar img { width:100%; height:100%; object-fit:cover; }
+  .section-{{ section.id }} .mz-tst__meta { display:flex; flex-direction:column; line-height:1.3; }
+  .section-{{ section.id }} .mz-tst__name { font-style:normal; font-weight:650; font-size:14px; color:{{ section.settings.quote_title_color }}; }
+  .section-{{ section.id }} .mz-tst__detail { font-size:12.5px; color:{{ section.settings.text_color }}; }
+</style>
+
+{% schema %}
+{
+  "name": "Medzuro testimonials",
+  "tag": "section",
+  "class": "mz-tst-section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "What our customers say" },
+    { "type": "text", "id": "subtitle", "label": "Subheading" },
+    { "type": "select", "id": "section_width", "label": "Width", "default": "container",
+      "options": [{ "value": "container", "label": "Contained" }, { "value": "full", "label": "Full width" }] },
+    { "type": "range", "id": "columns", "min": 2, "max": 4, "step": 1, "label": "Columns (desktop)", "default": 3 },
+    { "type": "range", "id": "gap", "min": 8, "max": 48, "step": 2, "unit": "px", "label": "Gap", "default": 24 },
+    { "type": "checkbox", "id": "show_mark", "label": "Show quote mark", "default": true },
+    { "type": "header", "content": "Card" },
+    { "type": "color", "id": "bg_color", "label": "Section background", "default": "#ffffff" },
+    { "type": "color", "id": "card_bg", "label": "Card background", "default": "#f5f7fa" },
+    { "type": "color", "id": "card_border", "label": "Card border", "default": "#e3e8ef" },
+    { "type": "color", "id": "avatar_bg", "label": "Avatar background", "default": "#eef2f8" },
+    { "type": "color", "id": "accent", "label": "Accent", "default": "#002964" },
+    { "type": "color", "id": "star_color", "label": "Star colour", "default": "#e8a33d" },
+    { "type": "range", "id": "radius", "min": 0, "max": 32, "step": 2, "unit": "px", "label": "Corner radius", "default": 14 },
+    { "type": "range", "id": "card_padding", "min": 16, "max": 48, "step": 4, "unit": "px", "label": "Card padding", "default": 28 },
+    { "type": "header", "content": "Type" },
+    { "type": "color", "id": "title_color", "label": "Heading colour", "default": "#0b1b33" },
+    { "type": "color", "id": "sub_color", "label": "Subheading colour", "default": "#5a6b82" },
+    { "type": "color", "id": "quote_title_color", "label": "Quote title colour", "default": "#0b1b33" },
+    { "type": "color", "id": "text_color", "label": "Quote text colour", "default": "#5a6b82" },
+    { "type": "range", "id": "title_size", "min": 20, "max": 56, "step": 2, "unit": "px", "label": "Heading size", "default": 32 },
+    { "type": "range", "id": "quote_title_size", "min": 14, "max": 24, "step": 1, "unit": "px", "label": "Quote title size", "default": 17 },
+    { "type": "range", "id": "text_size", "min": 13, "max": 20, "step": 1, "unit": "px", "label": "Quote text size", "default": 15 },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 140, "step": 5, "unit": "px", "label": "Padding top", "default": 70 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 140, "step": 5, "unit": "px", "label": "Padding bottom", "default": 70 }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "range", "id": "rating", "min": 0, "max": 5, "step": 1, "label": "Rating", "default": 5 },
+        { "type": "text", "id": "title", "label": "Headline", "default": "Great experience" },
+        { "type": "richtext", "id": "text", "label": "Quote", "default": "<p>What the customer said.</p>" },
+        { "type": "text", "id": "author", "label": "Name", "default": "Verified customer" },
+        { "type": "text", "id": "detail", "label": "Detail", "info": "Location or purchase, e.g. \"Suva\"." },
+        { "type": "image_picker", "id": "avatar", "label": "Photo", "info": "Optional. Falls back to the first letter of the name." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Medzuro testimonials" }]
+}
+{% endschema %}

@@ -472,14 +472,25 @@
       }
     },
     "product_grid": {
-      "type": "products-rows",
+      "type": "medzuro-products",
       "settings": {
         "title": "Shop the range",
         "subtitle": "Nutraceuticals, vitamins and wellness essentials",
         "collection": "all",
-        "top-offeset": "none",
-        "section_cov": true,
-        "sec_bg_clr": "#ffffff"
+        "limit": 8,
+        "section_width": "container",
+        "columns": 4,
+        "columns_mobile": 2,
+        "gap": 20,
+        "show_viewall": true,
+        "viewall_text": "View all",
+        "show_vendor": true,
+        "image_fit": "contain",
+        "radius": 14,
+        "bg_color": "#ffffff",
+        "media_bg": "#f5f7fa",
+        "padding_top": 70,
+        "padding_bottom": 70
       }
     }
   },

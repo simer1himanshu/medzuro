@@ -177,14 +177,14 @@
       "settings": {
         "title": "The HolyOak range",
         "subtitle": "Officially imported and authorized for sale in Fiji",
-        "collection": "",
-        "top-offeset": "default",
+        "collection": "all",
+        "top-offeset": "none",
         "section_width": false,
         "npd": false,
         "hide_mobile": false,
         "hided": false,
         "section_cov": false,
-        "sec_bg_clr": "#fafafa",
+        "sec_bg_clr": "#ffffff",
         "bgg": "",
         "prbox_style": "style1",
         "grid": 4,
@@ -470,6 +470,17 @@
         "qfsm": 14,
         "qfw": "400"
       }
+    },
+    "product_grid": {
+      "type": "products-rows",
+      "settings": {
+        "title": "Shop the range",
+        "subtitle": "Nutraceuticals, vitamins and wellness essentials",
+        "collection": "all",
+        "top-offeset": "none",
+        "section_cov": true,
+        "sec_bg_clr": "#ffffff"
+      }
     }
   },
   "order": [
@@ -479,6 +490,7 @@
     "why_medzuro",
     "counters",
     "reviews",
+    "product_grid",
     "blog",
     "newsletter",
     "faq"

@@ -22,3 +22,9 @@ commit touched the file.
 
 To make the repo version live, change `templates/index.json` so the sync
 re-uploads it. To keep this one, copy this file over `templates/index.json`.
+
+## index.reference-home.json
+
+`templates/index.json` for the single-section `medzuro-reference-home`
+homepage, with the 25 blocks the refactored section needs. Copy it over
+`templates/index.json` to make that homepage live.

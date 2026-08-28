@@ -1,0 +1,283 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "medzuro_reference_home": {
+      "type": "medzuro-reference-home",
+      "settings": {
+        "hero_kicker": "Your wellness store in Fiji",
+        "hero_heading": "Your wellness store,",
+        "hero_accent": "right here in Fiji.",
+        "hero_text": "Genuine HolyOak supplements, available locally with same-day delivery across most of Suva and local pickup.",
+        "primary_label": "Shop all products",
+        "primary_url": "/collections/all",
+        "secondary_label": "Local pickup & delivery",
+        "secondary_url": "/pages/delivery",
+        "collection": "all",
+        "product_limit": 5,
+        "lab_url": "/pages/lab-test-and-purity",
+        "phone": "+679-8029-837",
+        "products_title": "Best Sellers",
+        "product_meta": "60 Capsules",
+        "show_ratings": true,
+        "add_label": "Add to cart",
+        "soldout_label": "Sold out",
+        "show_world": true,
+        "world_kicker": "HolyOak around the world",
+        "world_heading": "Trusted internationally.",
+        "world_heading_2": "Now available locally in",
+        "world_accent": "Fiji.",
+        "show_lab": true,
+        "lab_kicker": "Quality you can trust",
+        "lab_heading": "Lab tested. Proven.",
+        "lab_accent": "Trusted.",
+        "lab_text": "Every batch of HolyOak supplements is independently tested for purity, potency and safety by Eurofins.",
+        "lab_brand": "eurofins",
+        "lab_brand_tagline": "The global trusted lab",
+        "lab_link_label": "Learn more",
+        "reviews_title": "What Fiji Customers Are Saying",
+        "show_newsletter": true,
+        "newsletter_text": "Stay updated with our latest products, offers and wellness tips.",
+        "newsletter_placeholder": "Enter your email address",
+        "newsletter_button": "Subscribe"
+      },
+      "blocks": {
+        "trust_1": {
+          "type": "trust",
+          "settings": {
+            "icon": "truck",
+            "title": "Delivered across Fiji",
+            "text": "Same-day delivery in most of Suva"
+          }
+        },
+        "trust_2": {
+          "type": "trust",
+          "settings": {
+            "icon": "pin",
+            "title": "Local pickup",
+            "text": "Collect from our Suva location"
+          }
+        },
+        "trust_3": {
+          "type": "trust",
+          "settings": {
+            "icon": "shield",
+            "title": "Genuine HolyOak",
+            "text": "Authentic products you can trust"
+          }
+        },
+        "trust_4": {
+          "type": "trust",
+          "settings": {
+            "icon": "headset",
+            "title": "Fiji customer support",
+            "text": "Call or Viber, we are here for you"
+          }
+        },
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "icon": "globe",
+            "value": "30+",
+            "label": "Countries"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "icon": "users",
+            "value": "2.4M+",
+            "label": "Products sold worldwide"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "icon": "pin",
+            "value": "1",
+            "label": "Local destination in Fiji"
+          }
+        },
+        "flag_1": {
+          "type": "flag",
+          "settings": {
+            "flag": "usa",
+            "label": "USA"
+          }
+        },
+        "flag_2": {
+          "type": "flag",
+          "settings": {
+            "flag": "canada",
+            "label": "Canada"
+          }
+        },
+        "flag_3": {
+          "type": "flag",
+          "settings": {
+            "flag": "uk",
+            "label": "UK"
+          }
+        },
+        "flag_4": {
+          "type": "flag",
+          "settings": {
+            "flag": "uae",
+            "label": "UAE"
+          }
+        },
+        "flag_5": {
+          "type": "flag",
+          "settings": {
+            "flag": "qatar",
+            "label": "Qatar"
+          }
+        },
+        "flag_6": {
+          "type": "flag",
+          "settings": {
+            "flag": "sa",
+            "label": "South Africa"
+          }
+        },
+        "flag_7": {
+          "type": "flag",
+          "settings": {
+            "flag": "kenya",
+            "label": "Kenya"
+          }
+        },
+        "flag_8": {
+          "type": "flag",
+          "settings": {
+            "flag": "europe",
+            "label": "Europe"
+          }
+        },
+        "lab_check_1": {
+          "type": "lab_check",
+          "settings": {
+            "icon": "lab",
+            "title": "Purity Tested",
+            "text": "Heavy metals and contaminants"
+          }
+        },
+        "lab_check_2": {
+          "type": "lab_check",
+          "settings": {
+            "icon": "puzzle",
+            "title": "Potency Verified",
+            "text": "Active ingredients accurately measured"
+          }
+        },
+        "lab_check_3": {
+          "type": "lab_check",
+          "settings": {
+            "icon": "shield",
+            "title": "Quality Assured",
+            "text": "Meets international quality standards"
+          }
+        },
+        "lab_check_4": {
+          "type": "lab_check",
+          "settings": {
+            "icon": "package",
+            "title": "Global Trusted",
+            "text": "Eurofins is a global leader in laboratory services"
+          }
+        },
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Excellent quality products and fast delivery. I have been using Holyoak supplements for months and feel the difference.",
+            "author": "Sarah L.",
+            "location": "Suva, Fiji",
+            "avatar": "sea"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Genuine products you can trust. Love that they provide lab test results for purity and quality.",
+            "author": "Rajesh K.",
+            "location": "Nausori, Fiji",
+            "avatar": "lagoon"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Same-day delivery in Suva is a game changer. Great customer service and amazing products!",
+            "author": "Mere W.",
+            "location": "Suva, Fiji",
+            "avatar": "sun"
+          }
+        },
+        "help_1": {
+          "type": "help",
+          "settings": {
+            "icon": "phone",
+            "title": "Need help with your order?",
+            "text": "Call or message us on Viber. We are here in Fiji."
+          }
+        },
+        "help_2": {
+          "type": "help",
+          "settings": {
+            "icon": "chat",
+            "title": "Message us on Viber",
+            "text": "[phone]"
+          }
+        },
+        "help_3": {
+          "type": "help",
+          "settings": {
+            "icon": "pin",
+            "title": "Fiji based support",
+            "text": "Local team here to help you."
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4",
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "flag_1",
+        "flag_2",
+        "flag_3",
+        "flag_4",
+        "flag_5",
+        "flag_6",
+        "flag_7",
+        "flag_8",
+        "lab_check_1",
+        "lab_check_2",
+        "lab_check_3",
+        "lab_check_4",
+        "review_1",
+        "review_2",
+        "review_3",
+        "help_1",
+        "help_2",
+        "help_3"
+      ]
+    }
+  },
+  "order": [
+    "medzuro_reference_home"
+  ]
+}

@@ -1,0 +1,509 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_banner": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/medzuro-retail.webp",
+            "ialign": "center_center",
+            "hd1": "AUTHORIZED HOLYOAK SELLER IN FIJI",
+            "pcl": "#000000",
+            "phbg": "",
+            "title": "Premium wellness,<br>delivered to your door",
+            "tcl": "#000000",
+            "hd3": "Nutraceuticals, vitamins and herbal formulations — genuine HolyOak products, with same-day delivery across most of Suva.",
+            "cl": "#000000",
+            "hideh3": false,
+            "btn": "Shop HolyOak",
+            "link": "/collections/holyoak",
+            "btn1window": false,
+            "btn-style": "btn1",
+            "display_btn": true,
+            "btn2": "Browse all products",
+            "link2": "/collections/all",
+            "btn2window": false,
+            "btn-style1": "bdr-btn1",
+            "contwd": 1200,
+            "text_width": 550,
+            "text-left": true,
+            "txtpos": "f-aic-md f-jcs-md",
+            "txtposm": "f-aic f-jcs"
+          }
+        }
+      },
+      "block_order": [
+        "slide_1"
+      ],
+      "settings": {
+        "top-offeset": "none",
+        "npd": true,
+        "hided": false,
+        "hide_mobile": false,
+        "section_width": false,
+        "ht": "",
+        "htd": 700,
+        "htt": 350,
+        "htm": 520,
+        "isovr": false,
+        "obg": "#3d4246",
+        "oopt": 0,
+        "brd": 0,
+        "pfs": 12,
+        "pfsm": 12,
+        "pff": "ft1",
+        "pfw": "500",
+        "plh": 1.2,
+        "pmb": 5,
+        "pmbm": 5,
+        "bfs": 50,
+        "bfsm": 25,
+        "bff": "ft1",
+        "bfw": "700",
+        "blh": 1.2,
+        "bmb": 10,
+        "bmbm": 5,
+        "dfs": 16,
+        "dfsm": 14,
+        "dff": "ft1",
+        "dfw": "400",
+        "dlh": 1.2,
+        "dmb": 25,
+        "dmbm": 15,
+        "btn-size": "btn-md",
+        "btn-sizem": "mob-btn-sm",
+        "txtanimation": false,
+        "anim": "st1",
+        "isbox": false,
+        "isboxm": false,
+        "tbg": "#ffffff",
+        "opt": 0.9,
+        "brad": 0,
+        "autoplay": true,
+        "speed": 7,
+        "arrow": true,
+        "hidema": false,
+        "arrowc": "#111111",
+        "arrowbg": "#ffffff",
+        "dot": false,
+        "hidemd": false,
+        "dots": "#dddddd",
+        "snow_effect": false,
+        "snow_style": "style1"
+      }
+    },
+    "shop_by_category": {
+      "type": "medzuro-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "title": "Vitamins & Minerals",
+            "url": "/collections/vitamins-minerals",
+            "image": "shopify://shop_images/vitamin-and-minerals.jpg",
+            "color_from": "#eaf0fa",
+            "color_to": "#d3e0f2"
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "title": "Herbal Formulations",
+            "url": "/collections/herbal-formulations",
+            "image": "shopify://shop_images/herbal.webp",
+            "color_from": "#eef3ea",
+            "color_to": "#dbe7d4"
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "title": "Sports Nutrition",
+            "url": "/collections/sports-nutrition",
+            "image": "shopify://shop_images/sports-nutrition.jpg",
+            "color_from": "#f4ecec",
+            "color_to": "#ecd9da"
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "title": "Daily Wellness",
+            "url": "/collections/daily-wellness",
+            "image": "shopify://shop_images/natural-products-beauty-healthy-routine.webp",
+            "color_from": "#f5f1ea",
+            "color_to": "#eae1d1"
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4"
+      ],
+      "settings": {
+        "title": "Shop by category",
+        "subtitle": "Nutraceuticals, vitamins and wellness essentials",
+        "section_width": "container",
+        "columns": 4,
+        "columns_mobile": 2,
+        "gap": 30,
+        "disc_max": 200,
+        "image_fit": "cover",
+        "image_scale": 70,
+        "bg_color": "#ffffff",
+        "title_color": "#0b1b33",
+        "sub_color": "#5a6b82",
+        "label_color": "#002964",
+        "title_size": 32,
+        "label_size": 14,
+        "padding_top": 70,
+        "padding_bottom": 70
+      }
+    },
+    "holyoak_collection": {
+      "type": "product-slider",
+      "settings": {
+        "title": "The HolyOak range",
+        "subtitle": "Officially imported and authorized for sale in Fiji",
+        "collection": "all",
+        "top-offeset": "none",
+        "section_width": false,
+        "npd": false,
+        "hide_mobile": false,
+        "hided": false,
+        "section_cov": false,
+        "sec_bg_clr": "#ffffff",
+        "bgg": "",
+        "prbox_style": "style1",
+        "grid": 4,
+        "tablet-grid": 3,
+        "mobile-grid": 2,
+        "rows": 5,
+        "secondary_image": true,
+        "show_vendor": false,
+        "prlist_btn_show": false,
+        "btn_mobiles": false,
+        "show_color_swatch": true,
+        "color_type": "color",
+        "vr_bg_position": "50% 0",
+        "color_size": "small",
+        "autoplay": false,
+        "speed": 5,
+        "show_view_all": "",
+        "btn-style": "btn"
+      }
+    },
+    "why_medzuro": {
+      "type": "medzuro-features",
+      "blocks": {
+        "f_seller": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorized HolyOak Seller",
+            "text": "<p>The official HolyOak distributor in Fiji — every product genuine and traceable.</p>"
+          }
+        },
+        "f_science": {
+          "type": "feature",
+          "settings": {
+            "icon": "flask",
+            "title": "Science-backed ingredients",
+            "text": "<p>Formulations grounded in published research, not marketing claims.</p>"
+          }
+        },
+        "f_quality": {
+          "type": "feature",
+          "settings": {
+            "icon": "award",
+            "title": "Quality promise",
+            "text": "<p>Independently tested batches, careful storage and full traceability.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "f_seller",
+        "f_science",
+        "f_quality"
+      ],
+      "settings": {
+        "title": "Why choose Medzuro",
+        "section_width": "container",
+        "align": "center",
+        "show_card": true,
+        "bg_color": "#f5f7fa",
+        "icon_size": 64,
+        "radius": 14,
+        "card_padding": 28
+      }
+    },
+    "counters": {
+      "type": "medzuro-counters",
+      "blocks": {
+        "c_sold": {
+          "type": "counter",
+          "settings": {
+            "value": 22500,
+            "prefix": "",
+            "suffix": "+",
+            "label": "Products Sold"
+          }
+        },
+        "c_countries": {
+          "type": "counter",
+          "settings": {
+            "value": 3,
+            "prefix": "",
+            "suffix": "",
+            "label": "Countries Served"
+          }
+        },
+        "c_customers": {
+          "type": "counter",
+          "settings": {
+            "value": 8000,
+            "prefix": "",
+            "suffix": "+",
+            "label": "Happy Customers"
+          }
+        }
+      },
+      "block_order": [
+        "c_sold",
+        "c_countries",
+        "c_customers"
+      ],
+      "settings": {
+        "title": "Trusted across Fiji",
+        "style": "inverted",
+        "section_width": "container",
+        "dividers": true,
+        "columns_mobile": 3,
+        "gap": 24,
+        "duration": 2,
+        "value_size": 52,
+        "label_size": 12,
+        "padding_top": 70,
+        "padding_bottom": 70
+      }
+    },
+    "reviews": {
+      "type": "medzuro-testimonials",
+      "blocks": {
+        "q1": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "title": "The real thing, not a copy",
+            "text": "<p>I stopped buying supplements online because I could never tell what was genuine. Buying from the authorized seller takes that worry away.</p>",
+            "author": "Verified customer",
+            "detail": "Suva"
+          }
+        },
+        "q2": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "title": "Labels you can actually read",
+            "text": "<p>Every ingredient and dose is listed on the page before you buy. I no longer have to squint at the back of a bottle in a shop.</p>",
+            "author": "Verified customer",
+            "detail": "Lautoka"
+          }
+        },
+        "q3": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "title": "Sealed and properly packed",
+            "text": "<p>Arrived sealed, batch and expiry clearly printed, packed so nothing was damaged. Small things, but they matter with supplements.</p>",
+            "author": "Verified customer",
+            "detail": "Nausori"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ],
+      "settings": {
+        "title": "What our customers say",
+        "section_width": "container",
+        "columns": 3,
+        "gap": 24,
+        "show_mark": true,
+        "bg_color": "#ffffff",
+        "card_bg": "#f5f7fa",
+        "radius": 14,
+        "card_padding": 28,
+        "padding_top": 70,
+        "padding_bottom": 70
+      }
+    },
+    "blog": {
+      "type": "featured-blog",
+      "settings": {
+        "title": "Wellness journal",
+        "subtitle": "Nutrition, lifestyle and wellness guidance",
+        "top-offeset": "default",
+        "hide_mobile": false,
+        "hided": false,
+        "section_cov": true,
+        "sec_bg_clr": "#fafafa",
+        "bgg": "",
+        "blog": "",
+        "img_ratio": "50",
+        "img_rad": 0,
+        "post_limit": 3,
+        "grid": 3,
+        "tablet-grid": 2,
+        "mobile-grid": 1,
+        "blog_show_author": false,
+        "blog_show_date": true,
+        "show_comment": true,
+        "show_mini_des": true,
+        "twords": 50,
+        "show_read_more": true,
+        "color_ttl": "#111111",
+        "blogfs": 16,
+        "blogfsm": 14,
+        "blogtf": "font2",
+        "blogtw": "fw-600",
+        "blh": 1.2,
+        "blog_align": "tl",
+        "show_view_all": false,
+        "btn-style": "btn2",
+        "btn-size-desk": "btn-sm",
+        "btn-size-mob": "mob-btn-sm"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "title": "Stay well informed",
+        "subtitle": "Wellness tips and early access to new arrivals.",
+        "text_clr": "#0b1b33",
+        "input_text": "#0b1b33",
+        "input_bg": "#ffffff",
+        "input_btn_text": "#ffffff",
+        "input_btn": "#002964",
+        "top-offeset": "none",
+        "section_width": true,
+        "hide_mobile": false,
+        "hided": false,
+        "npd": true,
+        "section_cov": true,
+        "sec_bg_clr": "#ffffff",
+        "bgg": "",
+        "bdr": 0
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q_auth": {
+          "type": "faqs",
+          "settings": {
+            "title": "Are your HolyOak products genuine?",
+            "answer": "<p>Yes. Medzuro Retail is the authorized seller of HolyOak products in Fiji, importing directly from the manufacturer.</p>"
+          }
+        },
+        "q_deliv": {
+          "type": "faqs",
+          "settings": {
+            "title": "How fast is delivery?",
+            "answer": "<p>90% of Suva deliveries arrive the same day. Most other Fiji cities arrive within 2–3 business days.</p>"
+          }
+        },
+        "q_pickup": {
+          "type": "faqs",
+          "settings": {
+            "title": "Can I collect my order in store?",
+            "answer": "<p>Yes — choose Store Pickup at checkout and we will confirm your nearest location and collection time.</p>"
+          }
+        },
+        "q_soon": {
+          "type": "faqs",
+          "settings": {
+            "title": "When will more products be available?",
+            "answer": "<p>Products marked Coming Soon can be joined to a notify list — we will email you the moment they land.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q_auth",
+        "q_deliv",
+        "q_pickup",
+        "q_soon"
+      ],
+      "settings": {
+        "title": "Frequently asked questions",
+        "subtitle": "",
+        "top-offeset": "none",
+        "hide_mobile": false,
+        "hided": false,
+        "section_cov": true,
+        "sec_bg_clr": "#f5f7fa",
+        "bgg": "",
+        "pagestyle": "style1",
+        "max-width": 800,
+        "tcl": "#eeeeee",
+        "tbg": "#333333",
+        "tfs": 24,
+        "tfsm": 18,
+        "tff": "ft2",
+        "tfw": "600",
+        "qcl": "#333333",
+        "qfs": 16,
+        "qfsm": 14,
+        "qfw": "400"
+      }
+    },
+    "product_grid": {
+      "type": "medzuro-products",
+      "settings": {
+        "title": "Shop the range",
+        "subtitle": "Nutraceuticals, vitamins and wellness essentials",
+        "collection": "all",
+        "limit": 8,
+        "section_width": "container",
+        "columns": 4,
+        "columns_mobile": 2,
+        "gap": 20,
+        "show_viewall": true,
+        "viewall_text": "View all",
+        "show_vendor": true,
+        "image_fit": "contain",
+        "radius": 14,
+        "bg_color": "#ffffff",
+        "media_bg": "#f5f7fa",
+        "padding_top": 70,
+        "padding_bottom": 70
+      }
+    }
+  },
+  "order": [
+    "hero_banner",
+    "shop_by_category",
+    "holyoak_collection",
+    "why_medzuro",
+    "counters",
+    "reviews",
+    "product_grid",
+    "blog",
+    "newsletter",
+    "faq"
+  ]
+}

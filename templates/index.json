@@ -10,96 +10,23 @@
 {
   "sections": {
     "hero_banner": {
-      "type": "slideshow",
-      "blocks": {
-        "slide_1": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/medzuro-retail.webp",
-            "ialign": "center_center",
-            "hd1": "AUTHORIZED HOLYOAK SELLER IN FIJI",
-            "pcl": "#000000",
-            "phbg": "",
-            "title": "Premium wellness,<br>delivered to your door",
-            "tcl": "#000000",
-            "hd3": "Nutraceuticals, vitamins and herbal formulations — genuine HolyOak products, with same-day delivery across most of Suva.",
-            "cl": "#000000",
-            "hideh3": false,
-            "btn": "Shop HolyOak",
-            "link": "/collections/holyoak",
-            "btn1window": false,
-            "btn-style": "btn1",
-            "display_btn": true,
-            "btn2": "Browse all products",
-            "link2": "/collections/all",
-            "btn2window": false,
-            "btn-style1": "bdr-btn1",
-            "contwd": 1200,
-            "text_width": 550,
-            "text-left": true,
-            "txtpos": "f-aic-md f-jcs-md",
-            "txtposm": "f-aic f-jcs"
-          }
-        }
-      },
-      "block_order": [
-        "slide_1"
-      ],
+      "type": "medzuro-hero",
       "settings": {
-        "top-offeset": "none",
-        "npd": true,
-        "hided": false,
-        "hide_mobile": false,
-        "section_width": false,
-        "ht": "",
-        "htd": 700,
-        "htt": 350,
-        "htm": 520,
-        "isovr": false,
-        "obg": "#3d4246",
-        "oopt": 0,
-        "brd": 0,
-        "pfs": 12,
-        "pfsm": 12,
-        "pff": "ft1",
-        "pfw": "500",
-        "plh": 1.2,
-        "pmb": 5,
-        "pmbm": 5,
-        "bfs": 50,
-        "bfsm": 25,
-        "bff": "ft1",
-        "bfw": "700",
-        "blh": 1.2,
-        "bmb": 10,
-        "bmbm": 5,
-        "dfs": 16,
-        "dfsm": 14,
-        "dff": "ft1",
-        "dfw": "400",
-        "dlh": 1.2,
-        "dmb": 25,
-        "dmbm": 15,
-        "btn-size": "btn-md",
-        "btn-sizem": "mob-btn-sm",
-        "txtanimation": false,
-        "anim": "st1",
-        "isbox": false,
-        "isboxm": false,
-        "tbg": "#ffffff",
-        "opt": 0.9,
-        "brad": 0,
-        "autoplay": true,
-        "speed": 7,
-        "arrow": true,
-        "hidema": false,
-        "arrowc": "#111111",
-        "arrowbg": "#ffffff",
-        "dot": false,
-        "hidemd": false,
-        "dots": "#dddddd",
-        "snow_effect": false,
-        "snow_style": "style1"
+        "eyebrow": "Your wellness store in Fiji",
+        "heading": "Your wellness store,",
+        "heading_accent": "right here in Fiji.",
+        "body": "<p>Genuine HolyOak supplements, available locally with same-day delivery across most of Suva and local pickup.</p>",
+        "btn1_text": "Shop all products",
+        "btn1_url": "/collections/all",
+        "btn2_text": "Local pickup & delivery",
+        "btn2_url": "/pages/delivery",
+        "btn2_icon": true,
+        "section_width": "container",
+        "accent": "#4f8a3d",
+        "btn1_bg": "#002964",
+        "heading_size": 52,
+        "padding_top": 50,
+        "padding_bottom": 40
       }
     },
     "shop_by_category": {
@@ -287,7 +214,7 @@
       ],
       "settings": {
         "title": "Trusted across Fiji",
-        "style": "inverted",
+        "style": "plain",
         "section_width": "container",
         "dividers": true,
         "columns_mobile": 3,
@@ -296,7 +223,10 @@
         "value_size": 52,
         "label_size": 12,
         "padding_top": 70,
-        "padding_bottom": 70
+        "padding_bottom": 70,
+        "bg_color": "#f5f7fa",
+        "value_color": "#002964",
+        "label_color": "#5a6b82"
       }
     },
     "reviews": {
@@ -474,7 +404,7 @@
     "product_grid": {
       "type": "medzuro-products",
       "settings": {
-        "title": "Shop the range",
+        "title": "Best sellers",
         "subtitle": "Nutraceuticals, vitamins and wellness essentials",
         "collection": "all",
         "limit": 8,
@@ -492,10 +422,66 @@
         "padding_top": 70,
         "padding_bottom": 70
       }
+    },
+    "trustbar": {
+      "type": "medzuro-trustbar",
+      "blocks": {
+        "t1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Delivered across Fiji",
+            "subtitle": "Same-day delivery in most of Suva"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "icon": "pin",
+            "title": "Local pickup",
+            "subtitle": "Collect from our Suva location"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "Genuine HolyOak",
+            "subtitle": "Authentic products you can trust"
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "icon": "headset",
+            "title": "Fiji customer support",
+            "subtitle": "Call or Viber, we're here for you"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "section_width": "container",
+        "dividers": true,
+        "shadow": true,
+        "show_border": true,
+        "radius": 12,
+        "card_padding": 26,
+        "icon_color": "#002964",
+        "icon_size": 26,
+        "padding_top": 0,
+        "padding_bottom": 50
+      }
     }
   },
   "order": [
     "hero_banner",
+    "trustbar",
     "shop_by_category",
     "holyoak_collection",
     "why_medzuro",

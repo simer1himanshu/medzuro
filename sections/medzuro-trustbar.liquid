@@ -1,0 +1,149 @@
+{%- comment -%} medzuro build file {%- endcomment -%}
+{%- comment -%}
+  Medzuro — trust bar.
+
+  Row of icon + title + subtitle items separated by vertical rules, in a card
+  that can overlap the section above it. Used under the hero and again as the
+  support row further down the page.
+{%- endcomment -%}
+
+{%- assign s = section.settings -%}
+
+{%- capture i_truck -%}<path d="M3 7h10v8H3z"/><path d="M13 10h4l3 3.2V15h-7z"/><circle cx="7" cy="17.4" r="1.8"/><circle cx="16.6" cy="17.4" r="1.8"/>{%- endcapture -%}
+{%- capture i_pin -%}<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/>{%- endcapture -%}
+{%- capture i_shield -%}<path d="M12 3 5 6v5.5c0 4.3 2.9 7.4 7 8.9 4.1-1.5 7-4.6 7-8.9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/>{%- endcapture -%}
+{%- capture i_head -%}<path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v3a2 2 0 0 0 2 2h1v-5H6a2 2 0 0 0-2 2Z"/><path d="M20 13v3a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2Z"/>{%- endcapture -%}
+{%- capture i_phone -%}<path d="M6.5 3.5h3l1.5 4-2 1.4a12 12 0 0 0 6.1 6.1l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2Z"/>{%- endcapture -%}
+{%- capture i_chat -%}<path d="M20 12a7.5 7.5 0 0 1-10.9 6.7L4 20l1.3-4.1A7.5 7.5 0 1 1 20 12Z"/>{%- endcapture -%}
+{%- capture i_lab -%}<path d="M9 3h6"/><path d="M10 3v5.2L5.6 17A2 2 0 0 0 7.4 20h9.2a2 2 0 0 0 1.8-3L14 8.2V3"/><path d="M8 14.5h8"/>{%- endcapture -%}
+{%- capture i_clock -%}<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/>{%- endcapture -%}
+
+<div class="mz-trust section-{{ section.id }}">
+  <div class="{% if s.section_width == 'container' %}page-width{% else %}fullwidth{% endif %}">
+    <ul class="mz-trust__row" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        {%- case b.icon -%}
+          {%- when 'pin' -%}{%- assign g = i_pin -%}
+          {%- when 'shield' -%}{%- assign g = i_shield -%}
+          {%- when 'headset' -%}{%- assign g = i_head -%}
+          {%- when 'phone' -%}{%- assign g = i_phone -%}
+          {%- when 'chat' -%}{%- assign g = i_chat -%}
+          {%- when 'lab' -%}{%- assign g = i_lab -%}
+          {%- when 'clock' -%}{%- assign g = i_clock -%}
+          {%- else -%}{%- assign g = i_truck -%}
+        {%- endcase -%}
+        <li class="mz-trust__item" {{ block.shopify_attributes }}>
+          {%- if b.url != blank -%}<a class="mz-trust__link" href="{{ b.url }}">{%- endif -%}
+            <span class="mz-trust__icon{% if s.icon_disc %} is-disc{% endif %}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">{{ g }}</svg>
+            </span>
+            <span class="mz-trust__text">
+              {%- if b.title != blank -%}<span class="mz-trust__ttl">{{ b.title }}</span>{%- endif -%}
+              {%- if b.subtitle != blank -%}<span class="mz-trust__sub">{{ b.subtitle }}</span>{%- endif -%}
+            </span>
+          {%- if b.url != blank -%}</a>{%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .section-{{ section.id }} { background:{{ s.outer_bg }}; padding:{{ s.padding_top }}px 0 {{ s.padding_bottom }}px; }
+  .section-{{ section.id }} .mz-trust__row {
+    list-style:none; margin:0; padding:{{ s.card_padding }}px; display:grid; gap:{{ s.gap }}px;
+    grid-template-columns:repeat({{ s.columns_mobile }},minmax(0,1fr));
+    background:{{ s.card_bg }};
+    {%- if s.show_border %}border:1px solid {{ s.border }};{% endif -%}
+    border-radius:{{ s.radius }}px;
+    {%- if s.shadow %}box-shadow:0 6px 28px rgba(11,27,51,.07);{% endif -%}
+  }
+  @media (min-width:900px) {
+    .section-{{ section.id }} .mz-trust__row { grid-template-columns:repeat({{ section.blocks.size | default: 4 }},minmax(0,1fr)); }
+  }
+  .section-{{ section.id }} .mz-trust__item { display:flex; min-width:0; }
+  .section-{{ section.id }} .mz-trust__item > * { display:flex; align-items:center; gap:14px; width:100%; text-decoration:none; color:inherit; }
+  .section-{{ section.id }} .mz-trust__item { align-items:center; gap:14px; }
+
+  {%- if s.dividers %}
+  @media (min-width:900px) {
+    .section-{{ section.id }} .mz-trust__item + .mz-trust__item { border-left:1px solid {{ s.border }}; padding-left:{{ s.gap }}px; }
+  }
+  {%- endif %}
+
+  .section-{{ section.id }} .mz-trust__icon { flex:0 0 auto; display:grid; place-items:center; color:{{ s.icon_color }}; }
+  .section-{{ section.id }} .mz-trust__icon.is-disc { width:{{ s.icon_size | plus: 22 }}px; height:{{ s.icon_size | plus: 22 }}px; border-radius:50%; background:{{ s.icon_bg }}; }
+  .section-{{ section.id }} .mz-trust__icon svg { width:{{ s.icon_size }}px; height:{{ s.icon_size }}px; }
+  .section-{{ section.id }} .mz-trust__text { display:flex; flex-direction:column; gap:3px; min-width:0; }
+  .section-{{ section.id }} .mz-trust__ttl { font-weight:700; font-size:{{ s.title_size }}px; line-height:1.3; color:{{ s.title_color }}; }
+  .section-{{ section.id }} .mz-trust__sub { font-size:{{ s.sub_size }}px; line-height:1.4; color:{{ s.sub_color }}; }
+  .section-{{ section.id }} a.mz-trust__link:hover .mz-trust__ttl { color:{{ s.icon_color }}; }
+
+  {%- if s.overlap > 0 %}
+  @media (min-width:900px) {
+    .section-{{ section.id }} { margin-top:-{{ s.overlap }}px; position:relative; z-index:2; background:transparent; }
+  }
+  {%- endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Medzuro trust bar",
+  "tag": "section",
+  "class": "mz-trust-section",
+  "settings": [
+    { "type": "select", "id": "section_width", "label": "Width", "default": "container",
+      "options": [{ "value": "container", "label": "Contained" }, { "value": "full", "label": "Full width" }] },
+    { "type": "range", "id": "columns_mobile", "min": 1, "max": 2, "step": 1, "label": "Columns (mobile)", "default": 1 },
+    { "type": "range", "id": "gap", "min": 10, "max": 48, "step": 2, "unit": "px", "label": "Gap", "default": 24 },
+    { "type": "checkbox", "id": "dividers", "label": "Divider between items", "default": true },
+    { "type": "range", "id": "overlap", "min": 0, "max": 80, "step": 5, "unit": "px", "label": "Overlap the section above", "default": 0 },
+    { "type": "header", "content": "Card" },
+    { "type": "color", "id": "outer_bg", "label": "Section background", "default": "#ffffff" },
+    { "type": "color", "id": "card_bg", "label": "Card background", "default": "#ffffff" },
+    { "type": "checkbox", "id": "show_border", "label": "Card border", "default": true },
+    { "type": "color", "id": "border", "label": "Border and dividers", "default": "#e3e8ef" },
+    { "type": "checkbox", "id": "shadow", "label": "Card shadow", "default": true },
+    { "type": "range", "id": "radius", "min": 0, "max": 32, "step": 2, "unit": "px", "label": "Corner radius", "default": 12 },
+    { "type": "range", "id": "card_padding", "min": 8, "max": 48, "step": 2, "unit": "px", "label": "Card padding", "default": 26 },
+    { "type": "header", "content": "Icon" },
+    { "type": "checkbox", "id": "icon_disc", "label": "Show icon on a disc", "default": false },
+    { "type": "color", "id": "icon_color", "label": "Icon colour", "default": "#002964" },
+    { "type": "color", "id": "icon_bg", "label": "Icon disc", "default": "#eef2f8" },
+    { "type": "range", "id": "icon_size", "min": 16, "max": 40, "step": 2, "unit": "px", "label": "Icon size", "default": 26 },
+    { "type": "header", "content": "Type" },
+    { "type": "color", "id": "title_color", "label": "Title colour", "default": "#0b1b33" },
+    { "type": "color", "id": "sub_color", "label": "Subtitle colour", "default": "#5a6b82" },
+    { "type": "range", "id": "title_size", "min": 12, "max": 20, "step": 1, "unit": "px", "label": "Title size", "default": 15 },
+    { "type": "range", "id": "sub_size", "min": 11, "max": 17, "step": 1, "unit": "px", "label": "Subtitle size", "default": 13 },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 5, "unit": "px", "label": "Padding top", "default": 10 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 5, "unit": "px", "label": "Padding bottom", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "truck",
+          "options": [
+            { "value": "truck", "label": "Delivery" },
+            { "value": "pin", "label": "Location" },
+            { "value": "shield", "label": "Shield with tick" },
+            { "value": "headset", "label": "Support headset" },
+            { "value": "phone", "label": "Phone" },
+            { "value": "chat", "label": "Chat" },
+            { "value": "lab", "label": "Laboratory flask" },
+            { "value": "clock", "label": "Clock" }
+          ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Title" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Short supporting line" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [{ "name": "Medzuro trust bar" }]
+}
+{% endschema %}

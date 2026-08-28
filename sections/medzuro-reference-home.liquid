@@ -8,18 +8,6 @@
   endif
 -%}
 
-{%- capture icon_truck -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 7h10v8H3z"/><path d="M13 10h4l3 3.2V15h-7z"/><circle cx="7" cy="17.3" r="1.7"/><circle cx="16.7" cy="17.3" r="1.7"/></svg>{%- endcapture -%}
-{%- capture icon_pin -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>{%- endcapture -%}
-{%- capture icon_shield -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 5 6v5.5c0 4.3 2.9 7.4 7 8.9 4.1-1.5 7-4.6 7-8.9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>{%- endcapture -%}
-{%- capture icon_headset -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v3a2 2 0 0 0 2 2h1v-5H6a2 2 0 0 0-2 2Z"/><path d="M20 13v3a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2Z"/></svg>{%- endcapture -%}
-{%- capture icon_phone -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.5h3l1.5 4-2 1.4a12 12 0 0 0 6.1 6.1l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2Z"/></svg>{%- endcapture -%}
-{%- capture icon_chat -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 12a7.5 7.5 0 0 1-10.9 6.7L4 20l1.3-4.1A7.5 7.5 0 1 1 20 12Z"/></svg>{%- endcapture -%}
-{%- capture icon_globe -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg>{%- endcapture -%}
-{%- capture icon_users -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M15 6.5a2.8 2.8 0 0 1 0 5.5"/><path d="M16.5 14a5 5 0 0 1 4 5"/></svg>{%- endcapture -%}
-{%- capture icon_lab -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3h6"/><path d="M10 3v5.2L5.6 17A2 2 0 0 0 7.4 20h9.2a2 2 0 0 0 1.8-3L14 8.2V3"/><path d="M8 14.5h8"/></svg>{%- endcapture -%}
-{%- capture icon_puzzle -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3a3 3 0 0 1 6 0v3h3a3 3 0 1 1 0 6h-3v3h-3a3 3 0 1 1-6 0H3v-6h3a3 3 0 1 0 0-6h3Z"/></svg>{%- endcapture -%}
-{%- capture icon_package -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 3 8 4.4v9.2L12 21l-8-4.4V7.4L12 3Z"/><path d="m4.6 7.7 7.4 4.2 7.4-4.2"/><path d="M12 12v8.5"/></svg>{%- endcapture -%}
-
 <div class="mz-home-ref section-{{ section.id }}">
   <section class="mz-home-hero" aria-labelledby="mz-home-title">
     <div class="mz-home-hero__photo" aria-hidden="true"></div>
@@ -33,7 +21,7 @@
         <div class="mz-home-hero__actions">
           <a class="mz-home-btn mz-home-btn--solid" href="{{ s.primary_url }}">{{ s.primary_label }}</a>
           <a class="mz-home-btn mz-home-btn--outline" href="{{ s.secondary_url }}">
-            {{ icon_pin }}
+            {% render 'medzuro-ref-icon', name: 'pin' %}
             <span>{{ s.secondary_label }}</span>
           </a>
         </div>
@@ -41,18 +29,23 @@
     </div>
   </section>
 
-  <div class="page-width mz-home-trust">
-    <ul class="mz-home-trust__list" role="list">
-      <li>{{ icon_truck }}<span><strong>Delivered across Fiji</strong><small>Same-day delivery in most of Suva</small></span></li>
-      <li>{{ icon_pin }}<span><strong>Local pickup</strong><small>Collect from our Suva location</small></span></li>
-      <li>{{ icon_shield }}<span><strong>Genuine HolyOak</strong><small>Authentic products you can trust</small></span></li>
-      <li>{{ icon_headset }}<span><strong>Fiji customer support</strong><small>Call or Viber, we are here for you</small></span></li>
-    </ul>
-  </div>
+  {%- assign trust_blocks = section.blocks | where: 'type', 'trust' -%}
+  {%- if trust_blocks.size > 0 -%}
+    <div class="page-width mz-home-trust">
+      <ul class="mz-home-trust__list" role="list">
+        {%- for block in trust_blocks -%}
+          <li {{ block.shopify_attributes }}>
+            {% render 'medzuro-ref-icon', name: block.settings.icon %}
+            <span><strong>{{ block.settings.title }}</strong><small>{{ block.settings.text }}</small></span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
 
   <section class="page-width mz-home-products" aria-labelledby="mz-home-products-title">
     <div class="mz-home-section-title">
-      <h2 id="mz-home-products-title">Best Sellers</h2>
+      <h2 id="mz-home-products-title">{{ s.products_title }}</h2>
     </div>
     <button class="mz-home-arrow mz-home-arrow--prev" type="button" aria-label="Previous products" data-mz-home-prev>
       <span aria-hidden="true">&#8249;</span>
@@ -83,10 +76,12 @@
               </a>
               <div class="mz-home-product__body">
                 <a class="mz-home-product__title" href="{{ product.url }}">{{ product.title }}</a>
-                <span class="mz-home-product__meta">60 Capsules</span>
-                <span class="mz-home-rating" aria-label="5 out of 5 stars">
-                  <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><small>({{ review_count }})</small>
-                </span>
+                <span class="mz-home-product__meta">{{ product.metafields.medzuro.serving | default: s.product_meta }}</span>
+                {%- if s.show_ratings -%}
+                  <span class="mz-home-rating" aria-label="5 out of 5 stars">
+                    <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><small>({{ review_count }})</small>
+                  </span>
+                {%- endif -%}
                 <span class="mz-home-price">
                   <strong>{{ product.price | money }}</strong>
                   {%- if on_sale -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
@@ -95,7 +90,7 @@
                   <form method="post" action="{{ routes.cart_add_url }}" class="mz-home-product__form">
                     <input type="hidden" name="id" value="{{ variant.id }}">
                     <button class="mz-home-add" type="submit"{% unless variant.available %} disabled{% endunless %}>
-                      {%- if variant.available -%}Add to cart{%- else -%}Sold out{%- endif -%}
+                      {%- if variant.available -%}{{ s.add_label }}{%- else -%}{{ s.soldout_label }}{%- endif -%}
                     </button>
                   </form>
                 {%- endif -%}
@@ -126,9 +121,9 @@
               <div class="mz-home-product__body">
                 <a class="mz-home-product__title" href="/collections/all">{{ fallback_title }}</a>
                 <span class="mz-home-product__meta">{{ fallback_type }}</span>
-                <span class="mz-home-rating" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><small>({{ fallback_review }})</small></span>
+                {%- if s.show_ratings -%}<span class="mz-home-rating" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><small>({{ fallback_review }})</small></span>{%- endif -%}
                 <span class="mz-home-price"><strong>{{ fallback_price }}</strong>{%- if fallback_old_price != blank -%}<s>{{ fallback_old_price }}</s>{%- endif -%}</span>
-                <a class="mz-home-add" href="/collections/all">Add to cart</a>
+                <a class="mz-home-add" href="/collections/all">{{ s.add_label }}</a>
               </div>
             </li>
           {%- endfor -%}
@@ -140,111 +135,137 @@
     </button>
   </section>
 
-  <section class="page-width mz-home-world" aria-label="HolyOak around the world">
-    <div class="mz-home-world__panel">
-      <div class="mz-home-world__copy">
-        <p class="mz-home-kicker">HolyOak around the world</p>
-        <h2>Trusted internationally.<br>Now available locally in <span>Fiji.</span></h2>
-      </div>
-      <div class="mz-home-world__stats" role="list">
-        <div role="listitem">{{ icon_globe }}<strong>30+</strong><small>Countries</small></div>
-        <div role="listitem">{{ icon_users }}<strong>2.4M+</strong><small>Products sold worldwide</small></div>
-        <div role="listitem">{{ icon_pin }}<strong>1</strong><small>Local destination in Fiji</small></div>
-      </div>
-      <ul class="mz-home-flags" role="list" aria-label="International regions">
-        <li><span class="mz-flag mz-flag--usa"></span><small>USA</small></li>
-        <li><span class="mz-flag mz-flag--canada"></span><small>Canada</small></li>
-        <li><span class="mz-flag mz-flag--uk"></span><small>UK</small></li>
-        <li><span class="mz-flag mz-flag--uae"></span><small>UAE</small></li>
-        <li><span class="mz-flag mz-flag--qatar"></span><small>Qatar</small></li>
-        <li><span class="mz-flag mz-flag--sa"></span><small>South Africa</small></li>
-        <li><span class="mz-flag mz-flag--kenya"></span><small>Kenya</small></li>
-        <li><span class="mz-flag mz-flag--europe"></span><small>Europe</small></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="page-width mz-home-lab" aria-labelledby="mz-home-lab-title">
-    <div class="mz-home-lab__panel">
-      <div class="mz-home-lab__image" aria-hidden="true"></div>
-      <div class="mz-home-lab__copy">
-        <p class="mz-home-kicker">Quality you can trust</p>
-        <h2 id="mz-home-lab-title">Lab tested. Proven. <span>Trusted.</span></h2>
-        <p>Every batch of HolyOak supplements is independently tested for purity, potency and safety by Eurofins.</p>
-        <div class="mz-home-eurofins" aria-label="Eurofins">
-          <span class="mz-home-eurofins__mark" aria-hidden="true"></span>
-          <strong>eurofins</strong>
-          <small>The global trusted lab</small>
+  {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+  {%- assign flag_blocks = section.blocks | where: 'type', 'flag' -%}
+  {%- if s.show_world -%}
+    <section class="page-width mz-home-world" aria-label="{{ s.world_kicker | escape }}">
+      <div class="mz-home-world__panel">
+        <div class="mz-home-world__copy">
+          <p class="mz-home-kicker">{{ s.world_kicker }}</p>
+          <h2>{{ s.world_heading }}<br>{{ s.world_heading_2 }} <span>{{ s.world_accent }}</span></h2>
         </div>
-        <ul class="mz-home-lab__checks" role="list">
-          <li>{{ icon_lab }}<span><strong>Purity Tested</strong><small>Heavy metals and contaminants</small></span></li>
-          <li>{{ icon_puzzle }}<span><strong>Potency Verified</strong><small>Active ingredients accurately measured</small></span></li>
-          <li>{{ icon_shield }}<span><strong>Quality Assured</strong><small>Meets international quality standards</small></span></li>
-          <li>{{ icon_package }}<span><strong>Global Trusted</strong><small>Eurofins is a global leader in laboratory services</small></span></li>
-        </ul>
-        <a class="mz-home-lab__link" href="{{ s.lab_url }}">Learn more</a>
+        {%- if stat_blocks.size > 0 -%}
+          <div class="mz-home-world__stats" role="list">
+            {%- for block in stat_blocks -%}
+              <div role="listitem" {{ block.shopify_attributes }}>
+                {% render 'medzuro-ref-icon', name: block.settings.icon %}
+                <strong>{{ block.settings.value }}</strong><small>{{ block.settings.label }}</small>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        {%- if flag_blocks.size > 0 -%}
+          <ul class="mz-home-flags" role="list" aria-label="International regions">
+            {%- for block in flag_blocks -%}
+              <li {{ block.shopify_attributes }}>
+                <span class="mz-flag mz-flag--{{ block.settings.flag }}"></span><small>{{ block.settings.label }}</small>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
       </div>
-    </div>
-  </section>
+    </section>
+  {%- endif -%}
 
-  <section class="page-width mz-home-reviews" aria-labelledby="mz-home-reviews-title">
-    <div class="mz-home-section-title">
-      <h2 id="mz-home-reviews-title">What Fiji Customers Are Saying</h2>
-    </div>
-    <button class="mz-home-arrow mz-home-arrow--prev mz-home-arrow--reviews-prev" type="button" aria-label="Previous reviews" data-mz-reviews-prev>
-      <span aria-hidden="true">&#8249;</span>
-    </button>
-    <div class="mz-home-reviews__viewport" data-mz-reviews>
-      <ul class="mz-home-reviews__track" role="list">
-        <li class="mz-home-review">
-          <span class="mz-home-review__quote" aria-hidden="true">"</span>
-          <span class="mz-home-rating" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span>
-          <p>Excellent quality products and fast delivery. I have been using Holyoak supplements for months and feel the difference.</p>
-          <div class="mz-home-review__person"><span class="mz-home-avatar mz-home-avatar--sea"></span><strong>Sarah L.<small>Suva, Fiji</small></strong></div>
-        </li>
-        <li class="mz-home-review">
-          <span class="mz-home-review__quote" aria-hidden="true">"</span>
-          <span class="mz-home-rating" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span>
-          <p>Genuine products you can trust. Love that they provide lab test results for purity and quality.</p>
-          <div class="mz-home-review__person"><span class="mz-home-avatar mz-home-avatar--lagoon"></span><strong>Rajesh K.<small>Nausori, Fiji</small></strong></div>
-        </li>
-        <li class="mz-home-review">
-          <span class="mz-home-review__quote" aria-hidden="true">"</span>
-          <span class="mz-home-rating" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span>
-          <p>Same-day delivery in Suva is a game changer. Great customer service and amazing products!</p>
-          <div class="mz-home-review__person"><span class="mz-home-avatar mz-home-avatar--sun"></span><strong>Mere W.<small>Suva, Fiji</small></strong></div>
-        </li>
+  {%- assign check_blocks = section.blocks | where: 'type', 'lab_check' -%}
+  {%- if s.show_lab -%}
+    <section class="page-width mz-home-lab" aria-labelledby="mz-home-lab-title">
+      <div class="mz-home-lab__panel">
+        <div class="mz-home-lab__image" aria-hidden="true"></div>
+        <div class="mz-home-lab__copy">
+          <p class="mz-home-kicker">{{ s.lab_kicker }}</p>
+          <h2 id="mz-home-lab-title">{{ s.lab_heading }} <span>{{ s.lab_accent }}</span></h2>
+          <p>{{ s.lab_text }}</p>
+          {%- if s.lab_brand != blank -%}
+            <div class="mz-home-eurofins" aria-label="{{ s.lab_brand | escape }}">
+              <span class="mz-home-eurofins__mark" aria-hidden="true"></span>
+              <strong>{{ s.lab_brand }}</strong>
+              <small>{{ s.lab_brand_tagline }}</small>
+            </div>
+          {%- endif -%}
+          {%- if check_blocks.size > 0 -%}
+            <ul class="mz-home-lab__checks" role="list">
+              {%- for block in check_blocks -%}
+                <li {{ block.shopify_attributes }}>
+                  {% render 'medzuro-ref-icon', name: block.settings.icon %}
+                  <span><strong>{{ block.settings.title }}</strong><small>{{ block.settings.text }}</small></span>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if s.lab_link_label != blank -%}
+            <a class="mz-home-lab__link" href="{{ s.lab_url }}">{{ s.lab_link_label }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- assign review_blocks = section.blocks | where: 'type', 'review' -%}
+  {%- if review_blocks.size > 0 -%}
+    <section class="page-width mz-home-reviews" aria-labelledby="mz-home-reviews-title">
+      <div class="mz-home-section-title">
+        <h2 id="mz-home-reviews-title">{{ s.reviews_title }}</h2>
+      </div>
+      <button class="mz-home-arrow mz-home-arrow--prev mz-home-arrow--reviews-prev" type="button" aria-label="Previous reviews" data-mz-reviews-prev>
+        <span aria-hidden="true">&#8249;</span>
+      </button>
+      <div class="mz-home-reviews__viewport" data-mz-reviews>
+        <ul class="mz-home-reviews__track" role="list">
+          {%- for block in review_blocks -%}
+            {%- assign stars = block.settings.rating | default: 5 -%}
+            <li class="mz-home-review" {{ block.shopify_attributes }}>
+              <span class="mz-home-review__quote" aria-hidden="true">"</span>
+              <span class="mz-home-rating" aria-label="{{ stars }} out of 5 stars">
+                <span aria-hidden="true">{% for i in (1..stars) %}&#9733;{% endfor %}</span>
+              </span>
+              <p>{{ block.settings.text }}</p>
+              <div class="mz-home-review__person">
+                <span class="mz-home-avatar mz-home-avatar--{{ block.settings.avatar }}"></span>
+                <strong>{{ block.settings.author }}<small>{{ block.settings.location }}</small></strong>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+      <button class="mz-home-arrow mz-home-arrow--next mz-home-arrow--reviews-next" type="button" aria-label="Next reviews" data-mz-reviews-next>
+        <span aria-hidden="true">&#8250;</span>
+      </button>
+    </section>
+  {%- endif -%}
+
+  {%- assign help_blocks = section.blocks | where: 'type', 'help' -%}
+  {%- if help_blocks.size > 0 -%}
+    <div class="page-width mz-home-help">
+      <ul class="mz-home-help__list" role="list">
+        {%- for block in help_blocks -%}
+          <li {{ block.shopify_attributes }}>
+            {% render 'medzuro-ref-icon', name: block.settings.icon %}
+            <span><strong>{{ block.settings.title }}</strong><small>{{ block.settings.text | replace: '[phone]', s.phone }}</small></span>
+          </li>
+        {%- endfor -%}
       </ul>
     </div>
-    <button class="mz-home-arrow mz-home-arrow--next mz-home-arrow--reviews-next" type="button" aria-label="Next reviews" data-mz-reviews-next>
-      <span aria-hidden="true">&#8250;</span>
-    </button>
-  </section>
+  {%- endif -%}
 
-  <div class="page-width mz-home-help">
-    <ul class="mz-home-help__list" role="list">
-      <li>{{ icon_phone }}<span><strong>Need help with your order?</strong><small>Call or message us on Viber. We are here in Fiji.</small></span></li>
-      <li>{{ icon_chat }}<span><strong>Message us on Viber</strong><small>{{ s.phone }}</small></span></li>
-      <li>{{ icon_pin }}<span><strong>Fiji based support</strong><small>Local team here to help you.</small></span></li>
-    </ul>
-  </div>
-
-  <section class="page-width mz-home-newsletter" aria-label="Subscribe to Medzuro updates">
-    <div class="mz-home-newsletter__panel">
-      <div class="mz-home-newsletter__copy">
-        <span class="mz-home-newsletter__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
-        </span>
-        <strong>Stay updated with our latest products, offers and wellness tips.</strong>
+  {%- if s.show_newsletter -%}
+    <section class="page-width mz-home-newsletter" aria-label="Subscribe to Medzuro updates">
+      <div class="mz-home-newsletter__panel">
+        <div class="mz-home-newsletter__copy">
+          <span class="mz-home-newsletter__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+          </span>
+          <strong>{{ s.newsletter_text }}</strong>
+        </div>
+        {%- form 'customer', class: 'mz-home-newsletter__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="v-hidden" for="NewsletterEmail-{{ section.id }}">Email address</label>
+          <input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" placeholder="{{ s.newsletter_placeholder | escape }}" required>
+          <button type="submit">{{ s.newsletter_button }}</button>
+        {%- endform -%}
       </div>
-      {%- form 'customer', class: 'mz-home-newsletter__form' -%}
-        <input type="hidden" name="contact[tags]" value="newsletter">
-        <label class="v-hidden" for="NewsletterEmail-{{ section.id }}">Email address</label>
-        <input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" placeholder="Enter your email address" required>
-        <button type="submit">Subscribe</button>
-      {%- endform -%}
-    </div>
-  </section>
+    </section>
+  {%- endif -%}
 </div>
 
 <script>
@@ -666,7 +687,9 @@
   "name": "Medzuro reference home",
   "tag": "section",
   "class": "mz-home-ref-section",
+  "max_blocks": 30,
   "settings": [
+    { "type": "header", "content": "Hero" },
     { "type": "text", "id": "hero_kicker", "label": "Hero eyebrow", "default": "Your wellness store in Fiji" },
     { "type": "text", "id": "hero_heading", "label": "Hero heading", "default": "Your wellness store," },
     { "type": "text", "id": "hero_accent", "label": "Hero accent", "default": "right here in Fiji." },
@@ -675,13 +698,194 @@
     { "type": "url", "id": "primary_url", "label": "Primary link", "default": "/collections/all" },
     { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Local pickup & delivery" },
     { "type": "url", "id": "secondary_url", "label": "Secondary link" },
+
+    { "type": "header", "content": "Products" },
+    { "type": "text", "id": "products_title", "label": "Heading", "default": "Best Sellers" },
     { "type": "collection", "id": "collection", "label": "Best sellers collection" },
     { "type": "range", "id": "product_limit", "label": "Products shown", "min": 5, "max": 12, "step": 1, "default": 5 },
-    { "type": "url", "id": "lab_url", "label": "Lab link" },
-    { "type": "text", "id": "phone", "label": "Phone number", "default": "+679-8029-837" }
+    { "type": "text", "id": "product_meta", "label": "Fallback pack size", "info": "Used when a product has no medzuro.serving metafield.", "default": "60 Capsules" },
+    { "type": "checkbox", "id": "show_ratings", "label": "Show star ratings", "default": true },
+    { "type": "text", "id": "add_label", "label": "Add to cart label", "default": "Add to cart" },
+    { "type": "text", "id": "soldout_label", "label": "Sold out label", "default": "Sold out" },
+
+    { "type": "header", "content": "Around the world" },
+    { "type": "checkbox", "id": "show_world", "label": "Show this area", "default": true },
+    { "type": "text", "id": "world_kicker", "label": "Eyebrow", "default": "HolyOak around the world" },
+    { "type": "text", "id": "world_heading", "label": "Heading line 1", "default": "Trusted internationally." },
+    { "type": "text", "id": "world_heading_2", "label": "Heading line 2", "default": "Now available locally in" },
+    { "type": "text", "id": "world_accent", "label": "Heading accent", "default": "Fiji." },
+    { "type": "paragraph", "content": "Add Statistic and Region blocks below to fill this area." },
+
+    { "type": "header", "content": "Lab testing" },
+    { "type": "checkbox", "id": "show_lab", "label": "Show this area", "default": true },
+    { "type": "text", "id": "lab_kicker", "label": "Eyebrow", "default": "Quality you can trust" },
+    { "type": "text", "id": "lab_heading", "label": "Heading", "default": "Lab tested. Proven." },
+    { "type": "text", "id": "lab_accent", "label": "Heading accent", "default": "Trusted." },
+    { "type": "textarea", "id": "lab_text", "label": "Text", "default": "Every batch of HolyOak supplements is independently tested for purity, potency and safety by Eurofins." },
+    { "type": "text", "id": "lab_brand", "label": "Lab name", "info": "Leave empty to hide the lab badge.", "default": "eurofins" },
+    { "type": "text", "id": "lab_brand_tagline", "label": "Lab tagline", "default": "The global trusted lab" },
+    { "type": "text", "id": "lab_link_label", "label": "Link label", "info": "Leave empty to hide the link.", "default": "Learn more" },
+    { "type": "url", "id": "lab_url", "label": "Link" },
+
+    { "type": "header", "content": "Reviews" },
+    { "type": "text", "id": "reviews_title", "label": "Heading", "default": "What Fiji Customers Are Saying" },
+    { "type": "paragraph", "content": "Add Review blocks below. The area hides when there are none." },
+
+    { "type": "header", "content": "Support" },
+    { "type": "text", "id": "phone", "label": "Phone number", "default": "+679-8029-837" },
+    { "type": "paragraph", "content": "Use [phone] inside a Support block's text to insert the number above." },
+
+    { "type": "header", "content": "Newsletter" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show this area", "default": true },
+    { "type": "text", "id": "newsletter_text", "label": "Text", "default": "Stay updated with our latest products, offers and wellness tips." },
+    { "type": "text", "id": "newsletter_placeholder", "label": "Input placeholder", "default": "Enter your email address" },
+    { "type": "text", "id": "newsletter_button", "label": "Button label", "default": "Subscribe" }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Trust badge",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "truck", "options": [
+          { "value": "truck", "label": "Delivery van" },
+          { "value": "pin", "label": "Map pin" },
+          { "value": "shield", "label": "Shield" },
+          { "value": "headset", "label": "Headset" },
+          { "value": "phone", "label": "Phone" },
+          { "value": "chat", "label": "Chat" },
+          { "value": "globe", "label": "Globe" },
+          { "value": "users", "label": "People" },
+          { "value": "lab", "label": "Flask" },
+          { "value": "puzzle", "label": "Puzzle" },
+          { "value": "package", "label": "Package" },
+          { "value": "leaf", "label": "Leaf" },
+          { "value": "award", "label": "Award" },
+          { "value": "clock", "label": "Clock" }
+        ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Delivered across Fiji" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Same-day delivery in most of Suva" }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "globe", "options": [
+          { "value": "globe", "label": "Globe" },
+          { "value": "users", "label": "People" },
+          { "value": "pin", "label": "Map pin" },
+          { "value": "package", "label": "Package" },
+          { "value": "award", "label": "Award" },
+          { "value": "shield", "label": "Shield" },
+          { "value": "truck", "label": "Delivery van" },
+          { "value": "clock", "label": "Clock" }
+        ] },
+        { "type": "text", "id": "value", "label": "Value", "default": "30+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Countries" }
+      ]
+    },
+    {
+      "type": "flag",
+      "name": "Region",
+      "settings": [
+        { "type": "select", "id": "flag", "label": "Flag", "default": "usa", "options": [
+          { "value": "usa", "label": "USA" },
+          { "value": "canada", "label": "Canada" },
+          { "value": "uk", "label": "UK" },
+          { "value": "uae", "label": "UAE" },
+          { "value": "qatar", "label": "Qatar" },
+          { "value": "sa", "label": "South Africa" },
+          { "value": "kenya", "label": "Kenya" },
+          { "value": "europe", "label": "Europe" }
+        ] },
+        { "type": "text", "id": "label", "label": "Label", "default": "USA" }
+      ]
+    },
+    {
+      "type": "lab_check",
+      "name": "Lab check",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "lab", "options": [
+          { "value": "lab", "label": "Flask" },
+          { "value": "puzzle", "label": "Puzzle" },
+          { "value": "shield", "label": "Shield" },
+          { "value": "package", "label": "Package" },
+          { "value": "award", "label": "Award" },
+          { "value": "globe", "label": "Globe" },
+          { "value": "leaf", "label": "Leaf" }
+        ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Purity Tested" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Heavy metals and contaminants" }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "text", "label": "Review", "default": "Excellent quality products and fast delivery." },
+        { "type": "text", "id": "author", "label": "Name", "default": "Sarah L." },
+        { "type": "text", "id": "location", "label": "Location", "default": "Suva, Fiji" },
+        { "type": "select", "id": "avatar", "label": "Avatar colour", "default": "sea", "options": [
+          { "value": "sea", "label": "Sea" },
+          { "value": "lagoon", "label": "Lagoon" },
+          { "value": "sun", "label": "Sun" }
+        ] }
+      ]
+    },
+    {
+      "type": "help",
+      "name": "Support item",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "phone", "options": [
+          { "value": "phone", "label": "Phone" },
+          { "value": "chat", "label": "Chat" },
+          { "value": "pin", "label": "Map pin" },
+          { "value": "headset", "label": "Headset" },
+          { "value": "clock", "label": "Clock" },
+          { "value": "shield", "label": "Shield" }
+        ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Need help with your order?" },
+        { "type": "text", "id": "text", "label": "Text", "info": "Use [phone] to insert the section's phone number.", "default": "Call or message us on Viber. We are here in Fiji." }
+      ]
+    }
   ],
   "presets": [
-    { "name": "Medzuro reference home" }
+    {
+      "name": "Medzuro reference home",
+      "blocks": [
+        { "type": "trust", "settings": { "icon": "truck", "title": "Delivered across Fiji", "text": "Same-day delivery in most of Suva" } },
+        { "type": "trust", "settings": { "icon": "pin", "title": "Local pickup", "text": "Collect from our Suva location" } },
+        { "type": "trust", "settings": { "icon": "shield", "title": "Genuine HolyOak", "text": "Authentic products you can trust" } },
+        { "type": "trust", "settings": { "icon": "headset", "title": "Fiji customer support", "text": "Call or Viber, we are here for you" } },
+
+        { "type": "stat", "settings": { "icon": "globe", "value": "30+", "label": "Countries" } },
+        { "type": "stat", "settings": { "icon": "users", "value": "2.4M+", "label": "Products sold worldwide" } },
+        { "type": "stat", "settings": { "icon": "pin", "value": "1", "label": "Local destination in Fiji" } },
+
+        { "type": "flag", "settings": { "flag": "usa", "label": "USA" } },
+        { "type": "flag", "settings": { "flag": "canada", "label": "Canada" } },
+        { "type": "flag", "settings": { "flag": "uk", "label": "UK" } },
+        { "type": "flag", "settings": { "flag": "uae", "label": "UAE" } },
+        { "type": "flag", "settings": { "flag": "qatar", "label": "Qatar" } },
+        { "type": "flag", "settings": { "flag": "sa", "label": "South Africa" } },
+        { "type": "flag", "settings": { "flag": "kenya", "label": "Kenya" } },
+        { "type": "flag", "settings": { "flag": "europe", "label": "Europe" } },
+
+        { "type": "lab_check", "settings": { "icon": "lab", "title": "Purity Tested", "text": "Heavy metals and contaminants" } },
+        { "type": "lab_check", "settings": { "icon": "puzzle", "title": "Potency Verified", "text": "Active ingredients accurately measured" } },
+        { "type": "lab_check", "settings": { "icon": "shield", "title": "Quality Assured", "text": "Meets international quality standards" } },
+        { "type": "lab_check", "settings": { "icon": "package", "title": "Global Trusted", "text": "Eurofins is a global leader in laboratory services" } },
+
+        { "type": "review", "settings": { "rating": 5, "text": "Excellent quality products and fast delivery. I have been using Holyoak supplements for months and feel the difference.", "author": "Sarah L.", "location": "Suva, Fiji", "avatar": "sea" } },
+        { "type": "review", "settings": { "rating": 5, "text": "Genuine products you can trust. Love that they provide lab test results for purity and quality.", "author": "Rajesh K.", "location": "Nausori, Fiji", "avatar": "lagoon" } },
+        { "type": "review", "settings": { "rating": 5, "text": "Same-day delivery in Suva is a game changer. Great customer service and amazing products!", "author": "Mere W.", "location": "Suva, Fiji", "avatar": "sun" } },
+
+        { "type": "help", "settings": { "icon": "phone", "title": "Need help with your order?", "text": "Call or message us on Viber. We are here in Fiji." } },
+        { "type": "help", "settings": { "icon": "chat", "title": "Message us on Viber", "text": "[phone]" } },
+        { "type": "help", "settings": { "icon": "pin", "title": "Fiji based support", "text": "Local team here to help you." } }
+      ]
+    }
   ]
 }
 {% endschema %}

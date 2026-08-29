@@ -1,0 +1,912 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --mz-navy: #071a3f;
+    --mz-blue: #102f66;
+    --mz-green: #5f7f1c;
+    --mz-red: #dd2029;
+    --mz-ink: #14213d;
+    --mz-muted: #5c667a;
+    --mz-line: #dfe5ee;
+    --mz-soft: #f5f8fb;
+    --mz-warm: #fbfaf6;
+    --mz-white: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about {
+    background: var(--mz-white);
+    color: var(--mz-ink);
+    font-family: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__wrap {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__eyebrow {
+    margin: 0 0 12px;
+    color: var(--mz-green);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about h1,
+  #shopify-section-{{ section.id }} .mz-about h2,
+  #shopify-section-{{ section.id }} .mz-about h3,
+  #shopify-section-{{ section.id }} .mz-about p {
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about h1 {
+    max-width: 620px;
+    margin-bottom: 20px;
+    color: var(--mz-navy);
+    font-size: 66px;
+    line-height: 1.02;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about h2 {
+    margin-bottom: 16px;
+    color: var(--mz-navy);
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about h3 {
+    margin-bottom: 10px;
+    color: var(--mz-navy);
+    font-size: 19px;
+    line-height: 1.25;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about p {
+    color: var(--mz-muted);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__hero {
+    position: relative;
+    overflow: hidden;
+    padding: 82px 0 62px;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.92) 48%, rgba(255,255,255,.72) 100%),
+      var(--mz-warm);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(420px, .88fr);
+    gap: 54px;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__intro {
+    max-width: 700px;
+    margin-bottom: 28px;
+    color: #32405a;
+    font-size: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__hero-actions,
+  #shopify-section-{{ section.id }} .mz-about__cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__btn {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 22px;
+    border: 1px solid var(--mz-navy);
+    border-radius: 4px;
+    background: var(--mz-navy);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px rgba(7,26,63,.18);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__btn--light {
+    background: #fff;
+    color: var(--mz-navy);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__btn--light:hover {
+    background: var(--mz-soft);
+    color: var(--mz-navy);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__visual {
+    position: relative;
+    overflow: hidden;
+    min-height: 435px;
+    border: 1px solid rgba(7,26,63,.08);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 22px 70px rgba(7,26,63,.12);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__visual img {
+    width: 100%;
+    height: 100%;
+    min-height: 435px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__visual-band {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__stat-chip {
+    min-height: 76px;
+    padding: 13px 14px;
+    border: 1px solid rgba(255,255,255,.7);
+    border-radius: 8px;
+    background: rgba(255,255,255,.92);
+    box-shadow: 0 12px 30px rgba(7,26,63,.11);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__stat-chip strong {
+    display: block;
+    color: var(--mz-navy);
+    font-size: 18px;
+    line-height: 1.1;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__stat-chip span {
+    display: block;
+    margin-top: 6px;
+    color: var(--mz-muted);
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__section {
+    padding: 78px 0;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__section--soft {
+    background: var(--mz-soft);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__section--warm {
+    background: var(--mz-warm);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__section-head {
+    max-width: 760px;
+    margin-bottom: 34px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__split {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    gap: 54px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__copy p:last-child {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__timeline {
+    display: grid;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__time {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 20px;
+    padding: 22px;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__time strong {
+    color: var(--mz-green);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__time p {
+    margin-bottom: 0;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__card {
+    position: relative;
+    min-height: 100%;
+    padding: 28px;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__card--accent {
+    border-color: rgba(95,127,28,.35);
+    box-shadow: inset 0 4px 0 var(--mz-green);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__card-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--mz-green);
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__card p {
+    margin-bottom: 22px;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--mz-navy);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__link:hover {
+    color: var(--mz-green);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__feature-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__feature {
+    min-height: 210px;
+    padding: 24px 18px;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__icon {
+    display: inline-grid;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 18px;
+    place-items: center;
+    border: 1px solid rgba(7,26,63,.13);
+    border-radius: 50%;
+    color: var(--mz-navy);
+    background: var(--mz-soft);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__feature h3 {
+    font-size: 17px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__feature p {
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__brand-quality {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__panel {
+    overflow: hidden;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__panel-body {
+    padding: 34px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__panel-media {
+    min-height: 245px;
+    background: var(--mz-soft);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__panel-media img {
+    width: 100%;
+    height: 245px;
+    display: block;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__panel--dark {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, .85fr);
+    grid-column: 1 / -1;
+    align-items: stretch;
+    background: var(--mz-navy);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__panel--dark .mz-about__panel-body {
+    padding: 42px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__panel--dark h2,
+  #shopify-section-{{ section.id }} .mz-about__panel--dark h3 {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__panel--dark p,
+  #shopify-section-{{ section.id }} .mz-about__panel--dark .mz-about__eyebrow {
+    color: rgba(255,255,255,.78);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__panel--dark .mz-about__link {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__panel-logo {
+    display: flex;
+    min-height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 38px;
+    background: linear-gradient(135deg, rgba(255,255,255,.1), rgba(95,127,28,.22));
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__panel-logo img {
+    max-width: 260px;
+    width: 100%;
+    height: auto;
+    padding: 24px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.96);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__principles {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__principle {
+    min-height: 150px;
+    padding: 22px 18px;
+    border: 1px solid rgba(7,26,63,.11);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__principle strong {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--mz-navy);
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__principle span {
+    display: block;
+    color: var(--mz-muted);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__vision-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__vision {
+    min-height: 100%;
+    padding: 34px;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__discover {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__discover-card {
+    min-height: 220px;
+    padding: 28px;
+    border: 1px solid rgba(255,255,255,.17);
+    border-radius: 8px;
+    background: rgba(255,255,255,.07);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__discover-card h3,
+  #shopify-section-{{ section.id }} .mz-about__discover-card p {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__discover-card p {
+    color: rgba(255,255,255,.74);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__discover-card .mz-about__link {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__dark-section {
+    padding: 78px 0;
+    background:
+      linear-gradient(135deg, rgba(7,26,63,.98), rgba(10,39,84,.96)),
+      var(--mz-navy);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__dark-section h2,
+  #shopify-section-{{ section.id }} .mz-about__dark-section .mz-about__eyebrow {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__final {
+    padding: 54px 0 70px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__final-box {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 30px;
+    align-items: center;
+    padding: 38px;
+    border-radius: 8px;
+    background: var(--mz-navy);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__final h2 {
+    margin-bottom: 8px;
+    color: #fff;
+    font-size: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__final p {
+    margin-bottom: 0;
+    color: rgba(255,255,255,.78);
+  }
+
+  #shopify-section-{{ section.id }} .mz-about__final-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: 18px;
+    color: rgba(255,255,255,.72);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 1050px) {
+    #shopify-section-{{ section.id }} .mz-about__hero-grid,
+    #shopify-section-{{ section.id }} .mz-about__split,
+    #shopify-section-{{ section.id }} .mz-about__brand-quality,
+    #shopify-section-{{ section.id }} .mz-about__vision-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about__feature-grid,
+    #shopify-section-{{ section.id }} .mz-about__principles {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #shopify-section-{{ section.id }} .mz-about__cards,
+    #shopify-section-{{ section.id }} .mz-about__discover {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about__panel--dark {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about h1 {
+      font-size: 52px;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about h2 {
+      font-size: 36px;
+    }
+  }
+
+  @media (max-width: 680px) {
+    #shopify-section-{{ section.id }} .mz-about__wrap {
+      width: min(100% - 24px, 1180px);
+    }
+
+    #shopify-section-{{ section.id }} .mz-about__hero {
+      padding: 54px 0 42px;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about h1 {
+      font-size: 38px;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about h2 {
+      font-size: 29px;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about__section,
+    #shopify-section-{{ section.id }} .mz-about__dark-section {
+      padding: 56px 0;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about__visual,
+    #shopify-section-{{ section.id }} .mz-about__visual img {
+      min-height: 330px;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about__visual-band {
+      position: static;
+      grid-template-columns: 1fr;
+      padding: 12px;
+      background: #fff;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about__time {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about__feature-grid,
+    #shopify-section-{{ section.id }} .mz-about__principles {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about__panel-body,
+    #shopify-section-{{ section.id }} .mz-about__panel--dark .mz-about__panel-body,
+    #shopify-section-{{ section.id }} .mz-about__vision,
+    #shopify-section-{{ section.id }} .mz-about__final-box {
+      padding: 26px;
+    }
+
+    #shopify-section-{{ section.id }} .mz-about__final-box {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section class="mz-about">
+  <div class="mz-about__hero">
+    <div class="mz-about__wrap mz-about__hero-grid">
+      <div>
+        <p class="mz-about__eyebrow">About Medzuro Retail</p>
+        <h1>Wellness, Now Closer to Home</h1>
+        <p class="mz-about__intro">Medzuro Retail is the nutraceutical and wellness business of Medzuro Wellness PTE Limited, Fiji. Established in October 2023, Medzuro began with a focus on healthcare and medical treatment, and has grown into a wider healthcare vision that includes wellness, nutrition and pharmaceuticals.</p>
+        <p>Today, Medzuro operates through three dedicated businesses: Medzuro, Medzuro Retail and Medzuro Lifescience. Through Medzuro Retail, we focus on making trusted wellness products easier to access locally in Fiji.</p>
+        <div class="mz-about__hero-actions">
+          <a class="mz-about__btn" href="/collections/all">Shop Medzuro Retail</a>
+          <a class="mz-about__btn mz-about__btn--light" href="#discover-medzuro">Discover Medzuro</a>
+        </div>
+      </div>
+
+      <div class="mz-about__visual" aria-label="Medzuro wellness products">
+        <img src="{{ 'medzuro-home-hero.png' | asset_url }}" alt="Medzuro wellness products in Fiji" loading="eager" width="900" height="700">
+        <div class="mz-about__visual-band" aria-hidden="true">
+          <div class="mz-about__stat-chip">
+            <strong>2023</strong>
+            <span>Established in Fiji</span>
+          </div>
+          <div class="mz-about__stat-chip">
+            <strong>3</strong>
+            <span>Healthcare businesses</span>
+          </div>
+          <div class="mz-about__stat-chip">
+            <strong>Local</strong>
+            <span>Ordering, pickup and support</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-about__section">
+    <div class="mz-about__wrap mz-about__split">
+      <div class="mz-about__copy">
+        <p class="mz-about__eyebrow">Our Story</p>
+        <h2>From Healthcare to Everyday Wellness</h2>
+        <p>Medzuro started in October 2023 with a focus on healthcare and medical treatment. As the business developed, we saw that people's health needs do not begin and end with clinical care. Everyday wellness, nutrition and preventive choices also matter.</p>
+        <p>That understanding led to the creation of Medzuro Retail: a local platform for nutraceuticals, supplements and wellness products. Our goal is simple - to bring selected, established brands closer to customers in Fiji, with the convenience of local shopping.</p>
+      </div>
+      <div class="mz-about__timeline">
+        <div class="mz-about__time">
+          <strong>October 2023</strong>
+          <p>Medzuro begins with a healthcare and medical treatment focus in Fiji.</p>
+        </div>
+        <div class="mz-about__time">
+          <strong>Next Step</strong>
+          <p>Medzuro Retail is created to make nutraceuticals and wellness products easier to buy locally.</p>
+        </div>
+        <div class="mz-about__time">
+          <strong>Today</strong>
+          <p>Medzuro continues growing across healthcare, wellness and life sciences through three focused businesses.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-about__section mz-about__section--soft">
+    <div class="mz-about__wrap">
+      <div class="mz-about__section-head">
+        <p class="mz-about__eyebrow">The Medzuro Group</p>
+        <h2>Three Businesses. One Growing Healthcare Vision.</h2>
+        <p>Medzuro Retail is one part of a broader Medzuro healthcare ecosystem built around access, quality and long-term service.</p>
+      </div>
+      <div class="mz-about__cards">
+        <article class="mz-about__card">
+          <span class="mz-about__card-label">Medical Treatment & Healthcare</span>
+          <h3>Medzuro</h3>
+          <p>Focused on medical treatment and healthcare services as the foundation of the Medzuro vision.</p>
+          <a class="mz-about__link" href="https://medzuro.com">Visit Medzuro &rarr;</a>
+        </article>
+        <article class="mz-about__card mz-about__card--accent">
+          <span class="mz-about__card-label">Nutraceuticals & Wellness</span>
+          <h3>Medzuro Retail</h3>
+          <p>A local destination for supplements, wellness products, delivery, pickup and Fiji-based support.</p>
+          <a class="mz-about__link" href="/">Visit Medzuro Retail &rarr;</a>
+        </article>
+        <article class="mz-about__card">
+          <span class="mz-about__card-label">Pharmaceuticals & Life Sciences</span>
+          <h3>Medzuro Lifescience</h3>
+          <p>Focused on pharmaceuticals and life sciences as Medzuro expands its healthcare capabilities.</p>
+          <a class="mz-about__link" href="https://medzurolifescience.com">Visit Medzuro Lifescience &rarr;</a>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-about__section">
+    <div class="mz-about__wrap">
+      <div class="mz-about__section-head">
+        <p class="mz-about__eyebrow">Why Medzuro Retail</p>
+        <h2>Making Wellness Shopping Simpler</h2>
+        <p>We started Medzuro Retail to make buying wellness products less complicated for customers in Fiji.</p>
+      </div>
+      <div class="mz-about__feature-grid">
+        <article class="mz-about__feature">
+          <span class="mz-about__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21s7-5.3 7-12a7 7 0 0 0-14 0c0 6.7 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </span>
+          <h3>Local Access</h3>
+          <p>Selected wellness products available locally, without overseas ordering guesswork.</p>
+        </article>
+        <article class="mz-about__feature">
+          <span class="mz-about__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.8-3 8.4-7 10-4-1.6-7-5.2-7-10V6l7-3z"/><path d="M9 12l2 2 4-5"/></svg>
+          </span>
+          <h3>Genuine Products</h3>
+          <p>We focus on authentic products from established brands customers can choose confidently.</p>
+        </article>
+        <article class="mz-about__feature">
+          <span class="mz-about__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+          </span>
+          <h3>Convenient Delivery</h3>
+          <p>Order from Fiji with local delivery options designed around everyday customers.</p>
+        </article>
+        <article class="mz-about__feature">
+          <span class="mz-about__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 10h14l-1 10H6L5 10z"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          </span>
+          <h3>Local Pickup</h3>
+          <p>Pickup support helps make shopping practical for customers who prefer collection.</p>
+        </article>
+        <article class="mz-about__feature">
+          <span class="mz-about__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M4 12v4a2 2 0 0 0 2 2h1v-6H4z"/><path d="M20 12v4a2 2 0 0 1-2 2h-1v-6h3z"/><path d="M9 20h3"/></svg>
+          </span>
+          <h3>Fiji-Based Support</h3>
+          <p>Our local team is here to help customers choose and order with more clarity.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-about__section mz-about__section--warm">
+    <div class="mz-about__wrap">
+      <div class="mz-about__brand-quality">
+        <article class="mz-about__panel mz-about__panel--dark">
+          <div class="mz-about__panel-body">
+            <p class="mz-about__eyebrow">Our Brands</p>
+            <h2>Brands We Bring Closer to Fiji</h2>
+            <p>Medzuro Retail focuses on established wellness and nutraceutical brands. We select products that are relevant for our customers, with attention to brand standards, market presence and product information.</p>
+            <p>Holyoak is one of the key wellness brands available through Medzuro Retail, and our range will continue to grow carefully over time.</p>
+            <a class="mz-about__link" href="/collections/all">Explore our brands &rarr;</a>
+          </div>
+          <div class="mz-about__panel-logo">
+            <img src="{{ 'medzuro-logo.png' | asset_url }}" alt="Medzuro Retail logo" loading="lazy" width="520" height="220">
+          </div>
+        </article>
+
+        <article class="mz-about__panel">
+          <div class="mz-about__panel-media">
+            <img src="{{ 'medzuro-lab-trust.png' | asset_url }}" alt="Laboratory quality testing for wellness products" loading="lazy" width="700" height="420">
+          </div>
+          <div class="mz-about__panel-body">
+            <p class="mz-about__eyebrow">Quality & Transparency</p>
+            <h2>Know What You're Choosing</h2>
+            <p>We believe customers should understand what they are buying. Medzuro Retail aims to provide clear product information, authentic products and quality documentation where available.</p>
+            <p>For us, quality is not only about the product. It is also about giving customers enough information to choose responsibly.</p>
+          </div>
+        </article>
+
+        <article class="mz-about__panel">
+          <div class="mz-about__panel-body">
+            <p class="mz-about__eyebrow">Built for Fiji</p>
+            <h2>Local Access, Designed Around Our Customers</h2>
+            <p>Buying wellness products from international websites can be difficult for customers in Fiji. Product sourcing, delivery timing and customer support are not always simple.</p>
+            <p>Medzuro Retail was built to change that through a local Fiji presence, local ordering, delivery and pickup options, and a team customers can contact.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-about__section">
+    <div class="mz-about__wrap">
+      <div class="mz-about__section-head">
+        <p class="mz-about__eyebrow">Our Approach</p>
+        <h2>Simple Principles. Long-Term Vision.</h2>
+      </div>
+      <div class="mz-about__principles">
+        <div class="mz-about__principle">
+          <strong>People</strong>
+          <span>We keep customers and communities at the centre of our decisions.</span>
+        </div>
+        <div class="mz-about__principle">
+          <strong>Trust</strong>
+          <span>We build confidence through authenticity, clarity and responsible service.</span>
+        </div>
+        <div class="mz-about__principle">
+          <strong>Quality</strong>
+          <span>We work with established products and keep standards visible.</span>
+        </div>
+        <div class="mz-about__principle">
+          <strong>Convenience</strong>
+          <span>We make ordering, pickup and delivery easier for Fiji customers.</span>
+        </div>
+        <div class="mz-about__principle">
+          <strong>Responsibility</strong>
+          <span>We support informed wellness decisions without overclaiming.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-about__section mz-about__section--soft">
+    <div class="mz-about__wrap">
+      <div class="mz-about__vision-grid">
+        <article class="mz-about__vision">
+          <p class="mz-about__eyebrow">Looking Ahead</p>
+          <h2>Building Something for the Long Term</h2>
+          <p>Medzuro is still a young business, but our direction is clear. Since starting in October 2023, we have continued to grow across healthcare, wellness and life sciences.</p>
+          <p>Through Medzuro Retail, we plan to expand our product range, work with trusted brands and keep improving access to wellness products for customers in Fiji.</p>
+        </article>
+        <article class="mz-about__vision">
+          <p class="mz-about__eyebrow">Our Vision</p>
+          <h2>A More Accessible Healthcare & Wellness Future</h2>
+          <p>We believe healthcare is becoming more connected. Treatment, nutrition, wellness products and pharmaceuticals all play different but important roles in supporting people.</p>
+          <p>Medzuro's vision is to develop these capabilities while keeping people, accessibility and responsible healthcare at the centre.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div id="discover-medzuro" class="mz-about__dark-section">
+    <div class="mz-about__wrap">
+      <div class="mz-about__section-head">
+        <p class="mz-about__eyebrow">Discover Medzuro</p>
+        <h2>One Medzuro ecosystem, three focused destinations.</h2>
+      </div>
+      <div class="mz-about__discover">
+        <article class="mz-about__discover-card">
+          <h3>Medical Treatment</h3>
+          <p>Explore Medzuro's healthcare and medical treatment services.</p>
+          <a class="mz-about__link" href="https://medzuro.com">Visit Medzuro &rarr;</a>
+        </article>
+        <article class="mz-about__discover-card">
+          <h3>Wellness & Supplements</h3>
+          <p>Shop Medzuro Retail for nutraceuticals, supplements and wellness products.</p>
+          <a class="mz-about__link" href="/">Visit Medzuro Retail &rarr;</a>
+        </article>
+        <article class="mz-about__discover-card">
+          <h3>Pharmaceuticals & Life Sciences</h3>
+          <p>Learn more about Medzuro Lifescience and the broader healthcare vision.</p>
+          <a class="mz-about__link" href="https://medzurolifescience.com">Visit Medzuro Lifescience &rarr;</a>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-about__final">
+    <div class="mz-about__wrap">
+      <div class="mz-about__final-box">
+        <div>
+          <p class="mz-about__eyebrow">Medzuro Retail</p>
+          <h2>Your local destination for wellness products.</h2>
+          <p>Shop locally. Choose confidently.</p>
+          <div class="mz-about__final-meta">
+            <span>Established 2023</span>
+            <span>Medzuro Wellness PTE Limited, Fiji</span>
+            <span>Nutraceuticals | Supplements | Wellness</span>
+          </div>
+        </div>
+        <div class="mz-about__cta-actions">
+          <a class="mz-about__btn mz-about__btn--light" href="/collections/all">Shop Medzuro Retail</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Medzuro about page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Medzuro about page"
+    }
+  ]
+}
+{% endschema %}

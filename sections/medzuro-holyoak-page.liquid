@@ -217,11 +217,21 @@
     flex-direction: column;
     justify-content: center;
     height: 100%;
-    padding: 32px;
+    padding: 36px;
     border-left: 4px solid var(--hk-green);
     border-radius: 8px;
     background: #fff;
     box-shadow: 0 14px 40px rgba(7,26,63,.07);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__quote-mark {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--hk-green);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
   }
 
   #shopify-section-{{ section.id }} .hk-about__quote strong {
@@ -230,6 +240,35 @@
     font-size: 28px;
     font-weight: 800;
     line-height: 1.18;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__quote-points {
+    display: grid;
+    gap: 12px;
+    margin: 24px 0 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--hk-line);
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__quote-points li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--hk-ink);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__quote-points li::before {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--hk-green);
   }
 
   #shopify-section-{{ section.id }} .hk-about__markets {
@@ -615,8 +654,14 @@
         <p>Holyoak is built around the idea that wellness should be simple, practical and easy to incorporate into everyday routines. From nutritional supplements to specialised wellness formulations, Holyoak offers products designed to complement different lifestyles and nutritional needs.</p>
       </div>
       <aside class="hk-about__quote">
+        <span class="hk-about__quote-mark" aria-hidden="true">&ldquo;</span>
         <strong>A global wellness brand, now closer to home.</strong>
         <p>Through Medzuro Retail, customers in Fiji can access selected Holyoak products through a local platform rather than relying solely on overseas shopping.</p>
+        <ul class="hk-about__quote-points">
+          <li>No more overseas shipping delays</li>
+          <li>A retailer that knows the local market</li>
+          <li>Someone local to contact if something goes wrong</li>
+        </ul>
       </aside>
     </div>
   </div>

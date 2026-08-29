@@ -1,0 +1,782 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --hk-navy: #071a3f;
+    --hk-blue: #12366f;
+    --hk-green: #607f1f;
+    --hk-red: #dd2029;
+    --hk-gold: #b98635;
+    --hk-ink: #14213d;
+    --hk-muted: #5c667a;
+    --hk-line: #dfe6ee;
+    --hk-soft: #f5f8fb;
+    --hk-cream: #fbfaf6;
+    --hk-white: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about {
+    background: var(--hk-white);
+    color: var(--hk-ink);
+    font-family: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__wrap {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about h1,
+  #shopify-section-{{ section.id }} .hk-about h2,
+  #shopify-section-{{ section.id }} .hk-about h3,
+  #shopify-section-{{ section.id }} .hk-about p {
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about h1 {
+    max-width: 640px;
+    margin-bottom: 18px;
+    color: var(--hk-navy);
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1.03;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about h2 {
+    margin-bottom: 16px;
+    color: var(--hk-navy);
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about h3 {
+    margin-bottom: 10px;
+    color: var(--hk-navy);
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about p {
+    color: var(--hk-muted);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__eyebrow {
+    margin-bottom: 12px;
+    color: var(--hk-green);
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__hero {
+    overflow: hidden;
+    padding: 82px 0 64px;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,.98), rgba(255,255,255,.84)),
+      var(--hk-cream);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(390px, .88fr);
+    gap: 56px;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__intro {
+    max-width: 700px;
+    margin-bottom: 26px;
+    color: #34425b;
+    font-size: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__btn {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 22px;
+    border: 1px solid var(--hk-navy);
+    border-radius: 4px;
+    background: var(--hk-navy);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px rgba(7,26,63,.18);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__btn--light {
+    background: #fff;
+    color: var(--hk-navy);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__btn--light:hover {
+    background: var(--hk-soft);
+    color: var(--hk-navy);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__hero-card {
+    overflow: hidden;
+    border: 1px solid rgba(7,26,63,.08);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 22px 70px rgba(7,26,63,.12);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__hero-card img {
+    display: block;
+    width: 100%;
+    height: 430px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__hero-note {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--hk-line);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__hero-note div {
+    min-height: 92px;
+    padding: 20px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__hero-note strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--hk-navy);
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__hero-note span {
+    color: var(--hk-muted);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__section {
+    padding: 76px 0;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__section--soft {
+    background: var(--hk-soft);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__section--cream {
+    background: var(--hk-cream);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__head {
+    max-width: 780px;
+    margin-bottom: 34px;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__split {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    gap: 52px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__copy p:last-child {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__quote {
+    padding: 32px;
+    border-left: 4px solid var(--hk-green);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 14px 40px rgba(7,26,63,.07);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__quote strong {
+    display: block;
+    color: var(--hk-navy);
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.18;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__markets {
+    display: grid;
+    grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__stat-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__stat {
+    min-height: 180px;
+    padding: 28px;
+    border: 1px solid rgba(7,26,63,.1);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__stat strong {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--hk-navy);
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__stat span {
+    display: block;
+    color: var(--hk-muted);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__market-card {
+    min-height: 100%;
+    padding: 30px;
+    border-radius: 8px;
+    background: var(--hk-navy);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__market-card h2,
+  #shopify-section-{{ section.id }} .hk-about__market-card p {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__market-card p {
+    color: rgba(255,255,255,.78);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__market-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 22px;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__market-grid span {
+    display: flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__fineprint {
+    margin-top: 16px;
+    margin-bottom: 0;
+    color: rgba(255,255,255,.62);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__focus-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__focus {
+    min-height: 230px;
+    padding: 24px 20px;
+    border: 1px solid var(--hk-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__icon {
+    display: inline-grid;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 18px;
+    place-items: center;
+    border: 1px solid rgba(7,26,63,.13);
+    border-radius: 50%;
+    background: var(--hk-soft);
+    color: var(--hk-navy);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__focus p {
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__quality-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__panel {
+    overflow: hidden;
+    min-height: 100%;
+    border: 1px solid var(--hk-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__panel-body {
+    padding: 34px;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__panel-media img {
+    display: block;
+    width: 100%;
+    height: 290px;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__signal {
+    display: inline-flex;
+    min-height: 38px;
+    align-items: center;
+    padding: 0 14px;
+    border-radius: 4px;
+    background: rgba(95,127,31,.12);
+    color: var(--hk-green);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__fiji {
+    display: grid;
+    grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__fiji-box {
+    padding: 36px;
+    border-radius: 8px;
+    background: var(--hk-navy);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__fiji-box h2,
+  #shopify-section-{{ section.id }} .hk-about__fiji-box p {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__fiji-box p {
+    color: rgba(255,255,255,.78);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__local-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__local-item {
+    display: flex;
+    min-height: 92px;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    border: 1px solid var(--hk-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__local-item span {
+    display: inline-grid;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(95,127,31,.12);
+    color: var(--hk-green);
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__local-item strong {
+    display: block;
+    color: var(--hk-navy);
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__relationship {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__relationship article {
+    min-height: 100%;
+    padding: 34px;
+    border: 1px solid var(--hk-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__relationship article:first-child {
+    border-color: rgba(95,127,31,.35);
+    box-shadow: inset 0 4px 0 var(--hk-green);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__cta {
+    padding: 70px 0;
+    background: var(--hk-navy);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__cta-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 32px;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__cta h2 {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__cta p {
+    margin-bottom: 0;
+    color: rgba(255,255,255,.78);
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__cta-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: 20px;
+    color: rgba(255,255,255,.75);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  @media (max-width: 1050px) {
+    #shopify-section-{{ section.id }} .hk-about h1 {
+      font-size: 52px;
+    }
+
+    #shopify-section-{{ section.id }} .hk-about h2 {
+      font-size: 36px;
+    }
+
+    #shopify-section-{{ section.id }} .hk-about__hero-grid,
+    #shopify-section-{{ section.id }} .hk-about__split,
+    #shopify-section-{{ section.id }} .hk-about__markets,
+    #shopify-section-{{ section.id }} .hk-about__quality-grid,
+    #shopify-section-{{ section.id }} .hk-about__fiji,
+    #shopify-section-{{ section.id }} .hk-about__relationship,
+    #shopify-section-{{ section.id }} .hk-about__cta-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .hk-about__focus-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    #shopify-section-{{ section.id }} .hk-about__wrap {
+      width: min(100% - 24px, 1180px);
+    }
+
+    #shopify-section-{{ section.id }} .hk-about__hero {
+      padding: 54px 0 42px;
+    }
+
+    #shopify-section-{{ section.id }} .hk-about h1 {
+      font-size: 38px;
+    }
+
+    #shopify-section-{{ section.id }} .hk-about h2 {
+      font-size: 29px;
+    }
+
+    #shopify-section-{{ section.id }} .hk-about__section,
+    #shopify-section-{{ section.id }} .hk-about__cta {
+      padding: 56px 0;
+    }
+
+    #shopify-section-{{ section.id }} .hk-about__hero-card img {
+      height: 310px;
+    }
+
+    #shopify-section-{{ section.id }} .hk-about__hero-note,
+    #shopify-section-{{ section.id }} .hk-about__stat-row,
+    #shopify-section-{{ section.id }} .hk-about__market-grid,
+    #shopify-section-{{ section.id }} .hk-about__focus-grid,
+    #shopify-section-{{ section.id }} .hk-about__local-list {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .hk-about__panel-body,
+    #shopify-section-{{ section.id }} .hk-about__quote,
+    #shopify-section-{{ section.id }} .hk-about__fiji-box,
+    #shopify-section-{{ section.id }} .hk-about__relationship article {
+      padding: 26px;
+    }
+  }
+</style>
+
+<section id="about-holyoak" class="hk-about">
+  <div class="hk-about__hero">
+    <div class="hk-about__wrap hk-about__hero-grid">
+      <div>
+        <p class="hk-about__eyebrow">About Holyoak</p>
+        <h1>Global Wellness. Now Available in Fiji.</h1>
+        <p class="hk-about__intro">Holyoak is an international wellness and nutraceutical brand offering thoughtfully developed products for modern health and everyday wellbeing.</p>
+        <p>At Medzuro Retail, we are bringing Holyoak closer to customers in Fiji - making selected Holyoak products available through a local Fiji-based retail experience with convenient delivery, pickup and customer support.</p>
+        <div class="hk-about__actions">
+          <a class="hk-about__btn" href="/collections/all">Shop Holyoak</a>
+          <a class="hk-about__btn hk-about__btn--light" href="#holyoak-quality">Quality & Testing</a>
+        </div>
+      </div>
+      <div class="hk-about__hero-card">
+        <img src="{{ 'medzuro-home-hero.png' | asset_url }}" alt="Holyoak wellness products available in Fiji" loading="lazy" width="900" height="680">
+        <div class="hk-about__hero-note">
+          <div>
+            <strong>2.4M+*</strong>
+            <span>Products sold worldwide</span>
+          </div>
+          <div>
+            <strong>30+</strong>
+            <span>Countries and markets reached</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hk-about__section">
+    <div class="hk-about__wrap hk-about__split">
+      <div class="hk-about__copy">
+        <p class="hk-about__eyebrow">Wellness That Fits Your Life</p>
+        <h2>Simple, practical wellness for everyday routines.</h2>
+        <p>Modern life moves quickly. Work, travel, family and daily responsibilities can make maintaining a balanced lifestyle challenging.</p>
+        <p>Holyoak is built around the idea that wellness should be simple, practical and easy to incorporate into everyday routines. From nutritional supplements to specialised wellness formulations, Holyoak offers products designed to complement different lifestyles and nutritional needs.</p>
+      </div>
+      <aside class="hk-about__quote">
+        <strong>A global wellness brand, now closer to home.</strong>
+        <p>Through Medzuro Retail, customers in Fiji can access selected Holyoak products through a local platform rather than relying solely on overseas shopping.</p>
+      </aside>
+    </div>
+  </div>
+
+  <div class="hk-about__section hk-about__section--soft">
+    <div class="hk-about__wrap hk-about__markets">
+      <div class="hk-about__stat-row">
+        <div class="hk-about__stat">
+          <strong>2.4M+*</strong>
+          <span>Products Sold Worldwide</span>
+        </div>
+        <div class="hk-about__stat">
+          <strong>30+</strong>
+          <span>Countries & Markets Reached</span>
+        </div>
+      </div>
+      <article class="hk-about__market-card">
+        <p class="hk-about__eyebrow">Holyoak Around The World</p>
+        <h2>From international markets to Fiji.</h2>
+        <p>Holyoak products have reached customers across international markets, building a growing presence beyond its home market.</p>
+        <div class="hk-about__market-grid" aria-label="Holyoak markets">
+          <span>USA</span>
+          <span>Canada</span>
+          <span>UK</span>
+          <span>Europe</span>
+          <span>UAE</span>
+          <span>Qatar</span>
+          <span>South Africa</span>
+          <span>Kenya</span>
+          <span>Fiji</span>
+        </div>
+        <p class="hk-about__fineprint">*Figures and market availability are subject to the latest information provided by the brand.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="hk-about__section">
+    <div class="hk-about__wrap">
+      <div class="hk-about__head">
+        <p class="hk-about__eyebrow">Designed For Modern Wellness</p>
+        <h2>Products designed around the needs of today's consumers.</h2>
+        <p>Holyoak's portfolio spans different areas of everyday wellness, allowing customers to choose products that fit their individual routines and nutritional goals.</p>
+      </div>
+      <div class="hk-about__focus-grid">
+        <article class="hk-about__focus">
+          <span class="hk-about__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M7 8c0-3 2-5 5-5 3 0 5 2 5 5 0 4-5 6-5 6s-5-2-5-6z"/><path d="M7 16h10"/></svg>
+          </span>
+          <h3>Daily Wellness</h3>
+          <p>Products designed to complement everyday nutritional routines.</p>
+        </article>
+        <article class="hk-about__focus">
+          <span class="hk-about__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M12 8v5l3 2"/></svg>
+          </span>
+          <h3>Nutritional Support</h3>
+          <p>Formulations created to provide targeted nutritional support.</p>
+        </article>
+        <article class="hk-about__focus">
+          <span class="hk-about__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v6l-4 8a3 3 0 0 0 3 4h6a3 3 0 0 0 3-4l-4-8V3"/><path d="M8 15h8"/></svg>
+          </span>
+          <h3>Vitamins & Supplements</h3>
+          <p>Convenient supplementation for modern lifestyles.</p>
+        </article>
+        <article class="hk-about__focus">
+          <span class="hk-about__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7L6.8 19l1-5.8-4.2-4.1 5.8-.8L12 3z"/></svg>
+          </span>
+          <h3>Specialised Nutrition</h3>
+          <p>Selected products developed for specific nutritional requirements.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div id="holyoak-quality" class="hk-about__section hk-about__section--cream">
+    <div class="hk-about__wrap">
+      <div class="hk-about__quality-grid">
+        <article class="hk-about__panel">
+          <div class="hk-about__panel-body">
+            <span class="hk-about__signal">Quality Matters</span>
+            <h2>What's inside matters.</h2>
+            <p>When it comes to nutritional supplements, customers deserve confidence in the products they choose. Holyoak products are developed with attention to formulation, ingredients and product quality, while relevant product information helps customers make informed choices.</p>
+            <p>At Medzuro Retail, we believe transparency is an important part of responsible wellness retail.</p>
+          </div>
+        </article>
+        <article class="hk-about__panel">
+          <div class="hk-about__panel-media">
+            <img src="{{ 'medzuro-lab-trust.png' | asset_url }}" alt="Independent product testing and quality documentation" loading="lazy" width="720" height="430">
+          </div>
+          <div class="hk-about__panel-body">
+            <span class="hk-about__signal">Tested For Quality</span>
+            <h2>Lab tested. Proven. Trusted.</h2>
+            <p>Where applicable, Holyoak products are supported by independent testing and quality documentation. Eurofins is one of the world's leading laboratory testing organisations, providing analytical testing services across a wide range of industries.</p>
+            <p>Relevant testing and quality information is made available to customers wherever applicable to the product.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="hk-about__section">
+    <div class="hk-about__wrap hk-about__fiji">
+      <div class="hk-about__fiji-box">
+        <p class="hk-about__eyebrow">Holyoak In Fiji</p>
+        <h2>International wellness. Local access.</h2>
+        <p>For customers in Fiji, purchasing products from overseas can mean international shipping, longer waiting periods and uncertainty about who to contact if something goes wrong.</p>
+        <p>Medzuro Retail provides a different experience, giving customers a retailer that understands the local market and provides local assistance.</p>
+      </div>
+      <div class="hk-about__local-list">
+        <div class="hk-about__local-item"><span>1</span><strong>Local ordering</strong></div>
+        <div class="hk-about__local-item"><span>2</span><strong>Local pickup</strong></div>
+        <div class="hk-about__local-item"><span>3</span><strong>Same-day delivery across most of Suva</strong></div>
+        <div class="hk-about__local-item"><span>4</span><strong>Fiji-based customer support</strong></div>
+        <div class="hk-about__local-item"><span>5</span><strong>EMS & CDP delivery options</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hk-about__section hk-about__section--soft">
+    <div class="hk-about__wrap">
+      <div class="hk-about__relationship">
+        <article>
+          <p class="hk-about__eyebrow">Why Holyoak?</p>
+          <h2>A growing choice for modern wellness.</h2>
+          <p>Holyoak combines an international presence with a broad range of nutritional and wellness products designed for today's lifestyles.</p>
+          <p>For Medzuro Retail, bringing Holyoak to Fiji represents an opportunity to give customers greater choice while making international wellness products more accessible locally.</p>
+        </article>
+        <article>
+          <p class="hk-about__eyebrow">Holyoak x Medzuro Retail</p>
+          <h2>Bringing the world of wellness closer to Fiji.</h2>
+          <p>Holyoak is the brand. Medzuro Retail is your local connection to it.</p>
+          <p>We make selected Holyoak products available through our Fiji-based platform, giving customers a simpler way to discover, purchase and receive their wellness products from browsing online to local delivery and pickup.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="hk-about__cta">
+    <div class="hk-about__wrap hk-about__cta-grid">
+      <div>
+        <p class="hk-about__eyebrow">Discover Holyoak</p>
+        <h2>Find wellness products for your routine.</h2>
+        <p>Explore the Holyoak range available through Medzuro Retail and discover products designed to complement different nutritional and lifestyle needs.</p>
+        <div class="hk-about__cta-meta">
+          <span>Shop Online</span>
+          <span>Local Pickup</span>
+          <span>Fiji Delivery</span>
+          <span>Viber Support</span>
+          <span>+679-8029-837</span>
+        </div>
+      </div>
+      <div class="hk-about__actions">
+        <a class="hk-about__btn hk-about__btn--light" href="/collections/all">Shop Holyoak</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Medzuro Holyoak page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Medzuro Holyoak page"
+    }
+  ]
+}
+{% endschema %}

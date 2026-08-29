@@ -590,7 +590,7 @@
             "type": "single_link",
             "settings": {
               "title": "HolyOak",
-              "url": "/collections/holyoak",
+              "url": "/pages/about-us#about-holyoak",
               "newtab": false
             }
           },
@@ -804,7 +804,7 @@
               "link1": "Shop All",
               "url1": "/collections/all",
               "link2": "HolyOak",
-              "url2": "/collections/holyoak",
+              "url2": "/pages/about-us#about-holyoak",
               "link3": "About Us",
               "url3": "/pages/about-us",
               "link4": "Lab Test & Purity",

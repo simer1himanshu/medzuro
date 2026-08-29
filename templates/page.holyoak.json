@@ -1,16 +1,11 @@
 {
   "sections": {
-    "about": {
-      "type": "medzuro-about-page",
-      "settings": {}
-    },
     "holyoak": {
       "type": "medzuro-holyoak-page",
       "settings": {}
     }
   },
   "order": [
-    "about",
     "holyoak"
   ]
 }

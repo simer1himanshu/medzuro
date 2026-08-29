@@ -93,3 +93,10 @@ leave some near-empty — consider fewer categories until the range grows.
 Pages linked from the navigation: `/pages/about`, `/pages/contact`, and the
 blog at `/blogs/news`. Footer menus expect link lists with the handles
 `customer-service` and `information`.
+
+**`/pages/about-holyoak` — not yet created.** The nav and footer link here
+(config/settings_data.json) and the theme has a matching template
+(`templates/page.about-holyoak.json`, using the `medzuro-holyoak-page`
+section), but no Page object exists in Admin with this handle, so the link
+404s. Create it: Online Store → Pages → Add page, set the handle to
+`about-holyoak`, and assign the `page.about-holyoak` theme template.

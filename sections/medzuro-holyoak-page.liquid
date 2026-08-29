@@ -205,7 +205,7 @@
     display: grid;
     grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
     gap: 52px;
-    align-items: start;
+    align-items: stretch;
   }
 
   #shopify-section-{{ section.id }} .hk-about__copy p:last-child {
@@ -213,6 +213,10 @@
   }
 
   #shopify-section-{{ section.id }} .hk-about__quote {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
     padding: 32px;
     border-left: 4px solid var(--hk-green);
     border-radius: 8px;

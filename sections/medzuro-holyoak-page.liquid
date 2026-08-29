@@ -423,6 +423,50 @@
     object-fit: cover;
   }
 
+  #shopify-section-{{ section.id }} .hk-about__checklist {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin: 28px 0 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--hk-line);
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__checklist li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__checklist .hk-about__icon {
+    flex: 0 0 auto;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__checklist .hk-about__icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__checklist strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--hk-navy);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .hk-about__checklist span {
+    display: block;
+    color: var(--hk-muted);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
   #shopify-section-{{ section.id }} .hk-about__signal {
     display: inline-flex;
     min-height: 38px;
@@ -604,7 +648,8 @@
     #shopify-section-{{ section.id }} .hk-about__stat-row,
     #shopify-section-{{ section.id }} .hk-about__market-grid,
     #shopify-section-{{ section.id }} .hk-about__focus-grid,
-    #shopify-section-{{ section.id }} .hk-about__local-list {
+    #shopify-section-{{ section.id }} .hk-about__local-list,
+    #shopify-section-{{ section.id }} .hk-about__checklist {
       grid-template-columns: 1fr;
     }
 
@@ -748,6 +793,44 @@
             <h2>What's inside matters.</h2>
             <p>When it comes to nutritional supplements, customers deserve confidence in the products they choose. Holyoak products are developed with attention to formulation, ingredients and product quality, while relevant product information helps customers make informed choices.</p>
             <p>At Medzuro Retail, we believe transparency is an important part of responsible wellness retail.</p>
+            <ul class="hk-about__checklist">
+              <li>
+                <span class="hk-about__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v6l-4 8a3 3 0 0 0 3 4h6a3 3 0 0 0 3-4l-4-8V3"/><path d="M8 15h8"/></svg>
+                </span>
+                <div>
+                  <strong>Careful Formulation</strong>
+                  <span>Every product is developed with attention to ingredients and dosage.</span>
+                </div>
+              </li>
+              <li>
+                <span class="hk-about__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                </span>
+                <div>
+                  <strong>Ingredient Transparency</strong>
+                  <span>Clear information on what's inside, not just marketing claims.</span>
+                </div>
+              </li>
+              <li>
+                <span class="hk-about__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M7 8c0-3 2-5 5-5 3 0 5 2 5 5 0 4-5 6-5 6s-5-2-5-6z"/><path d="M7 16h10"/></svg>
+                </span>
+                <div>
+                  <strong>Quality Checks</strong>
+                  <span>Formulations are reviewed for consistency and product quality.</span>
+                </div>
+              </li>
+              <li>
+                <span class="hk-about__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
+                </span>
+                <div>
+                  <strong>Clear Product Info</strong>
+                  <span>Relevant details are made available so customers can choose with confidence.</span>
+                </div>
+              </li>
+            </ul>
           </div>
         </article>
         <article class="hk-about__panel">

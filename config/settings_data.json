@@ -598,7 +598,7 @@
             "type": "single_link",
             "settings": {
               "title": "About Us",
-              "url": "/pages/about",
+              "url": "/pages/about-us",
               "newtab": false
             }
           },
@@ -806,7 +806,7 @@
               "link2": "HolyOak",
               "url2": "/collections/holyoak",
               "link3": "About Us",
-              "url3": "/pages/about",
+              "url3": "/pages/about-us",
               "link4": "Lab Test & Purity",
               "url4": "/pages/lab-test-and-purity",
               "link5": "Contact",

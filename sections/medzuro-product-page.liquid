@@ -1,0 +1,1778 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'mz-product-form-' | append: section.id
+  assign variant_count = product.variants | size
+  assign product_price = current_variant.price | default: product.price
+  assign compare_price = current_variant.compare_at_price | default: product.compare_at_price | default: 0
+  assign has_compare = false
+  if compare_price > product_price
+    assign has_compare = true
+    assign save_amount = compare_price | minus: product_price
+    assign save_percent = compare_price | minus: product_price | times: 100 | divided_by: compare_price
+  endif
+  assign subtitle = product.metafields.medzuro.subtitle | default: section.settings.subtitle
+  assign serving = product.metafields.medzuro.serving | default: section.settings.serving_text
+  assign first_image = product.featured_image
+-%}
+
+<section class="mz-pdp" data-section-id="{{ section.id }}">
+  <div class="mz-pdp-shell">
+    <nav class="mz-pdp-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/collections/all">Products</a>
+      <span>/</span>
+      <span>{{ product.title }}</span>
+    </nav>
+
+    <div class="mz-pdp-top">
+      <div class="mz-pdp-gallery-wrap">
+        <div class="mz-pdp-gallery">
+          <div class="mz-pdp-main-media">
+            {%- if first_image != blank -%}
+              {%- assign first_image_alt = first_image.alt | default: product.title | escape -%}
+              {{ first_image | image_url: width: 1100 | image_tag: class: 'mz-pdp-main-image', loading: 'eager', widths: '420, 640, 860, 1100', sizes: '(min-width: 990px) 48vw, 100vw', alt: first_image_alt }}
+            {%- else -%}
+              <span class="mz-pdp-bottle mz-pdp-bottle--large" aria-hidden="true"><span></span></span>
+            {%- endif -%}
+          </div>
+
+          <div class="mz-pdp-thumbs" aria-label="Product media">
+            {%- if product.media.size > 0 -%}
+              {%- for media in product.media limit: 8 -%}
+                {%- assign preview = media.preview_image -%}
+                {%- if preview != blank -%}
+                  {%- assign preview_alt = preview.alt | default: product.title | escape -%}
+                  <button class="mz-pdp-thumb{% if forloop.first %} is-active{% endif %}" type="button" data-mz-pdp-thumb data-image="{{ preview | image_url: width: 1100 }}" data-alt="{{ preview_alt }}">
+                    {{ preview | image_url: width: 180 | image_tag: loading: 'lazy', widths: '90, 140, 180', sizes: '72px', alt: preview_alt }}
+                  </button>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- else -%}
+              {%- for i in (1..5) -%}
+                <button class="mz-pdp-thumb{% if forloop.first %} is-active{% endif %}" type="button" aria-label="Product view {{ forloop.index }}">
+                  <span class="mz-pdp-mini-bottle mz-pdp-mini-bottle--{{ forloop.index }}" aria-hidden="true"><span></span></span>
+                </button>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="mz-pdp-trust-row" aria-label="Product highlights">
+          <div>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.7-3 8.4-7 10-4-1.6-7-5.3-7-10V6z"/><path d="M9 12l2 2 4-5"/></svg>
+            <span>Lab tested purity</span>
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h11v8H4z"/><path d="M15 10h4l2 3v2h-6z"/><circle cx="8" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            <span>Local Fiji delivery</span>
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v3a3 3 0 0 0 3 3h1v-8H7a3 3 0 0 0-3 3z"/><path d="M20 13v3a3 3 0 0 1-3 3h-1v-8h1a3 3 0 0 1 3 3z"/></svg>
+            <span>Fiji support</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mz-pdp-buybox">
+        <p class="mz-pdp-kicker">{{ section.settings.kicker }}</p>
+        <h1>{{ product.title }}</h1>
+        <p class="mz-pdp-subtitle">{{ subtitle }}</p>
+
+        <div class="mz-pdp-rating">
+          <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <strong>{{ section.settings.rating_text }}</strong>
+          <small>{{ section.settings.review_text }}</small>
+        </div>
+
+        <div class="mz-pdp-loved">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.3-9-9.4C1.6 8 3.7 5 7 5c1.8 0 3.3 1 4 2.3C11.7 6 13.2 5 15 5c3.3 0 5.4 3 4 6.6C19 16.7 12 21 12 21z"/></svg>
+          {{ section.settings.customer_pill }}
+        </div>
+
+        <div class="mz-pdp-benefits">
+          <span>{{ section.settings.benefit_1 }}</span>
+          <span>{{ section.settings.benefit_2 }}</span>
+          <span>{{ section.settings.benefit_3 }}</span>
+          <span>{{ section.settings.benefit_4 }}</span>
+        </div>
+
+        <product-form class="mz-pdp-product-form">
+          {%- form 'product', product, id: product_form_id, class: 'mz-pdp-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+            <div class="mz-pdp-pack-head">
+              <h2>Select Your Pack</h2>
+              <span>{{ serving }}</span>
+            </div>
+
+            <div class="mz-pdp-pack-grid" role="radiogroup" aria-label="Select pack">
+              {%- if variant_count > 1 -%}
+                {%- for variant in product.variants limit: 4 -%}
+                  {%- liquid
+                    assign variant_compare = variant.compare_at_price | default: 0
+                    assign variant_save = 0
+                    assign variant_save_label = ''
+                    if variant_compare > variant.price
+                      assign variant_save = variant_compare | minus: variant.price
+                      assign variant_save_label = variant_save | money
+                    endif
+                  -%}
+                  <label class="mz-pdp-pack{% if variant.id == current_variant.id %} is-selected{% endif %}{% unless variant.available %} is-disabled{% endunless %}">
+                    <input
+                      type="radio"
+                      name="id"
+                      value="{{ variant.id }}"
+                      {% if variant.id == current_variant.id %}checked{% endif %}
+                      {% unless variant.available %}disabled{% endunless %}
+                      data-mz-pdp-pack
+                      data-price="{{ variant.price | money }}"
+                      data-compare="{% if variant_compare > variant.price %}{{ variant_compare | money }}{% endif %}"
+                      data-save="{{ variant_save_label }}"
+                      data-available="{{ variant.available }}">
+                    <span class="mz-pdp-pack__flag">
+                      {%- case forloop.index -%}
+                        {%- when 1 -%}Starter
+                        {%- when 2 -%}Most Popular
+                        {%- when 3 -%}Best Value
+                        {%- else -%}Family Pack
+                      {%- endcase -%}
+                    </span>
+                    <strong>{{ variant.title }}</strong>
+                    <small>
+                      {%- case forloop.index -%}
+                        {%- when 1 -%}1 Month Supply
+                        {%- when 2 -%}2 Month Supply
+                        {%- when 3 -%}3 Month Supply
+                        {%- else -%}4 Month Supply
+                      {%- endcase -%}
+                    </small>
+                    <b>{{ variant.price | money }}</b>
+                    {%- if variant_compare > variant.price -%}<s>{{ variant_compare | money }}</s>{%- endif -%}
+                  </label>
+                {%- endfor -%}
+              {%- else -%}
+                <input type="hidden" name="id" value="{{ current_variant.id }}">
+                {%- for i in (1..4) -%}
+                  {%- liquid
+                    assign pack_qty = forloop.index
+                    assign pack_price = product_price | times: pack_qty
+                    assign pack_compare = compare_price | times: pack_qty
+                    assign pack_save = 0
+                    assign pack_save_label = ''
+                    if compare_price > product_price
+                      assign pack_save = pack_compare | minus: pack_price
+                      assign pack_save_label = pack_save | money
+                    endif
+                  -%}
+                  <label class="mz-pdp-pack{% if forloop.index == 2 %} is-selected{% endif %}">
+                    <input
+                      type="radio"
+                      name="mz_pack"
+                      value="{{ pack_qty }}"
+                      {% if forloop.index == 2 %}checked{% endif %}
+                      data-mz-pdp-pack
+                      data-quantity="{{ pack_qty }}"
+                      data-price="{{ pack_price | money }}"
+                      data-compare="{% if compare_price > product_price %}{{ pack_compare | money }}{% endif %}"
+                      data-save="{{ pack_save_label }}"
+                      data-available="{{ current_variant.available }}">
+                    <span class="mz-pdp-pack__flag">
+                      {%- case forloop.index -%}
+                        {%- when 1 -%}Starter
+                        {%- when 2 -%}Most Popular
+                        {%- when 3 -%}Best Value
+                        {%- else -%}Super Saver
+                      {%- endcase -%}
+                    </span>
+                    <strong>Pack of {{ pack_qty }}</strong>
+                    <small>{{ pack_qty }} Month{% if pack_qty > 1 %}s{% endif %} Supply</small>
+                    <b>{{ pack_price | money }}</b>
+                    {%- if compare_price > product_price -%}<s>{{ pack_compare | money }}</s>{%- endif -%}
+                  </label>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+
+            <div class="mz-pdp-freebie">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12v8H4v-8"/><path d="M2 7h20v5H2z"/><path d="M12 7v13"/><path d="M12 7H8.5A2.5 2.5 0 1 1 11 4.5c0 1.8 1 2.5 1 2.5z"/><path d="M12 7h3.5A2.5 2.5 0 1 0 13 4.5c0 1.8-1 2.5-1 2.5z"/></svg>
+              {{ section.settings.freebie_text }}
+            </div>
+
+            <div class="mz-pdp-qty-row">
+              <div>
+                <label for="Quantity-{{ section.id }}">Choose Quantity</label>
+                <div class="mz-pdp-qty">
+                  <button type="button" data-mz-pdp-minus aria-label="Decrease quantity">-</button>
+                  <input id="Quantity-{{ section.id }}" type="number" name="quantity" value="{% if variant_count > 1 %}1{% else %}2{% endif %}" min="1">
+                  <button type="button" data-mz-pdp-plus aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+
+              <div class="mz-pdp-price-box">
+                <strong data-mz-pdp-price>
+                  {%- if variant_count > 1 -%}
+                    {{ product_price | money }}
+                  {%- else -%}
+                    {{ product_price | times: 2 | money }}
+                  {%- endif -%}
+                </strong>
+                <s data-mz-pdp-compare{% unless has_compare %} hidden{% endunless %}>
+                  {%- if has_compare -%}
+                    {%- if variant_count > 1 -%}{{ compare_price | money }}{%- else -%}{{ compare_price | times: 2 | money }}{%- endif -%}
+                  {%- endif -%}
+                </s>
+                <span data-mz-pdp-save{% unless has_compare %} hidden{% endunless %}>
+                  SAVE {% if has_compare %}{% if variant_count > 1 %}{{ save_amount | money }}{% else %}{{ save_amount | times: 2 | money }}{% endif %}{% endif %}
+                </span>
+                <small>MRP inclusive of all taxes</small>
+              </div>
+            </div>
+
+            <div class="mz-pdp-offers">
+              <h2>Limited Period Offers</h2>
+              <ul>
+                <li>Get local support before and after your order.</li>
+                <li>Prepaid and pickup options available in Fiji.</li>
+                <li data-mz-pdp-saving-line>{% if has_compare %}You are saving {% if variant_count > 1 %}{{ save_amount | money }}{% else %}{{ save_amount | times: 2 | money }}{% endif %} on this order.{% else %}Ask us about current bundle savings.{% endif %}</li>
+              </ul>
+            </div>
+
+            <div class="mz-pdp-actions">
+              <button class="mz-pdp-add" type="submit" name="add"{% unless current_variant.available %} disabled{% endunless %}>
+                <span>{% if current_variant.available %}Add To Cart{% else %}Sold Out{% endif %}</span>
+                <span class="loading-overlay__spinner hidden"></span>
+              </button>
+              {%- if section.settings.show_dynamic_checkout -%}
+                {{ form | payment_button }}
+              {%- endif -%}
+            </div>
+            <div class="pform-error-wrap mz-pdp-form-error" hidden><span class="pform-error-msg"></span></div>
+          {%- endform -%}
+        </product-form>
+
+        <div class="mz-pdp-delivery">
+          <label for="MZDelivery-{{ section.id }}">Check Delivery</label>
+          <div>
+            <input id="MZDelivery-{{ section.id }}" type="text" placeholder="Enter suburb or area">
+            <button type="button">Check</button>
+          </div>
+        </div>
+
+        <div class="mz-pdp-service">
+          <span>Fast Delivery</span>
+          <span>Local Pickup</span>
+          <span>24/7 Support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-pdp-section mz-pdp-usage">
+    <div class="mz-pdp-shell">
+      <div class="mz-pdp-section-head">
+        <p>Way To Get The Best Results</p>
+        <h2>{{ section.settings.usage_title }}</h2>
+      </div>
+      <div class="mz-pdp-usage-grid">
+        <div>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18"/><path d="M6 9h12"/><path d="M8 21h8"/><path d="M9 3h6"/></svg>
+          <h3>Daily Serving</h3>
+          <p>{{ section.settings.usage_1 }}</p>
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10"/><path d="M9 2v6l-5 9a3 3 0 0 0 2.6 4.5h10.8A3 3 0 0 0 20 17L15 8V2"/><path d="M8 14h8"/></svg>
+          <h3>Simple Routine</h3>
+          <p>{{ section.settings.usage_2 }}</p>
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg>
+          <h3>Consistency</h3>
+          <p>{{ section.settings.usage_3 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-pdp-section mz-pdp-solutions">
+    <div class="mz-pdp-shell">
+      <div class="mz-pdp-section-head">
+        <p>Choose Your Solution</p>
+        <h2>Chosen Together For Better Results</h2>
+      </div>
+      <div class="mz-pdp-solution-grid">
+        <article>
+          <span class="mz-pdp-mini-bottle mz-pdp-mini-bottle--1" aria-hidden="true"><span></span></span>
+          <div>
+            <h3>HolyOak Ashwagandha</h3>
+            <p>Stress balance, daily energy, and recovery support.</p>
+            <strong>FJD $39.20</strong>
+          </div>
+          <a href="/pages/contact">Add +</a>
+        </article>
+        <article>
+          <span class="mz-pdp-mini-bottle mz-pdp-mini-bottle--3" aria-hidden="true"><span></span></span>
+          <div>
+            <h3>HolyOak Turmeric Curcumin</h3>
+            <p>Joint comfort and daily antioxidant support.</p>
+            <strong>FJD $38.25</strong>
+          </div>
+          <a href="/pages/contact">Add +</a>
+        </article>
+        <article>
+          <span class="mz-pdp-mini-bottle mz-pdp-mini-bottle--5" aria-hidden="true"><span></span></span>
+          <div>
+            <h3>HolyOak Multivitamin</h3>
+            <p>Daily wellness support for busy routines.</p>
+            <strong>FJD $35.00</strong>
+          </div>
+          <a href="/pages/contact">Add +</a>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-pdp-section mz-pdp-purity">
+    <div class="mz-pdp-shell mz-pdp-purity__inner">
+      <div class="mz-pdp-purity__copy">
+        <p>Lab Tested. Pure. Safe. Trusted.</p>
+        <h2>{{ section.settings.purity_title }}</h2>
+        <span>{{ section.settings.purity_body }}</span>
+        <div class="mz-pdp-purity-list">
+          <div>Purity checked</div>
+          <div>Potency verified</div>
+          <div>Quality assured</div>
+          <div>Global lab standards</div>
+        </div>
+      </div>
+      <img src="{{ 'medzuro-lab-trust.png' | asset_url }}" alt="" loading="lazy" width="780" height="520">
+    </div>
+  </div>
+
+  <div class="mz-pdp-section mz-pdp-difference">
+    <div class="mz-pdp-shell">
+      <div class="mz-pdp-section-head">
+        <p>Daily Wellness</p>
+        <h2>Feel The Difference Consistent Support Can Make</h2>
+      </div>
+      <div class="mz-pdp-difference-grid">
+        <article>
+          <span>01</span>
+          <h3>More Energy</h3>
+          <p>Supports everyday vitality so your routine feels lighter and more consistent.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Better Recovery</h3>
+          <p>Useful for active lifestyles, long workdays, and post-workout recovery habits.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Daily Balance</h3>
+          <p>Helps build a dependable wellness rhythm when taken as part of a balanced routine.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Confidence</h3>
+          <p>Genuine products, local support, and clear quality standards make reordering simple.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-pdp-section mz-pdp-reviews">
+    <div class="mz-pdp-shell">
+      <div class="mz-pdp-section-head">
+        <p>Community</p>
+        <h2>What Fiji Customers Are Saying</h2>
+      </div>
+      <div class="mz-pdp-review-grid">
+        <article>
+          <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <p>Excellent quality products and fast delivery. I have been using HolyOak supplements for months.</p>
+          <strong>Sarah L.</strong>
+          <small>Suva, Fiji</small>
+        </article>
+        <article>
+          <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <p>Genuine products you can trust. I like that the brand takes lab testing seriously.</p>
+          <strong>Rajesh K.</strong>
+          <small>Nausori, Fiji</small>
+        </article>
+        <article>
+          <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <p>Same-day delivery in Suva is a real plus. Great customer support and clear communication.</p>
+          <strong>Mere W.</strong>
+          <small>Suva, Fiji</small>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-pdp-section mz-pdp-inside">
+    <div class="mz-pdp-shell mz-pdp-inside__inner">
+      <div>
+        <p>What's Inside</p>
+        <h2>{{ section.settings.inside_title }}</h2>
+        {%- if product.description != blank -%}
+          <div class="rte">{{ product.description }}</div>
+        {%- else -%}
+          <span>{{ section.settings.inside_body }}</span>
+        {%- endif -%}
+      </div>
+      <div class="mz-pdp-inside-card">
+        <h3>Quality Promise</h3>
+        <ul>
+          <li>Selected HolyOak wellness products</li>
+          <li>Batch testing and quality review</li>
+          <li>No unnecessary fillers in selected ranges</li>
+          <li>Available locally through Medzuro Retail</li>
+        </ul>
+        <a href="/pages/lab-test-and-purity">View Quality Testing</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-pdp-section mz-pdp-faq">
+    <div class="mz-pdp-shell">
+      <div class="mz-pdp-section-head">
+        <p>FAQ</p>
+        <h2>The Doubts In Your Head, Answered</h2>
+      </div>
+      <div class="mz-pdp-faq-list">
+        <details open>
+          <summary>Are these genuine HolyOak products?</summary>
+          <p>Yes. Medzuro Retail offers selected HolyOak products locally in Fiji with customer support you can reach.</p>
+        </details>
+        <details>
+          <summary>How soon can I get delivery?</summary>
+          <p>Delivery timing depends on your location. Same-day delivery is available in most of Suva when stock and cut-off timing allow.</p>
+        </details>
+        <details>
+          <summary>Can I pick up locally?</summary>
+          <p>Yes. Local pickup can be arranged from the Suva location. Contact the team before visiting so stock can be confirmed.</p>
+        </details>
+        <details>
+          <summary>How do I know the product is tested?</summary>
+          <p>HolyOak products are independently tested for quality, purity, and potency. You can review more on the Lab Test and Purity page.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.querySelector('[data-section-id="{{ section.id }}"].mz-pdp');
+    if (!root) return;
+
+    var mainImage = root.querySelector('.mz-pdp-main-image');
+    root.querySelectorAll('[data-mz-pdp-thumb]').forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        root.querySelectorAll('[data-mz-pdp-thumb]').forEach(function (item) {
+          item.classList.remove('is-active');
+        });
+        thumb.classList.add('is-active');
+        if (mainImage && thumb.dataset.image) {
+          mainImage.src = thumb.dataset.image;
+          mainImage.removeAttribute('srcset');
+          mainImage.alt = thumb.dataset.alt || '';
+        }
+      });
+    });
+
+    var qty = root.querySelector('input[name="quantity"]');
+    var minus = root.querySelector('[data-mz-pdp-minus]');
+    var plus = root.querySelector('[data-mz-pdp-plus]');
+    if (qty && minus && plus) {
+      minus.addEventListener('click', function () {
+        var value = parseInt(qty.value || '1', 10);
+        qty.value = Math.max(1, value - 1);
+      });
+      plus.addEventListener('click', function () {
+        var value = parseInt(qty.value || '1', 10);
+        qty.value = value + 1;
+      });
+    }
+
+    var price = root.querySelector('[data-mz-pdp-price]');
+    var compare = root.querySelector('[data-mz-pdp-compare]');
+    var save = root.querySelector('[data-mz-pdp-save]');
+    var savingLine = root.querySelector('[data-mz-pdp-saving-line]');
+    var addButton = root.querySelector('.mz-pdp-add');
+    root.querySelectorAll('[data-mz-pdp-pack]').forEach(function (pack) {
+      pack.addEventListener('change', function () {
+        root.querySelectorAll('.mz-pdp-pack').forEach(function (item) {
+          item.classList.remove('is-selected');
+        });
+        var label = pack.closest('.mz-pdp-pack');
+        if (label) label.classList.add('is-selected');
+        if (qty && pack.dataset.quantity) qty.value = pack.dataset.quantity;
+        if (price && pack.dataset.price) price.textContent = pack.dataset.price;
+        if (compare) {
+          if (pack.dataset.compare) {
+            compare.hidden = false;
+            compare.textContent = pack.dataset.compare;
+          } else {
+            compare.hidden = true;
+            compare.textContent = '';
+          }
+        }
+        if (save) {
+          if (pack.dataset.save) {
+            save.hidden = false;
+            save.textContent = 'SAVE ' + pack.dataset.save;
+            if (savingLine) savingLine.textContent = 'You are saving ' + pack.dataset.save + ' on this order.';
+          } else {
+            save.hidden = true;
+            save.textContent = '';
+            if (savingLine) savingLine.textContent = 'Ask us about current bundle savings.';
+          }
+        }
+        if (addButton) {
+          var available = pack.dataset.available === 'true';
+          addButton.disabled = !available;
+          var labelText = addButton.querySelector('span');
+          if (labelText) labelText.textContent = available ? 'Add To Cart' : 'Sold Out';
+        }
+      });
+    });
+  })();
+</script>
+
+<style>
+  .mz-pdp {
+    --mz-navy: #071c43;
+    --mz-blue: #064caf;
+    --mz-green: #5c7f2d;
+    --mz-gold: #a36c21;
+    --mz-line: #dfe7f1;
+    --mz-soft: #f5f8fc;
+    color: var(--mz-navy);
+    background: #f7f9fc;
+  }
+
+  .mz-pdp *,
+  .mz-pdp *:before,
+  .mz-pdp *:after {
+    box-sizing: border-box;
+    letter-spacing: 0;
+  }
+
+  .mz-pdp-shell {
+    width: min(1180px, calc(100% - 48px));
+    margin: 0 auto;
+  }
+
+  .mz-pdp-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 0 14px;
+    color: #687792;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .mz-pdp-breadcrumb a,
+  .mz-pdp-breadcrumb span {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .mz-pdp-breadcrumb a:hover {
+    color: var(--mz-blue);
+  }
+
+  .mz-pdp-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.04fr) minmax(390px, .86fr);
+    gap: 34px;
+    align-items: start;
+    padding: 6px 0 46px;
+  }
+
+  .mz-pdp-gallery-wrap,
+  .mz-pdp-buybox {
+    min-width: 0;
+  }
+
+  .mz-pdp-gallery {
+    display: grid;
+    grid-template-columns: 86px minmax(0, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .mz-pdp-main-media {
+    min-height: 570px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 14px 36px rgba(7,28,67,.08);
+  }
+
+  .mz-pdp-main-media img {
+    width: 100%;
+    height: 100%;
+    max-height: 570px;
+    display: block;
+    object-fit: contain;
+    padding: 34px;
+  }
+
+  .mz-pdp-thumbs {
+    display: grid;
+    grid-auto-rows: 82px;
+    gap: 10px;
+  }
+
+  .mz-pdp-thumb {
+    width: 86px;
+    height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+    padding: 6px;
+    cursor: pointer;
+  }
+
+  .mz-pdp-thumb.is-active {
+    border-color: var(--mz-blue);
+    box-shadow: 0 0 0 2px rgba(6,76,175,.11);
+  }
+
+  .mz-pdp-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .mz-pdp-trust-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .mz-pdp-trust-row div {
+    min-height: 84px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .mz-pdp-trust-row svg,
+  .mz-pdp-loved svg,
+  .mz-pdp-freebie svg {
+    width: 26px;
+    height: 26px;
+    flex: 0 0 26px;
+    fill: none;
+    stroke: var(--mz-blue);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mz-pdp-trust-row span {
+    color: var(--mz-navy);
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .mz-pdp-buybox {
+    position: sticky;
+    top: 92px;
+    padding: 24px;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 18px 42px rgba(7,28,67,.1);
+  }
+
+  .mz-pdp-kicker,
+  .mz-pdp-section-head p,
+  .mz-pdp-purity__copy p,
+  .mz-pdp-inside__inner > div > p {
+    margin: 0 0 9px;
+    color: var(--mz-blue);
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .mz-pdp-buybox h1 {
+    margin: 0;
+    color: var(--mz-navy);
+    font-size: 34px;
+    font-weight: 850;
+    line-height: 1.13;
+  }
+
+  .mz-pdp-subtitle {
+    margin: 12px 0 0;
+    color: #233a60;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .mz-pdp-rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+  }
+
+  .mz-pdp-rating span {
+    color: #111;
+    font-size: 14px;
+  }
+
+  .mz-pdp-rating strong {
+    color: var(--mz-navy);
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  .mz-pdp-rating small {
+    color: #667690;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .mz-pdp-loved {
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 15px;
+    padding: 9px 14px;
+    border: 1px solid #d9e4f1;
+    border-radius: 999px;
+    background: #f6f9fd;
+    color: var(--mz-navy);
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .mz-pdp-benefits {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    margin-top: 18px;
+  }
+
+  .mz-pdp-benefits span {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 9px 12px;
+    border-radius: 6px;
+    background: #f4f7fb;
+    color: #162c50;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+
+  .mz-pdp-form {
+    margin-top: 22px;
+  }
+
+  .mz-pdp-pack-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .mz-pdp-pack-head h2,
+  .mz-pdp-offers h2 {
+    margin: 0;
+    color: var(--mz-navy);
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  .mz-pdp-pack-head span {
+    color: #687792;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .mz-pdp-pack-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .mz-pdp-pack {
+    position: relative;
+    min-height: 145px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 14px;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--mz-navy);
+    cursor: pointer;
+  }
+
+  .mz-pdp-pack input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .mz-pdp-pack.is-selected {
+    border-color: var(--mz-blue);
+    background: #f7fbff;
+    box-shadow: 0 0 0 2px rgba(6,76,175,.09);
+  }
+
+  .mz-pdp-pack.is-disabled {
+    opacity: .55;
+    cursor: not-allowed;
+  }
+
+  .mz-pdp-pack__flag {
+    width: fit-content;
+    max-width: 100%;
+    display: inline-flex;
+    padding: 5px 7px;
+    border-radius: 4px;
+    background: var(--mz-green);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .mz-pdp-pack strong {
+    margin-top: 5px;
+    color: var(--mz-navy);
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1.25;
+  }
+
+  .mz-pdp-pack small {
+    color: #52637c;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .mz-pdp-pack b {
+    margin-top: auto;
+    color: var(--mz-navy);
+    font-size: 17px;
+    font-weight: 950;
+  }
+
+  .mz-pdp-pack s {
+    color: #7b8797;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .mz-pdp-freebie {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 11px 12px;
+    border: 1px solid #dfe8d8;
+    border-radius: 8px;
+    background: #f8fbf4;
+    color: #213a13;
+    font-size: 13px;
+    font-weight: 850;
+    line-height: 1.35;
+  }
+
+  .mz-pdp-freebie svg {
+    stroke: var(--mz-green);
+  }
+
+  .mz-pdp-qty-row {
+    display: grid;
+    grid-template-columns: minmax(0, .82fr) minmax(170px, 1fr);
+    gap: 14px;
+    align-items: stretch;
+    margin-top: 16px;
+  }
+
+  .mz-pdp-qty-row label,
+  .mz-pdp-delivery label {
+    display: block;
+    margin: 0 0 8px;
+    color: #162c50;
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .mz-pdp-qty {
+    height: 48px;
+    display: grid;
+    grid-template-columns: 46px 1fr 46px;
+    overflow: hidden;
+    border: 1px solid var(--mz-line);
+    border-radius: 6px;
+    background: #fff;
+  }
+
+  .mz-pdp-qty button,
+  .mz-pdp-qty input {
+    min-width: 0;
+    border: 0;
+    background: #fff;
+    color: var(--mz-navy);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 900;
+  }
+
+  .mz-pdp-qty input {
+    border-right: 1px solid var(--mz-line);
+    border-left: 1px solid var(--mz-line);
+  }
+
+  .mz-pdp-price-box {
+    min-height: 78px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #f9fbfe;
+  }
+
+  .mz-pdp-price-box strong {
+    color: var(--mz-navy);
+    font-size: 24px;
+    font-weight: 950;
+    line-height: 1;
+  }
+
+  .mz-pdp-price-box s {
+    color: #778498;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .mz-pdp-price-box span {
+    padding: 5px 7px;
+    border-radius: 4px;
+    background: #eaf4df;
+    color: #3d5e18;
+    font-size: 11px;
+    font-weight: 950;
+    line-height: 1;
+  }
+
+  .mz-pdp-price-box small {
+    width: 100%;
+    color: #697892;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .mz-pdp-offers {
+    margin-top: 16px;
+    padding: 15px;
+    border: 1px solid #e4e9ef;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .mz-pdp-offers ul {
+    display: grid;
+    gap: 8px;
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mz-pdp-offers li {
+    position: relative;
+    padding-left: 22px;
+    color: #243a5f;
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.45;
+  }
+
+  .mz-pdp-offers li:before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--mz-green);
+    box-shadow: inset 0 0 0 3px #fff, 0 0 0 1px var(--mz-green);
+  }
+
+  .mz-pdp-actions {
+    display: grid;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .mz-pdp-add,
+  .mz-pdp .shopify-payment-button__button {
+    width: 100%;
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--mz-navy);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 950;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .mz-pdp-add {
+    background: var(--mz-navy);
+    color: #fff !important;
+    cursor: pointer;
+  }
+
+  .mz-pdp-add:hover,
+  .mz-pdp-add:focus {
+    background: var(--mz-blue);
+    border-color: var(--mz-blue);
+    color: #fff !important;
+  }
+
+  .mz-pdp-add:disabled {
+    border-color: #c9d2df;
+    background: #eef2f6;
+    color: #758295 !important;
+    cursor: not-allowed;
+  }
+
+  .mz-pdp .shopify-payment-button__button {
+    background: #fff !important;
+    color: var(--mz-navy) !important;
+  }
+
+  .mz-pdp .shopify-payment-button__button:hover {
+    border-color: var(--mz-blue) !important;
+    background: #f5f8fc !important;
+    color: var(--mz-blue) !important;
+  }
+
+  .mz-pdp-form-error {
+    margin-top: 10px;
+    color: #b42318;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .mz-pdp-delivery {
+    margin-top: 17px;
+  }
+
+  .mz-pdp-delivery div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 92px;
+    gap: 8px;
+  }
+
+  .mz-pdp-delivery input,
+  .mz-pdp-delivery button {
+    min-height: 44px;
+    border: 1px solid var(--mz-line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--mz-navy);
+    padding: 0 12px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .mz-pdp-delivery button {
+    border-color: var(--mz-blue);
+    background: var(--mz-blue);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .mz-pdp-service {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 15px;
+  }
+
+  .mz-pdp-service span {
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--mz-line);
+    border-radius: 6px;
+    background: #f7fafd;
+    color: #162c50;
+    font-size: 11px;
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .mz-pdp-section {
+    padding: 46px 0;
+    background: #fff;
+    border-top: 1px solid var(--mz-line);
+  }
+
+  .mz-pdp-section:nth-of-type(2n) {
+    background: #f7f9fc;
+  }
+
+  .mz-pdp-section-head {
+    margin-bottom: 22px;
+    text-align: center;
+  }
+
+  .mz-pdp-section-head h2,
+  .mz-pdp-purity__copy h2,
+  .mz-pdp-inside__inner h2 {
+    margin: 0;
+    color: var(--mz-navy);
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1.18;
+  }
+
+  .mz-pdp-usage-grid,
+  .mz-pdp-difference-grid,
+  .mz-pdp-review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .mz-pdp-usage-grid > div,
+  .mz-pdp-difference-grid article,
+  .mz-pdp-review-grid article,
+  .mz-pdp-inside-card,
+  .mz-pdp-solution-grid article {
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 10px 26px rgba(7,28,67,.06);
+  }
+
+  .mz-pdp-usage-grid > div {
+    padding: 24px;
+    text-align: center;
+  }
+
+  .mz-pdp-usage-grid svg {
+    width: 42px;
+    height: 42px;
+    fill: none;
+    stroke: var(--mz-blue);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mz-pdp-usage-grid h3,
+  .mz-pdp-difference-grid h3,
+  .mz-pdp-review-grid strong,
+  .mz-pdp-inside-card h3,
+  .mz-pdp-solution-grid h3 {
+    margin: 14px 0 8px;
+    color: var(--mz-navy);
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 1.25;
+  }
+
+  .mz-pdp-usage-grid p,
+  .mz-pdp-difference-grid p,
+  .mz-pdp-review-grid p,
+  .mz-pdp-solution-grid p,
+  .mz-pdp-inside__inner .rte,
+  .mz-pdp-inside__inner span {
+    margin: 0;
+    color: #243a5f;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .mz-pdp-solution-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .mz-pdp-solution-grid article {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    padding: 18px;
+  }
+
+  .mz-pdp-solution-grid h3 {
+    margin-top: 0;
+  }
+
+  .mz-pdp-solution-grid strong {
+    display: block;
+    margin-top: 8px;
+    color: var(--mz-navy);
+    font-size: 15px;
+    font-weight: 950;
+  }
+
+  .mz-pdp-solution-grid a {
+    grid-column: 1 / -1;
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--mz-navy);
+    border-radius: 6px;
+    color: var(--mz-navy) !important;
+    font-size: 12px;
+    font-weight: 950;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .mz-pdp-solution-grid a:hover {
+    background: var(--mz-navy);
+    color: #fff !important;
+  }
+
+  .mz-pdp-purity__inner,
+  .mz-pdp-inside__inner {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(360px, 1.1fr);
+    gap: 34px;
+    align-items: center;
+  }
+
+  .mz-pdp-purity__copy span {
+    display: block;
+    margin-top: 14px;
+    color: #243a5f;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .mz-pdp-purity-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .mz-pdp-purity-list div {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    border: 1px solid var(--mz-line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--mz-navy);
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .mz-pdp-purity img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 16px 36px rgba(7,28,67,.12);
+  }
+
+  .mz-pdp-difference-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .mz-pdp-difference-grid article {
+    padding: 22px;
+  }
+
+  .mz-pdp-difference-grid span {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--mz-navy);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 950;
+  }
+
+  .mz-pdp-review-grid article {
+    padding: 24px;
+  }
+
+  .mz-pdp-review-grid article > span {
+    color: #121212;
+    font-size: 14px;
+  }
+
+  .mz-pdp-review-grid strong {
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .mz-pdp-review-grid small {
+    color: #6b7890;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .mz-pdp-inside__inner {
+    align-items: stretch;
+  }
+
+  .mz-pdp-inside-card {
+    padding: 26px;
+  }
+
+  .mz-pdp-inside-card ul {
+    display: grid;
+    gap: 11px;
+    margin: 15px 0 22px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mz-pdp-inside-card li {
+    position: relative;
+    padding-left: 24px;
+    color: #243a5f;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.45;
+  }
+
+  .mz-pdp-inside-card li:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--mz-green);
+  }
+
+  .mz-pdp-inside-card a {
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    border: 1px solid var(--mz-navy);
+    border-radius: 6px;
+    color: var(--mz-navy) !important;
+    font-size: 12px;
+    font-weight: 950;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .mz-pdp-inside-card a:hover {
+    background: var(--mz-navy);
+    color: #fff !important;
+  }
+
+  .mz-pdp-faq-list {
+    max-width: 860px;
+    display: grid;
+    gap: 12px;
+    margin: 0 auto;
+  }
+
+  .mz-pdp-faq-list details {
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+    padding: 0 18px;
+  }
+
+  .mz-pdp-faq-list summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    min-height: 58px;
+    color: var(--mz-navy);
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .mz-pdp-faq-list summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mz-pdp-faq-list summary:after {
+    content: "+";
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f0f4f8;
+    color: var(--mz-blue);
+    font-size: 18px;
+    font-weight: 900;
+  }
+
+  .mz-pdp-faq-list details[open] summary:after {
+    content: "-";
+  }
+
+  .mz-pdp-faq-list p {
+    margin: -2px 0 18px;
+    color: #243a5f;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .mz-pdp-bottle,
+  .mz-pdp-mini-bottle {
+    position: relative;
+    display: inline-block;
+    border-radius: 10px 10px 16px 16px;
+    background: linear-gradient(90deg, #050405, #30231a 45%, #090909);
+    box-shadow: inset 9px 0 12px rgba(255,255,255,.1), inset -9px 0 10px rgba(0,0,0,.34), 0 13px 18px rgba(11,27,51,.13);
+  }
+
+  .mz-pdp-bottle--large {
+    width: 154px;
+    height: 318px;
+  }
+
+  .mz-pdp-bottle:before,
+  .mz-pdp-mini-bottle:before {
+    content: "";
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    top: -14%;
+    height: 15%;
+    border-radius: 5px 5px 2px 2px;
+    background: linear-gradient(90deg, #050505, #202020, #050505);
+  }
+
+  .mz-pdp-bottle span,
+  .mz-pdp-mini-bottle span {
+    position: absolute;
+    left: 11%;
+    right: 11%;
+    top: 27%;
+    height: 46%;
+    border-radius: 3px;
+    background: #173927;
+  }
+
+  .mz-pdp-bottle span:after,
+  .mz-pdp-mini-bottle span:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 18%;
+    width: 38%;
+    height: 54%;
+    border-left: 1px solid rgba(227,202,137,.95);
+    border-radius: 50%;
+    transform: translateX(-50%) rotate(-20deg);
+  }
+
+  .mz-pdp-mini-bottle {
+    width: 42px;
+    height: 82px;
+  }
+
+  .mz-pdp-mini-bottle--1 span,
+  .mz-pdp-mini-bottle--3 span,
+  .mz-pdp-mini-bottle--5 span {
+    background: #f8f7f1;
+  }
+
+  .mz-pdp-mini-bottle--3:before {
+    background: linear-gradient(90deg, #8b6030, #d9b476, #8b6030);
+  }
+
+  .mz-pdp-mini-bottle--1 span:after,
+  .mz-pdp-mini-bottle--3 span:after,
+  .mz-pdp-mini-bottle--5 span:after {
+    border-left-color: #a6a79a;
+  }
+
+  @media (max-width: 989px) {
+    .mz-pdp-shell {
+      width: min(100% - 32px, 780px);
+    }
+
+    .mz-pdp-top {
+      grid-template-columns: 1fr;
+    }
+
+    .mz-pdp-buybox {
+      position: static;
+    }
+
+    .mz-pdp-main-media {
+      min-height: 460px;
+    }
+
+    .mz-pdp-usage-grid,
+    .mz-pdp-solution-grid,
+    .mz-pdp-review-grid,
+    .mz-pdp-purity__inner,
+    .mz-pdp-inside__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .mz-pdp-difference-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 639px) {
+    .mz-pdp-shell {
+      width: min(100% - 24px, 560px);
+    }
+
+    .mz-pdp-breadcrumb {
+      font-size: 12px;
+    }
+
+    .mz-pdp-top {
+      gap: 20px;
+      padding-bottom: 34px;
+    }
+
+    .mz-pdp-gallery {
+      grid-template-columns: 1fr;
+    }
+
+    .mz-pdp-thumbs {
+      grid-template-columns: repeat(5, 1fr);
+      grid-auto-rows: 70px;
+      order: 2;
+    }
+
+    .mz-pdp-thumb {
+      width: 100%;
+      height: 70px;
+    }
+
+    .mz-pdp-main-media {
+      min-height: 340px;
+    }
+
+    .mz-pdp-main-media img {
+      max-height: 340px;
+      padding: 20px;
+    }
+
+    .mz-pdp-trust-row,
+    .mz-pdp-benefits,
+    .mz-pdp-pack-grid,
+    .mz-pdp-qty-row,
+    .mz-pdp-service,
+    .mz-pdp-difference-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .mz-pdp-buybox {
+      padding: 18px;
+    }
+
+    .mz-pdp-buybox h1 {
+      font-size: 28px;
+    }
+
+    .mz-pdp-section {
+      padding: 34px 0;
+    }
+
+    .mz-pdp-section-head h2,
+    .mz-pdp-purity__copy h2,
+    .mz-pdp-inside__inner h2 {
+      font-size: 26px;
+    }
+
+    .mz-pdp-solution-grid article {
+      grid-template-columns: 56px minmax(0, 1fr);
+      padding: 15px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Medzuro Product Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Best Seller | Wellness Support"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Default subtitle",
+      "default": "Authentic wellness support for daily energy, strength, and performance."
+    },
+    {
+      "type": "text",
+      "id": "serving_text",
+      "label": "Serving text",
+      "default": "Choose the supply that fits your routine"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "4.8/5.0"
+    },
+    {
+      "type": "text",
+      "id": "review_text",
+      "label": "Review text",
+      "default": "Trusted by Fiji customers"
+    },
+    {
+      "type": "text",
+      "id": "customer_pill",
+      "label": "Customer pill",
+      "default": "Loved by local wellness customers"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "Energy and stamina support"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "Batch tested quality"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "Local pickup in Fiji"
+    },
+    {
+      "type": "text",
+      "id": "benefit_4",
+      "label": "Benefit 4",
+      "default": "Friendly support team"
+    },
+    {
+      "type": "text",
+      "id": "freebie_text",
+      "label": "Freebie text",
+      "default": "Ask about bundle offers and local pickup when you order."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "label": "Show dynamic checkout button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "usage_title",
+      "label": "Usage title",
+      "default": "Make it part of your daily wellness routine"
+    },
+    {
+      "type": "textarea",
+      "id": "usage_1",
+      "label": "Usage 1",
+      "default": "Follow the product label or your practitioner's advice for the right daily serving."
+    },
+    {
+      "type": "textarea",
+      "id": "usage_2",
+      "label": "Usage 2",
+      "default": "Take consistently with water or as recommended for your selected supplement."
+    },
+    {
+      "type": "textarea",
+      "id": "usage_3",
+      "label": "Usage 3",
+      "default": "Best results come from a steady routine, balanced meals, rest, and hydration."
+    },
+    {
+      "type": "text",
+      "id": "purity_title",
+      "label": "Purity title",
+      "default": "Lab tested quality you can trust"
+    },
+    {
+      "type": "textarea",
+      "id": "purity_body",
+      "label": "Purity body",
+      "default": "Selected HolyOak products are backed by independent testing standards for purity, potency, and safety."
+    },
+    {
+      "type": "text",
+      "id": "inside_title",
+      "label": "Inside title",
+      "default": "Clean wellness support, clearly selected"
+    },
+    {
+      "type": "textarea",
+      "id": "inside_body",
+      "label": "Inside body",
+      "default": "Medzuro Retail focuses on genuine products, clear quality standards, and local access for Fiji customers."
+    }
+  ]
+}
+{% endschema %}

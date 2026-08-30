@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "lab_purity": {
+      "type": "medzuro-lab-purity-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "lab_purity"
+  ]
+}

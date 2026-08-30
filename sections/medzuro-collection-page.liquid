@@ -1,0 +1,845 @@
+{%- liquid
+  assign products_per_page = section.settings.products_per_page | default: 12
+  assign sort_by = collection.sort_by | default: collection.default_sort_by
+  assign collection_title = collection.title | default: 'Products'
+  assign category_menu = linklists[section.settings.category_menu]
+-%}
+
+<section class="mz-collection-page" data-section-id="{{ section.id }}">
+  <div class="mz-collection-hero">
+    <div class="mz-collection-shell mz-collection-hero__inner">
+      <div class="mz-collection-hero__copy">
+        <p class="mz-collection-eyebrow">Medzuro Retail</p>
+        <h1>{{ collection_title }}</h1>
+        {%- if collection.description != blank -%}
+          <div class="mz-collection-hero__description rte">{{ collection.description }}</div>
+        {%- else -%}
+          <p class="mz-collection-hero__description">
+            Genuine wellness essentials, selected for Fiji and backed by friendly local support.
+          </p>
+        {%- endif -%}
+        <div class="mz-collection-hero__actions">
+          <a class="mz-collection-btn mz-collection-btn--primary" href="/collections/all">
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </span>
+            Shop All
+          </a>
+          <a class="mz-collection-btn mz-collection-btn--secondary" href="/pages/contact">
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+            </span>
+            Ask Support
+          </a>
+        </div>
+      </div>
+      <div class="mz-collection-hero__media" aria-hidden="true">
+        <img
+          src="{{ 'medzuro-home-hero.png' | asset_url }}"
+          alt=""
+          width="880"
+          height="620"
+          loading="eager">
+      </div>
+    </div>
+  </div>
+
+  <div class="mz-collection-shell mz-collection-body">
+    <div class="mz-collection-highlights" aria-label="Store highlights">
+      <div class="mz-collection-highlight">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+        <span>Delivered across Fiji</span>
+      </div>
+      <div class="mz-collection-highlight">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-12a7 7 0 0 0-14 0c0 6.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+        <span>Local pickup available</span>
+      </div>
+      <div class="mz-collection-highlight">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.7-3 8.4-7 10-4-1.6-7-5.3-7-10V6z"/><path d="M9 12l2 2 4-5"/></svg>
+        <span>Genuine HolyOak products</span>
+      </div>
+      <div class="mz-collection-highlight">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v3a3 3 0 0 0 3 3h1v-8H7a3 3 0 0 0-3 3z"/><path d="M20 13v3a3 3 0 0 1-3 3h-1v-8h1a3 3 0 0 1 3 3z"/></svg>
+        <span>Fiji customer support</span>
+      </div>
+    </div>
+
+    {%- if category_menu.links.size > 0 -%}
+      <nav class="mz-collection-categories" aria-label="Product categories">
+        {%- for link in category_menu.links -%}
+          <a class="{% if link.active %}is-active{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+    {%- paginate collection.products by products_per_page -%}
+      <div class="mz-collection-toolbar">
+        <div class="mz-collection-toolbar__title">
+          <p class="mz-collection-eyebrow">Shop Wellness</p>
+          <h2>
+            {%- if paginate.items > 0 -%}
+              Showing {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} of {{ paginate.items }}
+            {%- else -%}
+              Products Coming Soon
+            {%- endif -%}
+          </h2>
+        </div>
+
+        {%- if collection.sort_options.size > 0 and paginate.items > 0 -%}
+          <form class="mz-collection-sort" method="get">
+            <label for="SortBy-{{ section.id }}">Sort</label>
+            <select id="SortBy-{{ section.id }}" name="sort_by" onchange="this.form.submit()">
+              {%- for option in collection.sort_options -%}
+                <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected="selected"{% endif %}>{{ option.name | escape }}</option>
+              {%- endfor -%}
+            </select>
+          </form>
+        {%- endif -%}
+      </div>
+
+      {%- if collection.products.size > 0 -%}
+        <div class="mz-product-grid">
+          {%- for product in collection.products -%}
+            {%- liquid
+              assign product_url = product.url | within: collection
+              assign variant_count = product.variants | size
+              assign first_variant = product.selected_or_first_available_variant
+              assign product_image = product.featured_image
+              assign product_image_alt = product_image.alt | default: product.title | escape
+            -%}
+            <article class="mz-product-card">
+              <a class="mz-product-card__media" href="{{ product_url }}" aria-label="{{ product.title | escape }}">
+                {%- if product_image != blank -%}
+                  {{ product_image | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, (min-width: 640px) 33vw, 50vw', widths: '240, 360, 520, 700', alt: product_image_alt }}
+                {%- else -%}
+                  <span class="mz-product-card__placeholder">
+                    <img src="{{ 'medzuro-logo.png' | asset_url }}" alt="" loading="lazy" width="220" height="110">
+                  </span>
+                {%- endif -%}
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="mz-product-card__sale">Sale</span>
+                {%- endif -%}
+              </a>
+
+              <div class="mz-product-card__body">
+                {%- if product.vendor != blank -%}
+                  <p class="mz-product-card__vendor">{{ product.vendor }}</p>
+                {%- endif -%}
+                <h3><a href="{{ product_url }}">{{ product.title }}</a></h3>
+                <div class="mz-product-card__price">
+                  <span>{{ product.price | money }}</span>
+                  {%- if product.compare_at_price > product.price -%}
+                    <s>{{ product.compare_at_price | money }}</s>
+                  {%- endif -%}
+                </div>
+
+                {%- if product.available -%}
+                  {%- if variant_count > 1 -%}
+                    <a class="mz-product-card__button" href="{{ product_url }}">Choose Options</a>
+                  {%- else -%}
+                    {%- form 'product', product, class: 'mz-product-card__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                      <input type="hidden" name="id" value="{{ first_variant.id }}">
+                      <button class="mz-product-card__button" type="submit" name="add">Add To Cart</button>
+                    {%- endform -%}
+                  {%- endif -%}
+                {%- else -%}
+                  <a class="mz-product-card__button mz-product-card__button--disabled" href="{{ product_url }}">Sold Out</a>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="mz-collection-pagination" role="navigation" aria-label="Pagination">
+            {%- if paginate.previous -%}
+              <a href="{{ paginate.previous.url }}" aria-label="Previous page">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+              </a>
+            {%- endif -%}
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <a href="{{ part.url }}">{{ part.title }}</a>
+              {%- else -%}
+                <span class="{% if part.title == paginate.current_page %}is-current{% endif %}">{{ part.title }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if paginate.next -%}
+              <a href="{{ paginate.next.url }}" aria-label="Next page">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+              </a>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- else -%}
+        <div class="mz-collection-empty">
+          <div class="mz-collection-empty__copy">
+            <p class="mz-collection-eyebrow">New Stock In Progress</p>
+            <h2>Products for this collection are being prepared.</h2>
+            <p>
+              Our team is updating the online catalogue. For availability, local pickup, delivery, or bulk enquiries, contact Medzuro Retail and we will help you quickly.
+            </p>
+            <div class="mz-collection-empty__actions">
+              <a class="mz-collection-btn mz-collection-btn--primary" href="/pages/contact">Contact Support</a>
+              <a class="mz-collection-btn mz-collection-btn--secondary" href="/">Back To Home</a>
+            </div>
+          </div>
+          <div class="mz-collection-empty__panel" aria-hidden="true">
+            <img src="{{ 'medzuro-home-hero.png' | asset_url }}" alt="" loading="lazy" width="760" height="520">
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+<style>
+  .mz-collection-page {
+    --mz-navy: #071c43;
+    --mz-blue: #064caf;
+    --mz-green: #5c7f2d;
+    --mz-gold: #a36c21;
+    --mz-line: #dfe7f1;
+    --mz-soft: #f5f8fc;
+    color: var(--mz-navy);
+    background: #f7f9fc;
+  }
+
+  .mz-collection-page * {
+    box-sizing: border-box;
+    letter-spacing: 0;
+  }
+
+  .mz-collection-shell {
+    width: min(1180px, calc(100% - 48px));
+    margin: 0 auto;
+  }
+
+  .mz-collection-hero {
+    overflow: hidden;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.94) 48%, rgba(246,249,252,.75) 100%),
+      #f7f9fc;
+    border-bottom: 1px solid var(--mz-line);
+  }
+
+  .mz-collection-hero__inner {
+    min-height: 360px;
+    display: grid;
+    grid-template-columns: minmax(0, .88fr) minmax(420px, 1.12fr);
+    gap: 32px;
+    align-items: center;
+    padding: 46px 0 42px;
+  }
+
+  .mz-collection-eyebrow {
+    margin: 0 0 9px;
+    color: var(--mz-blue);
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .mz-collection-hero h1 {
+    margin: 0;
+    color: var(--mz-navy);
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.08;
+  }
+
+  .mz-collection-hero__description {
+    max-width: 500px;
+    margin: 18px 0 0;
+    color: #183156;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .mz-collection-hero__actions,
+  .mz-collection-empty__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .mz-collection-btn {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 13px 22px;
+    border: 1px solid var(--mz-navy);
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: transform .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+  }
+
+  .mz-collection-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mz-collection-btn:hover {
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  .mz-collection-btn--primary {
+    background: var(--mz-navy);
+    color: #fff;
+  }
+
+  .mz-collection-btn--secondary {
+    background: #fff;
+    color: var(--mz-navy);
+  }
+
+  .mz-collection-hero__media {
+    align-self: stretch;
+    min-height: 310px;
+    position: relative;
+  }
+
+  .mz-collection-hero__media img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: right center;
+  }
+
+  .mz-collection-body {
+    padding: 28px 0 58px;
+  }
+
+  .mz-collection-highlights {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin: -52px 0 30px;
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    box-shadow: 0 14px 34px rgba(7, 28, 67, .08);
+  }
+
+  .mz-collection-highlight {
+    min-height: 96px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 22px;
+    border-right: 1px solid var(--mz-line);
+  }
+
+  .mz-collection-highlight:last-child {
+    border-right: 0;
+  }
+
+  .mz-collection-highlight svg {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    fill: none;
+    stroke: var(--mz-blue);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mz-collection-highlight span {
+    color: var(--mz-navy);
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .mz-collection-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .mz-collection-categories a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 9px 16px;
+    border: 1px solid var(--mz-line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--mz-navy);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .mz-collection-categories a.is-active,
+  .mz-collection-categories a:hover {
+    border-color: var(--mz-blue);
+    color: var(--mz-blue);
+  }
+
+  .mz-collection-toolbar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+  }
+
+  .mz-collection-toolbar__title h2 {
+    margin: 0;
+    color: var(--mz-navy);
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .mz-collection-sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mz-collection-sort label {
+    margin: 0;
+    color: #354563;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .mz-collection-sort select {
+    min-width: 190px;
+    min-height: 44px;
+    border: 1px solid var(--mz-line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--mz-navy);
+    padding: 0 38px 0 14px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .mz-product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .mz-product-card {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 12px 26px rgba(7, 28, 67, .06);
+  }
+
+  .mz-product-card__media {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1.05;
+    background: #f2f6fa;
+    padding: 18px;
+    text-decoration: none;
+  }
+
+  .mz-product-card__media img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    object-fit: contain;
+    transition: transform .2s ease;
+  }
+
+  .mz-product-card:hover .mz-product-card__media img {
+    transform: scale(1.025);
+  }
+
+  .mz-product-card__placeholder {
+    width: 78%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: .72;
+  }
+
+  .mz-product-card__sale {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 7px 9px;
+    border-radius: 4px;
+    background: var(--mz-green);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .mz-product-card__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 17px 16px 16px;
+  }
+
+  .mz-product-card__vendor {
+    margin: 0 0 7px;
+    color: var(--mz-gold);
+    font-size: 11px;
+    font-weight: 900;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .mz-product-card h3 {
+    min-height: 44px;
+    margin: 0;
+    color: var(--mz-navy);
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.45;
+  }
+
+  .mz-product-card h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .mz-product-card h3 a:hover {
+    color: var(--mz-blue);
+  }
+
+  .mz-product-card__price {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: baseline;
+    margin: 10px 0 16px;
+    color: var(--mz-navy);
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  .mz-product-card__price s {
+    color: #7b8797;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .mz-product-card__form {
+    margin-top: auto;
+  }
+
+  .mz-product-card__button {
+    width: 100%;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    border: 1px solid var(--mz-navy);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--mz-navy);
+    padding: 11px 14px;
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .mz-product-card__button:hover {
+    background: var(--mz-navy);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .mz-product-card__button--disabled,
+  .mz-product-card__button--disabled:hover {
+    border-color: #c9d2df;
+    background: #eef2f6;
+    color: #758295;
+    cursor: not-allowed;
+  }
+
+  .mz-collection-empty {
+    display: grid;
+    grid-template-columns: minmax(0, .88fr) minmax(320px, 1fr);
+    gap: 34px;
+    align-items: center;
+    min-height: 360px;
+    padding: 38px;
+    border: 1px solid var(--mz-line);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 14px 34px rgba(7, 28, 67, .07);
+  }
+
+  .mz-collection-empty h2 {
+    max-width: 560px;
+    margin: 0;
+    color: var(--mz-navy);
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .mz-collection-empty p:not(.mz-collection-eyebrow) {
+    max-width: 580px;
+    margin: 16px 0 0;
+    color: #243a5f;
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  .mz-collection-empty__panel {
+    align-self: stretch;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #f2f6fa;
+  }
+
+  .mz-collection-empty__panel img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+  }
+
+  .mz-collection-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 34px;
+  }
+
+  .mz-collection-pagination a,
+  .mz-collection-pagination span {
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--mz-line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--mz-navy);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .mz-collection-pagination .is-current {
+    border-color: var(--mz-navy);
+    background: var(--mz-navy);
+    color: #fff;
+  }
+
+  .mz-collection-pagination svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @media (max-width: 989px) {
+    .mz-collection-shell {
+      width: min(100% - 32px, 760px);
+    }
+
+    .mz-collection-hero__inner {
+      min-height: auto;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding: 36px 0 70px;
+    }
+
+    .mz-collection-hero h1 {
+      font-size: 36px;
+    }
+
+    .mz-collection-hero__media {
+      min-height: 240px;
+      margin-bottom: -44px;
+    }
+
+    .mz-collection-highlights {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: -36px;
+    }
+
+    .mz-collection-highlight:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .mz-collection-highlight:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--mz-line);
+    }
+
+    .mz-product-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mz-collection-empty {
+      grid-template-columns: 1fr;
+      padding: 28px;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .mz-collection-shell {
+      width: min(100% - 24px, 560px);
+    }
+
+    .mz-collection-hero__inner {
+      padding-top: 30px;
+    }
+
+    .mz-collection-hero h1 {
+      font-size: 31px;
+    }
+
+    .mz-collection-hero__description,
+    .mz-collection-empty p:not(.mz-collection-eyebrow) {
+      font-size: 15px;
+    }
+
+    .mz-collection-hero__actions,
+    .mz-collection-empty__actions {
+      flex-direction: column;
+    }
+
+    .mz-collection-btn {
+      width: 100%;
+    }
+
+    .mz-collection-highlights {
+      grid-template-columns: 1fr;
+      margin-bottom: 24px;
+    }
+
+    .mz-collection-highlight,
+    .mz-collection-highlight:nth-child(2n) {
+      border-right: 0;
+      border-bottom: 1px solid var(--mz-line);
+    }
+
+    .mz-collection-highlight:last-child {
+      border-bottom: 0;
+    }
+
+    .mz-collection-toolbar {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .mz-collection-toolbar__title h2 {
+      font-size: 22px;
+    }
+
+    .mz-collection-sort {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .mz-collection-sort select {
+      width: 100%;
+    }
+
+    .mz-product-grid {
+      gap: 14px;
+    }
+
+    .mz-product-card__media {
+      padding: 12px;
+    }
+
+    .mz-product-card__body {
+      padding: 14px 12px 13px;
+    }
+
+    .mz-product-card h3 {
+      min-height: 40px;
+      font-size: 13px;
+    }
+
+    .mz-product-card__price {
+      font-size: 14px;
+    }
+
+    .mz-product-card__button {
+      min-height: 40px;
+      font-size: 11px;
+      padding-right: 9px;
+      padding-left: 9px;
+    }
+
+    .mz-collection-empty {
+      padding: 22px;
+    }
+
+    .mz-collection-empty h2 {
+      font-size: 27px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Medzuro Collection Page",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 4,
+      "max": 24,
+      "step": 4,
+      "default": 12
+    },
+    {
+      "type": "link_list",
+      "id": "category_menu",
+      "label": "Category menu",
+      "default": "categories"
+    }
+  ]
+}
+{% endschema %}

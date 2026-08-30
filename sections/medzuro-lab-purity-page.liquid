@@ -295,49 +295,46 @@
     position: relative;
     overflow: hidden;
     min-height: 390px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    background:
-      linear-gradient(90deg, rgba(3,24,62,.6), rgba(3,24,62,.05)),
-      linear-gradient(135deg, #c5d1dc, #f7f8fa);
+    background: var(--lt-deep);
   }
 
-  #shopify-section-{{ section.id }} .lt-page__facility-building {
-    position: relative;
-    width: min(520px, 100%);
-    min-height: 240px;
-    padding: 26px;
-    border: 1px solid rgba(7,31,82,.16);
-    background: rgba(255,255,255,.82);
-    box-shadow: 0 22px 60px rgba(0,0,0,.22);
+  #shopify-section-{{ section.id }} .lt-page__facility:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(3,24,62,.28), rgba(3,24,62,0) 58%);
+    pointer-events: none;
   }
 
-  #shopify-section-{{ section.id }} .lt-page__facility-sign {
+  #shopify-section-{{ section.id }} .lt-page__facility-photo {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .lt-page__facility-badge {
+    position: absolute;
+    top: 34px;
+    right: 42px;
+    z-index: 2;
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
+    padding: 12px 18px;
+    border-radius: 6px;
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 14px 34px rgba(7,31,82,.18);
   }
 
-  #shopify-section-{{ section.id }} .lt-page__facility-sign strong {
+  #shopify-section-{{ section.id }} .lt-page__facility-badge strong {
     color: var(--lt-blue);
     font-size: 36px;
     font-weight: 700;
     line-height: 1;
-  }
-
-  #shopify-section-{{ section.id }} .lt-page__window-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-  }
-
-  #shopify-section-{{ section.id }} .lt-page__window-grid span {
-    min-height: 42px;
-    border: 1px solid rgba(7,31,82,.16);
-    background: rgba(7,31,82,.13);
   }
 
   #shopify-section-{{ section.id }} .lt-page__checks {
@@ -711,25 +708,32 @@
     }
 
     #shopify-section-{{ section.id }} .lt-page__euro strong,
-    #shopify-section-{{ section.id }} .lt-page__facility-sign strong {
+    #shopify-section-{{ section.id }} .lt-page__facility-badge strong {
       font-size: 28px;
     }
 
     #shopify-section-{{ section.id }} .lt-page__euro-copy,
-    #shopify-section-{{ section.id }} .lt-page__facility,
-    #shopify-section-{{ section.id }} .lt-page__address,
-    #shopify-section-{{ section.id }} .lt-page__why {
+    #shopify-section-{{ section.id }} .lt-page__address {
       padding: 32px 0;
     }
 
     #shopify-section-{{ section.id }} .lt-page__facility {
-      padding-left: 12px;
-      padding-right: 12px;
+      min-height: 320px;
+      padding: 0;
     }
 
     #shopify-section-{{ section.id }} .lt-page__why {
+      padding-top: 32px;
+      padding-bottom: 32px;
       padding-left: 24px;
       padding-right: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .lt-page__facility-badge {
+      top: 18px;
+      right: 18px;
+      left: 18px;
+      justify-content: center;
     }
   }
 </style>
@@ -793,20 +797,14 @@
         <p>With advanced technology, strict quality standards and a team of experienced scientists, Eurofins helps ensure products meet high levels of quality, safety and purity.</p>
       </div>
 
-      <div class="lt-page__facility" aria-label="Eurofins laboratory facility visual">
-        <div class="lt-page__facility-building">
-          <div class="lt-page__facility-sign">
-            <span class="lt-page__euro-dots" aria-hidden="true">
-              <span></span><span></span><span></span><span></span>
-              <span></span><span></span><span></span><span></span>
-            </span>
-            <strong>eurofins</strong>
-          </div>
-          <div class="lt-page__window-grid" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
+      <div class="lt-page__facility" aria-label="Eurofins laboratory facility exterior">
+        <img class="lt-page__facility-photo" src="{{ 'medzuro-eurofins-building.png' | asset_url }}" alt="Modern laboratory testing facility exterior" loading="lazy" width="1792" height="1024">
+        <div class="lt-page__facility-badge">
+          <span class="lt-page__euro-dots" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </span>
+          <strong>eurofins</strong>
         </div>
       </div>
     </div>

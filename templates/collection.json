@@ -4,7 +4,7 @@
       "type": "medzuro-collection-page",
       "settings": {
         "products_per_page": 12,
-        "category_menu": "categories"
+        "category_menu": ""
       }
     }
   },

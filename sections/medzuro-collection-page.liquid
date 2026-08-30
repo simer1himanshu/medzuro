@@ -297,14 +297,31 @@
     text-decoration: none;
   }
 
-  .mz-collection-btn--primary {
+  .mz-collection-btn--primary,
+  .mz-collection-btn--primary:visited {
     background: var(--mz-navy);
-    color: #fff;
+    border-color: var(--mz-navy);
+    color: #fff !important;
   }
 
-  .mz-collection-btn--secondary {
+  .mz-collection-btn--primary:hover,
+  .mz-collection-btn--primary:focus {
+    background: var(--mz-blue);
+    border-color: var(--mz-blue);
+    color: #fff !important;
+  }
+
+  .mz-collection-btn--secondary,
+  .mz-collection-btn--secondary:visited {
     background: #fff;
-    color: var(--mz-navy);
+    color: var(--mz-navy) !important;
+  }
+
+  .mz-collection-btn--secondary:hover,
+  .mz-collection-btn--secondary:focus {
+    background: #f5f8fc;
+    border-color: var(--mz-blue);
+    color: var(--mz-blue) !important;
   }
 
   .mz-collection-hero__media {

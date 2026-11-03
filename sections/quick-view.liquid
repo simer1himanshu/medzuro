@@ -138,7 +138,7 @@
                 {%- if settings.qvsku and current_variant.sku != blank -%}<div class="product-sku">{{ 'products.product.sku' | t }} <span class="variant-sku">{{ current_variant.sku }}</span></div>{%- endif -%}
             </div>
             {%- if settings.show_product_review -%}
-                <div class="review mb10"><a class="reviewLink" href="#tab{{reviewtabId}}">{% render 'ratings': product:product %}</a></div>
+                <div class="review mb10"><a class="reviewLink" href="#tab{{reviewtabId}}">{% render 'ratings', product: product %}</a></div>
             {%- endif -%}
 
         
@@ -404,4 +404,13 @@
     "name": "quick-view",
     "settings": []
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'ratings': product:product %}"
+  to: "{% render 'ratings', product: product %}"
+  position: 10486..10526
+{%- endcomment -%}

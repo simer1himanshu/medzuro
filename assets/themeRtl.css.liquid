@@ -649,7 +649,7 @@ s.pr_price { opacity:0.6; font-weight:400; }
 }
 .shopify-product-reviews-badge { min-height:17px; }
 .saleTime { position:absolute; opacity:1; bottom:10px; left:0; right:0; z-index:11; column-gap:3px; }
-.saleTime > span { font-size:9px; font-weight:400; min-width:35px; padding:7px 5px; line-height:1.2; text-align:center; text-transform:uppercase; color:{{settings.grid_countdown_text}}; border:1px solid {{ settings.grid_countdown_border}}; background-color:{{settings.grid_countdown_text_bg | color_modify: 'alpha', {{settings.gcountdown_bgopt}}; }
+.saleTime > span { font-size:9px; font-weight:400; min-width:35px; padding:7px 5px; line-height:1.2; text-align:center; text-transform:uppercase; color:{{settings.grid_countdown_text}}; border:1px solid {{ settings.grid_countdown_border}}; background-color:{{ settings.grid_countdown_text_bg | color_modify: 'alpha', settings.gcountdown_bgopt }}; }
 .saleTime > span span { display:block; font-size:12px; font-weight:700; }
 .saleTime.mobile { position:static; margin:0 -10px; }
 .saleTime.mobile > span { margin:0; min-width:30px; font-size:10px; background:{{settings.grid_countdown_text_bg  | color_darken: 5}}; }
@@ -1854,3 +1854,14 @@ body:not(.template-index) .site-footer { margin-top:20px; }
 @media (max-width: 767px) {
   .logo-wrap h1, .logo-wrap div.logo, .site-header__logo { font-size: 17px; letter-spacing: .12em; }
 }
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{{settings.grid_countdown_text_bg | color_modify: 'alpha', {{settings.gcountdown_bgopt}}"
+  to: "{{ settings.grid_countdown_text_bg | color_modify: 'alpha', settings.gcountdown_bgopt
+    }}"
+  position: 41890..41978
+{% endcomment %}

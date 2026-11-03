@@ -40,7 +40,7 @@
           {% assign delay_time = 50 | times : product_box %}
           <div class="gitem wow fadeIn" {{ block.shopify_attributes }} data-wow-delay="{{delay_time}}ms" id="{{ block.id }}" {{ block.shopify_attributes }}>
             {%- assign collection = collections[block.settings.collection] -%}
-             {% render 'collection-grid-item', collection: collection, blkSt: block.settings, secSt: section.settings, collection_image_size: image_size, text_align:{{secSt.txt-align}} %}
+             {% render 'collection-grid-item', collection: collection, blkSt: block.settings, secSt: section.settings, collection_image_size: image_size, text_align: secSt.txt-align %}
           </div>
         {% endfor %}
       </div>    
@@ -625,4 +625,17 @@
         }
     ]
 }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'collection-grid-item', collection: collection, blkSt: block.settings,
+    secSt: section.settings, collection_image_size: image_size, text_align:{{secSt.txt-align}}
+    %}"
+  to: "{% render 'collection-grid-item', collection: collection, blkSt: block.settings,
+    secSt: section.settings, collection_image_size: image_size, text_align: secSt.txt-align
+    %}"
+  position: 2832..3003
+{%- endcomment -%}
